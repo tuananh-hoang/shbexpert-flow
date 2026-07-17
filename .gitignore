@@ -1,0 +1,21 @@
+# Tài liệu nguồn nội bộ — không đưa lên repo công khai
+PRD1.1.docx
+*.docx
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+.next/
+dist/
+
+# Dữ liệu và artifact runtime
+*.log
+.DS_Store
