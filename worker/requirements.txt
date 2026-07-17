@@ -1,0 +1,23 @@
+# Fast-moving packages pinned with a floor, not an exact version — the
+# image is built with real PyPI access, so let pip resolve the latest
+# compatible release rather than risk an exact pin that no longer exists.
+langgraph>=0.2.60
+langgraph-checkpoint-postgres>=2.0.0
+psycopg[binary,pool]>=3.2.0
+langchain-core>=0.3.25
+# Pinned exactly: langchain-mcp-adapters==0.3.0 (the latest on PyPI as of
+# this writing) imports `streamable_http_client` from mcp.client.streamable_http,
+# but that function was renamed to `streamablehttp_client` (no underscore)
+# in the mcp SDK long before 0.3.0 shipped — every streamable-HTTP call
+# fails with ImportError on 0.3.0. Verified working: 0.2.2 + mcp 1.12.4.
+# Re-test before bumping this if a newer adapters release ships.
+langchain-mcp-adapters==0.2.2
+anthropic>=0.40.0
+openai>=1.58.0
+redis==5.2.1
+sqlalchemy==2.0.36
+psycopg2-binary==2.9.10
+pydantic==2.10.3
+python-dotenv==1.0.1
+httpx==0.28.1
+pyyaml==6.0.2

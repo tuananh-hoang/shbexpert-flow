@@ -1,0 +1,9 @@
+mcp>=1.2.0
+starlette>=0.41.0
+uvicorn[standard]==0.32.1
+pydantic==2.10.3
+qdrant-client==1.12.1
+# Local embedding via ONNX (no external API key, no cost) — multilingual
+# model so Vietnamese policy text embeds reasonably; downloads once from
+# HuggingFace on first use, then cached in the image/container layer.
+fastembed>=0.3.6

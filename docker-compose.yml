@@ -1,0 +1,217 @@
+name: shbexpert-flow
+
+networks:
+  internal:
+    driver: bridge
+
+volumes:
+  pg_data:
+  qdrant_data:
+  minio_data:
+
+services:
+  # ---------------------------------------------------------------------
+  # Hạ tầng dùng chung (overview.md §3.2)
+  # ---------------------------------------------------------------------
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-shbuser}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-shbpass}
+      POSTGRES_DB: ${POSTGRES_DB:-shbexpert}
+      SHBAPP_USER: ${SHBAPP_USER:-shbapp}
+      SHBAPP_PASSWORD: ${SHBAPP_PASSWORD:-shbapppass}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      # Least-privilege role bootstrap — only runs on a fresh (empty) volume.
+      - ./postgres/init:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "127.0.0.1:5432:5432" # chỉ bind localhost — tiện psql khi dev, không mở ra ngoài
+    networks: [internal]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-shbuser} -d ${POSTGRES_DB:-shbexpert}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7
+    networks: [internal]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    volumes:
+      - qdrant_data:/qdrant/storage
+    ports:
+      - "127.0.0.1:6333:6333"
+    networks: [internal]
+    healthcheck:
+      # qdrant image has bash but no curl/wget — plain TCP-connect probe.
+      test: ["CMD-SHELL", "bash -c 'echo > /dev/tcp/127.0.0.1/6333'"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin123}
+    volumes:
+      - minio_data:/data
+    ports:
+      - "127.0.0.1:9000:9000"
+      - "127.0.0.1:9001:9001" # MinIO console, tiện debug
+    networks: [internal]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ---------------------------------------------------------------------
+  # Service ứng dụng (overview.md §3.1)
+  # ---------------------------------------------------------------------
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    env_file: .env
+    environment:
+      # Runtime queries use the least-privilege role; only `alembic
+      # upgrade` (run manually / at deploy time) uses ADMIN_DATABASE_URL.
+      DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg2://shbapp:shbapppass@postgres:5432/shbexpert}
+      ADMIN_DATABASE_URL: ${ADMIN_DATABASE_URL:-postgresql+psycopg2://shbuser:shbpass@postgres:5432/shbexpert}
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      minio: { condition: service_healthy }
+    ports:
+      - "8000:8000"
+    networks: [internal]
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=3)"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  tools-mock:
+    build:
+      context: .
+      dockerfile: tools-mock/Dockerfile
+    networks: [internal]
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8100/health', timeout=3)"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ---------------------------------------------------------------------
+  # Tool layer — MCP server (Phần C của plan, bắt buộc theo yêu cầu)
+  # Không service nào ở đây publish port ra host — chỉ worker (client) gọi vào.
+  # ---------------------------------------------------------------------
+  mcp-deterministic:
+    build:
+      context: .
+      dockerfile: mcp-deterministic/Dockerfile
+    networks: [internal]
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8200/health', timeout=3)"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  mcp-rag:
+    build:
+      context: .
+      dockerfile: mcp-rag/Dockerfile
+    environment:
+      QDRANT_URL: ${QDRANT_URL:-http://qdrant:6333}
+    depends_on:
+      qdrant: { condition: service_healthy }
+    networks: [internal]
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8201/health', timeout=3)"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  mcp-external:
+    build:
+      context: .
+      dockerfile: mcp-external/Dockerfile
+    environment:
+      TOOLS_MOCK_URL: ${TOOLS_MOCK_URL:-http://tools-mock:8100}
+    depends_on:
+      tools-mock: { condition: service_healthy }
+    networks: [internal]
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8202/health', timeout=3)"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  mcp-state:
+    build:
+      context: .
+      dockerfile: mcp-state/Dockerfile
+    environment:
+      API_INTERNAL_URL: ${API_INTERNAL_URL:-http://api:8000}
+    depends_on:
+      api: { condition: service_healthy }
+    networks: [internal]
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8203/health', timeout=3)"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  worker:
+    build:
+      context: .
+      dockerfile: worker/Dockerfile
+    env_file: .env
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg2://shbapp:shbapppass@postgres:5432/shbexpert}
+      # DDL-only, used once at startup to create the LangGraph checkpoint
+      # tables (shbapp lacks CREATE on schema public — see
+      # worker/app/graph/build.py::Checkpointer for why the two must stay
+      # separate, same reasoning as api's Alembic split).
+      ADMIN_DATABASE_URL: ${ADMIN_DATABASE_URL:-postgresql+psycopg2://shbuser:shbpass@postgres:5432/shbexpert}
+      MCP_DETERMINISTIC_URL: ${MCP_DETERMINISTIC_URL:-http://mcp-deterministic:8200/mcp}
+      MCP_RAG_URL: ${MCP_RAG_URL:-http://mcp-rag:8201/mcp}
+      MCP_EXTERNAL_URL: ${MCP_EXTERNAL_URL:-http://mcp-external:8202/mcp}
+      MCP_STATE_URL: ${MCP_STATE_URL:-http://mcp-state:8203/mcp}
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      mcp-deterministic: { condition: service_healthy }
+      mcp-rag: { condition: service_healthy }
+      mcp-external: { condition: service_healthy }
+      mcp-state: { condition: service_healthy }
+    networks: [internal]
+    healthcheck:
+      # worker có no HTTP surface — kiểm heartbeat file thay vì port.
+      test: ["CMD", "python3", "-c", "import time,sys; t=float(open('/tmp/heartbeat').read()); sys.exit(0 if time.time()-t<60 else 1)"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  web:
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+    environment:
+      API_INTERNAL_URL: ${API_INTERNAL_URL:-http://api:8000}
+    depends_on:
+      api: { condition: service_healthy }
+    ports:
+      - "3000:3000"
+    networks: [internal]
