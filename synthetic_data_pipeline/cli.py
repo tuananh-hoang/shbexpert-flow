@@ -8,6 +8,7 @@ from pathlib import Path
 from .case import assemble_case, default_overlays, export_case
 from .core import PipelineConfig, build_master_data, validate_master_data
 from .io import export_master_data, write_json
+from .narrative import ProviderConfig, enrich_narratives
 
 
 def _config(args: argparse.Namespace) -> PipelineConfig:
@@ -17,7 +18,7 @@ def _config(args: argparse.Namespace) -> PipelineConfig:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="mockdata", description="Dataset-first synthetic banking pipeline")
     commands = parser.add_subparsers(dest="command", required=True)
-    for name, description in [("build", "generate clean master datasets"), ("validate", "validate master datasets"), ("mutate", "write mutation overlays"), ("assemble", "assemble one case from frozen-style master data")]:
+    for name, description in [("build", "generate clean master datasets"), ("validate", "validate master datasets"), ("mutate", "write mutation overlays"), ("assemble", "assemble one case from frozen-style master data"), ("enrich-narratives", "enrich non-authoritative narrative fields through FPT AI Factory")]:
         command = commands.add_parser(name, help=description)
         command.add_argument("--customers", type=int, default=120)
         command.add_argument("--seed", type=int, default=20260718)
@@ -28,6 +29,8 @@ def main(argv: list[str] | None = None) -> int:
     commands.choices["assemble"].add_argument("customer_id")
     commands.choices["assemble"].add_argument("--output", type=Path, default=Path("artifacts/cases"))
     commands.choices["assemble"].add_argument("--mutation-file", type=Path)
+    commands.choices["enrich-narratives"].add_argument("--limit", type=int, default=3)
+    commands.choices["enrich-narratives"].add_argument("--output", type=Path, default=Path("artifacts/narrative_enrichment.json"))
     args = parser.parse_args(argv)
     data = build_master_data(_config(args))
     errors = validate_master_data(data)
@@ -42,11 +45,16 @@ def main(argv: list[str] | None = None) -> int:
         overlays = default_overlays(data)
         write_json(args.output, overlays)
         print(json.dumps({"output": str(args.output), "overlay_count": len(overlays)}))
-    else:
+    elif args.command == "assemble":
         overlays = []
         if args.mutation_file:
             overlays = [row for row in json.loads(args.mutation_file.read_text(encoding="utf-8")) if row["customer_id"] == args.customer_id]
         case = assemble_case(data, args.customer_id, overlays)
         export_case(case, args.output)
         print(json.dumps({"case_id": case["case_id"], "mutations": case["applied_mutations"]}))
+    else:
+        provider = ProviderConfig.from_env()
+        records = enrich_narratives(data, min(args.limit, len(data["customers"])), provider)
+        write_json(args.output, records)
+        print(json.dumps({"output": str(args.output), "records": len(records), "provider": "FPT_AI_FACTORY", "model": provider.model}))
     return 0
