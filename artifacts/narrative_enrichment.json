@@ -1,0 +1,2882 @@
+[
+  {
+    "customer_id": "CUS-00001",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực sản xuất thực phẩm",
+    "rm_note": "Doanh nghiệp không có lịch sử quá hạn và có nguồn trả nợ từ dòng tiền hoạt động",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00001-INDUSTRY",
+      "FACT-CUS-00001-PURPOSE",
+      "FACT-CUS-00001-PROFITABILITY",
+      "FACT-CUS-00001-RELATIONSHIP",
+      "FACT-CUS-00001-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "838e2c65ba4d72180907870df409a432925b8009993c046c0bda7ed956992f84",
+      "attempt": 1,
+      "latency_ms": 2694,
+      "input_tokens": 235,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00002",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực May mac",
+    "rm_note": "Khách hàng có mối quan hệ tốt với tổ chức tài chính và không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ dựa trên dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở và không có tình trạng thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00002-INDUSTRY",
+      "FACT-CUS-00002-PURPOSE",
+      "FACT-CUS-00002-PROFITABILITY",
+      "FACT-CUS-00002-RELATIONSHIP",
+      "FACT-CUS-00002-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "c2aa91916688ebf1d0cf0d8eae31a8c7b2a7706e144847e58061d963fb96818d",
+      "attempt": 1,
+      "latency_ms": 1997,
+      "input_tokens": 230,
+      "output_tokens": 101
+    }
+  },
+  {
+    "customer_id": "CUS-00003",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực chế biến gỗ",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận tích cực và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00003-INDUSTRY",
+      "FACT-CUS-00003-PURPOSE",
+      "FACT-CUS-00003-PROFITABILITY",
+      "FACT-CUS-00003-RELATIONSHIP",
+      "FACT-CUS-00003-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "f6c011fda71905dc1fc389bcd7c12c19f9d74d584465bdbed498f60be8726d51",
+      "attempt": 1,
+      "latency_ms": 1778,
+      "input_tokens": 231,
+      "output_tokens": 90
+    }
+  },
+  {
+    "customer_id": "CUS-00004",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực Xay dung",
+    "rm_note": "Khách hàng có lịch sử quan hệ tốt với tổ chức tài chính, không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có tình hình tài chính khả quan với lợi nhuận dương, nguồn trả nợ dựa trên dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở, hiện không bị thế chấp hoặc hạn chế nào",
+    "asserted_fact_ids": [
+      "FACT-CUS-00004-INDUSTRY",
+      "FACT-CUS-00004-PURPOSE",
+      "FACT-CUS-00004-PROFITABILITY",
+      "FACT-CUS-00004-RELATIONSHIP",
+      "FACT-CUS-00004-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "75f8c5a6f988aa97dcf7e99a90033eb05ef267af36b58be17ca4c8378a1fd01f",
+      "attempt": 1,
+      "latency_ms": 2206,
+      "input_tokens": 231,
+      "output_tokens": 113
+    }
+  },
+  {
+    "customer_id": "CUS-00005",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực bán buôn",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00005-INDUSTRY",
+      "FACT-CUS-00005-PURPOSE",
+      "FACT-CUS-00005-PROFITABILITY",
+      "FACT-CUS-00005-RELATIONSHIP",
+      "FACT-CUS-00005-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "99625b124f01687232bd1f584b8a475596a1313de587aaf18504683e08edec8d",
+      "attempt": 1,
+      "latency_ms": 1794,
+      "input_tokens": 231,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00006",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực Ban le",
+    "rm_note": "Khách hàng có lịch sử quan hệ tốt, không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương, nguồn trả nợ dựa trên dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở, hiện không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00006-INDUSTRY",
+      "FACT-CUS-00006-PURPOSE",
+      "FACT-CUS-00006-PROFITABILITY",
+      "FACT-CUS-00006-RELATIONSHIP",
+      "FACT-CUS-00006-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "d945ffc20ec651fcee0c033fea7423d8259fcd041f9bfa5f1eb30b633f5ea560",
+      "attempt": 1,
+      "latency_ms": 1849,
+      "input_tokens": 230,
+      "output_tokens": 96
+    }
+  },
+  {
+    "customer_id": "CUS-00007",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực vận tải",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00007-INDUSTRY",
+      "FACT-CUS-00007-PURPOSE",
+      "FACT-CUS-00007-PROFITABILITY",
+      "FACT-CUS-00007-RELATIONSHIP",
+      "FACT-CUS-00007-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "49552a88f375dba944036c896de9fa3dab0c68508a20e58de610edf730e322c3",
+      "attempt": 1,
+      "latency_ms": 1878,
+      "input_tokens": 230,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00008",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực lưu trữ",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00008-INDUSTRY",
+      "FACT-CUS-00008-PURPOSE",
+      "FACT-CUS-00008-PROFITABILITY",
+      "FACT-CUS-00008-RELATIONSHIP",
+      "FACT-CUS-00008-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "78d5edd374c3bbceec0842a064a3e936d151637758aaafbfa1ab72e025e2b4ed",
+      "attempt": 1,
+      "latency_ms": 1854,
+      "input_tokens": 232,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00009",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực lập trình",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00009-INDUSTRY",
+      "FACT-CUS-00009-PURPOSE",
+      "FACT-CUS-00009-PROFITABILITY",
+      "FACT-CUS-00009-RELATIONSHIP",
+      "FACT-CUS-00009-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "389d6a9ab2c907258e5370b1b55d513f19ace2d6eb930ef18e2ce36ea0a77d23",
+      "attempt": 1,
+      "latency_ms": 1698,
+      "input_tokens": 232,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00010",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực tư vấn",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00010-INDUSTRY",
+      "FACT-CUS-00010-PURPOSE",
+      "FACT-CUS-00010-PROFITABILITY",
+      "FACT-CUS-00010-RELATIONSHIP",
+      "FACT-CUS-00010-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "616cc0ad01b0b1fdbc9f53af78ee7c3ef7b1c088da771e336397f8149caa67ab",
+      "attempt": 1,
+      "latency_ms": 1781,
+      "input_tokens": 230,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00011",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực cung ứng lao động",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00011-INDUSTRY",
+      "FACT-CUS-00011-PURPOSE",
+      "FACT-CUS-00011-PROFITABILITY",
+      "FACT-CUS-00011-RELATIONSHIP",
+      "FACT-CUS-00011-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "010c600ae6d4ce4df63fe87c634184b2f0ab43ffb5d579341bff6dd96f04a5ce",
+      "attempt": 1,
+      "latency_ms": 1793,
+      "input_tokens": 233,
+      "output_tokens": 90
+    }
+  },
+  {
+    "customer_id": "CUS-00012",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực hóa chất",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00012-INDUSTRY",
+      "FACT-CUS-00012-PURPOSE",
+      "FACT-CUS-00012-PROFITABILITY",
+      "FACT-CUS-00012-RELATIONSHIP",
+      "FACT-CUS-00012-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "c3ab82b2048d39f08e3bfd42829245dd32f8a749479c0c5526a7748c2022486e",
+      "attempt": 1,
+      "latency_ms": 1961,
+      "input_tokens": 231,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00013",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực sản xuất thực phẩm",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00013-INDUSTRY",
+      "FACT-CUS-00013-PURPOSE",
+      "FACT-CUS-00013-PROFITABILITY",
+      "FACT-CUS-00013-RELATIONSHIP",
+      "FACT-CUS-00013-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "838e2c65ba4d72180907870df409a432925b8009993c046c0bda7ed956992f84",
+      "attempt": 1,
+      "latency_ms": 1761,
+      "input_tokens": 235,
+      "output_tokens": 90
+    }
+  },
+  {
+    "customer_id": "CUS-00014",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực May mac",
+    "rm_note": "Khách hàng có lịch sử quan hệ tốt với tổ chức tín dụng, chưa từng quá hạn",
+    "financial_note": "Doanh nghiệp có tình hình tài chính khả quan với lợi nhuận dương, nguồn trả nợ chính từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở, hiện không bị thế chấp hoặc gán nợ",
+    "asserted_fact_ids": [
+      "FACT-CUS-00014-INDUSTRY",
+      "FACT-CUS-00014-PURPOSE",
+      "FACT-CUS-00014-PROFITABILITY",
+      "FACT-CUS-00014-RELATIONSHIP",
+      "FACT-CUS-00014-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "c2aa91916688ebf1d0cf0d8eae31a8c7b2a7706e144847e58061d963fb96818d",
+      "attempt": 1,
+      "latency_ms": 2225,
+      "input_tokens": 230,
+      "output_tokens": 110
+    }
+  },
+  {
+    "customer_id": "CUS-00015",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực chế biến gỗ",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00015-INDUSTRY",
+      "FACT-CUS-00015-PURPOSE",
+      "FACT-CUS-00015-PROFITABILITY",
+      "FACT-CUS-00015-RELATIONSHIP",
+      "FACT-CUS-00015-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "f6c011fda71905dc1fc389bcd7c12c19f9d74d584465bdbed498f60be8726d51",
+      "attempt": 1,
+      "latency_ms": 1757,
+      "input_tokens": 231,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00016",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực Xay dựng",
+    "rm_note": "Khách hàng không có lịch sử quá hạn và có nguồn trả nợ từ dòng tiền hoạt động",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở và hiện không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00016-INDUSTRY",
+      "FACT-CUS-00016-PURPOSE",
+      "FACT-CUS-00016-PROFITABILITY",
+      "FACT-CUS-00016-RELATIONSHIP",
+      "FACT-CUS-00016-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "75f8c5a6f988aa97dcf7e99a90033eb05ef267af36b58be17ca4c8378a1fd01f",
+      "attempt": 1,
+      "latency_ms": 1732,
+      "input_tokens": 231,
+      "output_tokens": 90
+    }
+  },
+  {
+    "customer_id": "CUS-00017",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực bán buôn",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00017-INDUSTRY",
+      "FACT-CUS-00017-PURPOSE",
+      "FACT-CUS-00017-PROFITABILITY",
+      "FACT-CUS-00017-RELATIONSHIP",
+      "FACT-CUS-00017-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "99625b124f01687232bd1f584b8a475596a1313de587aaf18504683e08edec8d",
+      "attempt": 1,
+      "latency_ms": 1773,
+      "input_tokens": 231,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00018",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực Ban le",
+    "rm_note": "Khách hàng có lịch sử quan hệ tốt, không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương, nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở, không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00018-INDUSTRY",
+      "FACT-CUS-00018-PURPOSE",
+      "FACT-CUS-00018-PROFITABILITY",
+      "FACT-CUS-00018-RELATIONSHIP",
+      "FACT-CUS-00018-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "d945ffc20ec651fcee0c033fea7423d8259fcd041f9bfa5f1eb30b633f5ea560",
+      "attempt": 1,
+      "latency_ms": 1878,
+      "input_tokens": 230,
+      "output_tokens": 94
+    }
+  },
+  {
+    "customer_id": "CUS-00019",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực vận tải",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00019-INDUSTRY",
+      "FACT-CUS-00019-PURPOSE",
+      "FACT-CUS-00019-PROFITABILITY",
+      "FACT-CUS-00019-RELATIONSHIP",
+      "FACT-CUS-00019-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "49552a88f375dba944036c896de9fa3dab0c68508a20e58de610edf730e322c3",
+      "attempt": 1,
+      "latency_ms": 1718,
+      "input_tokens": 230,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00020",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực lưu trữ",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00020-INDUSTRY",
+      "FACT-CUS-00020-PURPOSE",
+      "FACT-CUS-00020-PROFITABILITY",
+      "FACT-CUS-00020-RELATIONSHIP",
+      "FACT-CUS-00020-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "78d5edd374c3bbceec0842a064a3e936d151637758aaafbfa1ab72e025e2b4ed",
+      "attempt": 1,
+      "latency_ms": 1723,
+      "input_tokens": 232,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00021",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực lập trình",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00021-INDUSTRY",
+      "FACT-CUS-00021-PURPOSE",
+      "FACT-CUS-00021-PROFITABILITY",
+      "FACT-CUS-00021-RELATIONSHIP",
+      "FACT-CUS-00021-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "389d6a9ab2c907258e5370b1b55d513f19ace2d6eb930ef18e2ce36ea0a77d23",
+      "attempt": 1,
+      "latency_ms": 1700,
+      "input_tokens": 232,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00022",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực tư vấn",
+    "rm_note": "Khách hàng có lịch sử quan hệ tốt, không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương, nguồn trả nợ dựa trên dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở, hiện không bị thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00022-INDUSTRY",
+      "FACT-CUS-00022-PURPOSE",
+      "FACT-CUS-00022-PROFITABILITY",
+      "FACT-CUS-00022-RELATIONSHIP",
+      "FACT-CUS-00022-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "616cc0ad01b0b1fdbc9f53af78ee7c3ef7b1c088da771e336397f8149caa67ab",
+      "attempt": 1,
+      "latency_ms": 1846,
+      "input_tokens": 230,
+      "output_tokens": 96
+    }
+  },
+  {
+    "customer_id": "CUS-00023",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực cung ứng lao động",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00023-INDUSTRY",
+      "FACT-CUS-00023-PURPOSE",
+      "FACT-CUS-00023-PROFITABILITY",
+      "FACT-CUS-00023-RELATIONSHIP",
+      "FACT-CUS-00023-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "010c600ae6d4ce4df63fe87c634184b2f0ab43ffb5d579341bff6dd96f04a5ce",
+      "attempt": 1,
+      "latency_ms": 1762,
+      "input_tokens": 233,
+      "output_tokens": 90
+    }
+  },
+  {
+    "customer_id": "CUS-00024",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực hóa chất",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00024-INDUSTRY",
+      "FACT-CUS-00024-PURPOSE",
+      "FACT-CUS-00024-PROFITABILITY",
+      "FACT-CUS-00024-RELATIONSHIP",
+      "FACT-CUS-00024-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "c3ab82b2048d39f08e3bfd42829245dd32f8a749479c0c5526a7748c2022486e",
+      "attempt": 1,
+      "latency_ms": 1843,
+      "input_tokens": 231,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00025",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực sản xuất thực phẩm",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00025-INDUSTRY",
+      "FACT-CUS-00025-PURPOSE",
+      "FACT-CUS-00025-PROFITABILITY",
+      "FACT-CUS-00025-RELATIONSHIP",
+      "FACT-CUS-00025-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "838e2c65ba4d72180907870df409a432925b8009993c046c0bda7ed956992f84",
+      "attempt": 1,
+      "latency_ms": 1792,
+      "input_tokens": 235,
+      "output_tokens": 90
+    }
+  },
+  {
+    "customer_id": "CUS-00026",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực May mac",
+    "rm_note": "Khách hàng có lịch sử quan hệ tốt, không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương, nguồn trả nợ dựa trên dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở, không có tình trạng thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00026-INDUSTRY",
+      "FACT-CUS-00026-PURPOSE",
+      "FACT-CUS-00026-PROFITABILITY",
+      "FACT-CUS-00026-RELATIONSHIP",
+      "FACT-CUS-00026-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "c2aa91916688ebf1d0cf0d8eae31a8c7b2a7706e144847e58061d963fb96818d",
+      "attempt": 1,
+      "latency_ms": 2008,
+      "input_tokens": 230,
+      "output_tokens": 97
+    }
+  },
+  {
+    "customer_id": "CUS-00027",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực chế biến gỗ",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00027-INDUSTRY",
+      "FACT-CUS-00027-PURPOSE",
+      "FACT-CUS-00027-PROFITABILITY",
+      "FACT-CUS-00027-RELATIONSHIP",
+      "FACT-CUS-00027-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "f6c011fda71905dc1fc389bcd7c12c19f9d74d584465bdbed498f60be8726d51",
+      "attempt": 1,
+      "latency_ms": 1821,
+      "input_tokens": 231,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00028",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực Xay dung",
+    "rm_note": "Khách hàng có lịch sử quan hệ tốt với tổ chức tài chính, không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có tình hình tài chính khả quan với lợi nhuận dương, nguồn trả nợ dựa trên dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở, hiện không bị thế chấp hoặc hạn chế nào",
+    "asserted_fact_ids": [
+      "FACT-CUS-00028-INDUSTRY",
+      "FACT-CUS-00028-PURPOSE",
+      "FACT-CUS-00028-PROFITABILITY",
+      "FACT-CUS-00028-RELATIONSHIP",
+      "FACT-CUS-00028-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "75f8c5a6f988aa97dcf7e99a90033eb05ef267af36b58be17ca4c8378a1fd01f",
+      "attempt": 1,
+      "latency_ms": 2145,
+      "input_tokens": 231,
+      "output_tokens": 113
+    }
+  },
+  {
+    "customer_id": "CUS-00029",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực bán buôn",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00029-INDUSTRY",
+      "FACT-CUS-00029-PURPOSE",
+      "FACT-CUS-00029-PROFITABILITY",
+      "FACT-CUS-00029-RELATIONSHIP",
+      "FACT-CUS-00029-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "99625b124f01687232bd1f584b8a475596a1313de587aaf18504683e08edec8d",
+      "attempt": 1,
+      "latency_ms": 1906,
+      "input_tokens": 231,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00030",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực Ban le",
+    "rm_note": "Khách hàng có mối quan hệ tốt với ngân hàng và không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở và không có tình trạng thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00030-INDUSTRY",
+      "FACT-CUS-00030-PURPOSE",
+      "FACT-CUS-00030-PROFITABILITY",
+      "FACT-CUS-00030-RELATIONSHIP",
+      "FACT-CUS-00030-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "d945ffc20ec651fcee0c033fea7423d8259fcd041f9bfa5f1eb30b633f5ea560",
+      "attempt": 1,
+      "latency_ms": 1885,
+      "input_tokens": 230,
+      "output_tokens": 98
+    }
+  },
+  {
+    "customer_id": "CUS-00031",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực vận tải",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00031-INDUSTRY",
+      "FACT-CUS-00031-PURPOSE",
+      "FACT-CUS-00031-PROFITABILITY",
+      "FACT-CUS-00031-RELATIONSHIP",
+      "FACT-CUS-00031-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "49552a88f375dba944036c896de9fa3dab0c68508a20e58de610edf730e322c3",
+      "attempt": 1,
+      "latency_ms": 1699,
+      "input_tokens": 230,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00032",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực lưu trữ",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00032-INDUSTRY",
+      "FACT-CUS-00032-PURPOSE",
+      "FACT-CUS-00032-PROFITABILITY",
+      "FACT-CUS-00032-RELATIONSHIP",
+      "FACT-CUS-00032-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "78d5edd374c3bbceec0842a064a3e936d151637758aaafbfa1ab72e025e2b4ed",
+      "attempt": 1,
+      "latency_ms": 1876,
+      "input_tokens": 232,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00033",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực lập trình",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00033-INDUSTRY",
+      "FACT-CUS-00033-PURPOSE",
+      "FACT-CUS-00033-PROFITABILITY",
+      "FACT-CUS-00033-RELATIONSHIP",
+      "FACT-CUS-00033-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "389d6a9ab2c907258e5370b1b55d513f19ace2d6eb930ef18e2ce36ea0a77d23",
+      "attempt": 1,
+      "latency_ms": 1738,
+      "input_tokens": 232,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00034",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực tư vấn",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00034-INDUSTRY",
+      "FACT-CUS-00034-PURPOSE",
+      "FACT-CUS-00034-PROFITABILITY",
+      "FACT-CUS-00034-RELATIONSHIP",
+      "FACT-CUS-00034-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "616cc0ad01b0b1fdbc9f53af78ee7c3ef7b1c088da771e336397f8149caa67ab",
+      "attempt": 1,
+      "latency_ms": 1763,
+      "input_tokens": 230,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00035",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực cung ứng lao động",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00035-INDUSTRY",
+      "FACT-CUS-00035-PURPOSE",
+      "FACT-CUS-00035-PROFITABILITY",
+      "FACT-CUS-00035-RELATIONSHIP",
+      "FACT-CUS-00035-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "010c600ae6d4ce4df63fe87c634184b2f0ab43ffb5d579341bff6dd96f04a5ce",
+      "attempt": 1,
+      "latency_ms": 1734,
+      "input_tokens": 233,
+      "output_tokens": 90
+    }
+  },
+  {
+    "customer_id": "CUS-00036",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực hóa chất",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00036-INDUSTRY",
+      "FACT-CUS-00036-PURPOSE",
+      "FACT-CUS-00036-PROFITABILITY",
+      "FACT-CUS-00036-RELATIONSHIP",
+      "FACT-CUS-00036-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "c3ab82b2048d39f08e3bfd42829245dd32f8a749479c0c5526a7748c2022486e",
+      "attempt": 1,
+      "latency_ms": 1705,
+      "input_tokens": 231,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00037",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực sản xuất thực phẩm",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00037-INDUSTRY",
+      "FACT-CUS-00037-PURPOSE",
+      "FACT-CUS-00037-PROFITABILITY",
+      "FACT-CUS-00037-RELATIONSHIP",
+      "FACT-CUS-00037-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "838e2c65ba4d72180907870df409a432925b8009993c046c0bda7ed956992f84",
+      "attempt": 1,
+      "latency_ms": 1722,
+      "input_tokens": 235,
+      "output_tokens": 90
+    }
+  },
+  {
+    "customer_id": "CUS-00038",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực May mac",
+    "rm_note": "Khách hàng có lịch sử quan hệ tốt, không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương, nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở, không có tình trạng thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00038-INDUSTRY",
+      "FACT-CUS-00038-PURPOSE",
+      "FACT-CUS-00038-PROFITABILITY",
+      "FACT-CUS-00038-RELATIONSHIP",
+      "FACT-CUS-00038-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "c2aa91916688ebf1d0cf0d8eae31a8c7b2a7706e144847e58061d963fb96818d",
+      "attempt": 1,
+      "latency_ms": 1883,
+      "input_tokens": 230,
+      "output_tokens": 96
+    }
+  },
+  {
+    "customer_id": "CUS-00039",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực chế biến gỗ",
+    "rm_note": "Khách hàng không có lịch sử quá hạn thanh toán",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00039-INDUSTRY",
+      "FACT-CUS-00039-PURPOSE",
+      "FACT-CUS-00039-PROFITABILITY",
+      "FACT-CUS-00039-RELATIONSHIP",
+      "FACT-CUS-00039-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "f6c011fda71905dc1fc389bcd7c12c19f9d74d584465bdbed498f60be8726d51",
+      "attempt": 1,
+      "latency_ms": 1713,
+      "input_tokens": 231,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00040",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực Xay dựng",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00040-INDUSTRY",
+      "FACT-CUS-00040-PURPOSE",
+      "FACT-CUS-00040-PROFITABILITY",
+      "FACT-CUS-00040-RELATIONSHIP",
+      "FACT-CUS-00040-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "75f8c5a6f988aa97dcf7e99a90033eb05ef267af36b58be17ca4c8378a1fd01f",
+      "attempt": 1,
+      "latency_ms": 1700,
+      "input_tokens": 231,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00041",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực bán buôn",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00041-INDUSTRY",
+      "FACT-CUS-00041-PURPOSE",
+      "FACT-CUS-00041-PROFITABILITY",
+      "FACT-CUS-00041-RELATIONSHIP",
+      "FACT-CUS-00041-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "99625b124f01687232bd1f584b8a475596a1313de587aaf18504683e08edec8d",
+      "attempt": 1,
+      "latency_ms": 1814,
+      "input_tokens": 231,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00042",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực Ban le",
+    "rm_note": "Khách hàng có mối quan hệ tốt với tổ chức tài chính và không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ dựa trên dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở và hiện không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00042-INDUSTRY",
+      "FACT-CUS-00042-PURPOSE",
+      "FACT-CUS-00042-PROFITABILITY",
+      "FACT-CUS-00042-RELATIONSHIP",
+      "FACT-CUS-00042-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "d945ffc20ec651fcee0c033fea7423d8259fcd041f9bfa5f1eb30b633f5ea560",
+      "attempt": 1,
+      "latency_ms": 1942,
+      "input_tokens": 230,
+      "output_tokens": 100
+    }
+  },
+  {
+    "customer_id": "CUS-00043",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực vận tải",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00043-INDUSTRY",
+      "FACT-CUS-00043-PURPOSE",
+      "FACT-CUS-00043-PROFITABILITY",
+      "FACT-CUS-00043-RELATIONSHIP",
+      "FACT-CUS-00043-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "49552a88f375dba944036c896de9fa3dab0c68508a20e58de610edf730e322c3",
+      "attempt": 1,
+      "latency_ms": 1780,
+      "input_tokens": 230,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00044",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực lưu trữ",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00044-INDUSTRY",
+      "FACT-CUS-00044-PURPOSE",
+      "FACT-CUS-00044-PROFITABILITY",
+      "FACT-CUS-00044-RELATIONSHIP",
+      "FACT-CUS-00044-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "78d5edd374c3bbceec0842a064a3e936d151637758aaafbfa1ab72e025e2b4ed",
+      "attempt": 1,
+      "latency_ms": 1715,
+      "input_tokens": 232,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00045",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực lập trình",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00045-INDUSTRY",
+      "FACT-CUS-00045-PURPOSE",
+      "FACT-CUS-00045-PROFITABILITY",
+      "FACT-CUS-00045-RELATIONSHIP",
+      "FACT-CUS-00045-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "389d6a9ab2c907258e5370b1b55d513f19ace2d6eb930ef18e2ce36ea0a77d23",
+      "attempt": 1,
+      "latency_ms": 1735,
+      "input_tokens": 232,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00046",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực tư vấn",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00046-INDUSTRY",
+      "FACT-CUS-00046-PURPOSE",
+      "FACT-CUS-00046-PROFITABILITY",
+      "FACT-CUS-00046-RELATIONSHIP",
+      "FACT-CUS-00046-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "616cc0ad01b0b1fdbc9f53af78ee7c3ef7b1c088da771e336397f8149caa67ab",
+      "attempt": 1,
+      "latency_ms": 1742,
+      "input_tokens": 230,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00047",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực cung ứng lao động",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00047-INDUSTRY",
+      "FACT-CUS-00047-PURPOSE",
+      "FACT-CUS-00047-PROFITABILITY",
+      "FACT-CUS-00047-RELATIONSHIP",
+      "FACT-CUS-00047-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "010c600ae6d4ce4df63fe87c634184b2f0ab43ffb5d579341bff6dd96f04a5ce",
+      "attempt": 1,
+      "latency_ms": 1770,
+      "input_tokens": 233,
+      "output_tokens": 90
+    }
+  },
+  {
+    "customer_id": "CUS-00048",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực hóa chất",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00048-INDUSTRY",
+      "FACT-CUS-00048-PURPOSE",
+      "FACT-CUS-00048-PROFITABILITY",
+      "FACT-CUS-00048-RELATIONSHIP",
+      "FACT-CUS-00048-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "c3ab82b2048d39f08e3bfd42829245dd32f8a749479c0c5526a7748c2022486e",
+      "attempt": 1,
+      "latency_ms": 1742,
+      "input_tokens": 231,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00049",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực sản xuất thực phẩm",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00049-INDUSTRY",
+      "FACT-CUS-00049-PURPOSE",
+      "FACT-CUS-00049-PROFITABILITY",
+      "FACT-CUS-00049-RELATIONSHIP",
+      "FACT-CUS-00049-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "838e2c65ba4d72180907870df409a432925b8009993c046c0bda7ed956992f84",
+      "attempt": 1,
+      "latency_ms": 1766,
+      "input_tokens": 235,
+      "output_tokens": 90
+    }
+  },
+  {
+    "customer_id": "CUS-00050",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực May mac",
+    "rm_note": "Khách hàng có mối quan hệ tốt với ngân hàng và không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có lợi nhuận tích cực và nguồn trả nợ dựa trên dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở và không có tình trạng thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00050-INDUSTRY",
+      "FACT-CUS-00050-PURPOSE",
+      "FACT-CUS-00050-PROFITABILITY",
+      "FACT-CUS-00050-RELATIONSHIP",
+      "FACT-CUS-00050-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "c2aa91916688ebf1d0cf0d8eae31a8c7b2a7706e144847e58061d963fb96818d",
+      "attempt": 1,
+      "latency_ms": 1914,
+      "input_tokens": 230,
+      "output_tokens": 100
+    }
+  },
+  {
+    "customer_id": "CUS-00051",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực chế biến gỗ",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00051-INDUSTRY",
+      "FACT-CUS-00051-PURPOSE",
+      "FACT-CUS-00051-PROFITABILITY",
+      "FACT-CUS-00051-RELATIONSHIP",
+      "FACT-CUS-00051-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "f6c011fda71905dc1fc389bcd7c12c19f9d74d584465bdbed498f60be8726d51",
+      "attempt": 1,
+      "latency_ms": 1720,
+      "input_tokens": 231,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00052",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực Xay dựng",
+    "rm_note": "Khách hàng có lịch sử quan hệ tốt với tổ chức tài chính, không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương, nguồn trả nợ dựa trên dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở, hiện không bị thế chấp hoặc hạn chế nào",
+    "asserted_fact_ids": [
+      "FACT-CUS-00052-INDUSTRY",
+      "FACT-CUS-00052-PURPOSE",
+      "FACT-CUS-00052-PROFITABILITY",
+      "FACT-CUS-00052-RELATIONSHIP",
+      "FACT-CUS-00052-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "75f8c5a6f988aa97dcf7e99a90033eb05ef267af36b58be17ca4c8378a1fd01f",
+      "attempt": 1,
+      "latency_ms": 2026,
+      "input_tokens": 231,
+      "output_tokens": 106
+    }
+  },
+  {
+    "customer_id": "CUS-00053",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực bán buôn",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00053-INDUSTRY",
+      "FACT-CUS-00053-PURPOSE",
+      "FACT-CUS-00053-PROFITABILITY",
+      "FACT-CUS-00053-RELATIONSHIP",
+      "FACT-CUS-00053-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "99625b124f01687232bd1f584b8a475596a1313de587aaf18504683e08edec8d",
+      "attempt": 1,
+      "latency_ms": 1715,
+      "input_tokens": 231,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00054",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực Ban le",
+    "rm_note": "Khách hàng có mối quan hệ tốt với tổ chức tài chính và không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ dựa trên dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở và hiện không có bất kỳ thế chấp nào",
+    "asserted_fact_ids": [
+      "FACT-CUS-00054-INDUSTRY",
+      "FACT-CUS-00054-PURPOSE",
+      "FACT-CUS-00054-PROFITABILITY",
+      "FACT-CUS-00054-RELATIONSHIP",
+      "FACT-CUS-00054-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "d945ffc20ec651fcee0c033fea7423d8259fcd041f9bfa5f1eb30b633f5ea560",
+      "attempt": 1,
+      "latency_ms": 1965,
+      "input_tokens": 230,
+      "output_tokens": 103
+    }
+  },
+  {
+    "customer_id": "CUS-00055",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực vận tải",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00055-INDUSTRY",
+      "FACT-CUS-00055-PURPOSE",
+      "FACT-CUS-00055-PROFITABILITY",
+      "FACT-CUS-00055-RELATIONSHIP",
+      "FACT-CUS-00055-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "49552a88f375dba944036c896de9fa3dab0c68508a20e58de610edf730e322c3",
+      "attempt": 1,
+      "latency_ms": 1699,
+      "input_tokens": 230,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00056",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực lưu trữ",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00056-INDUSTRY",
+      "FACT-CUS-00056-PURPOSE",
+      "FACT-CUS-00056-PROFITABILITY",
+      "FACT-CUS-00056-RELATIONSHIP",
+      "FACT-CUS-00056-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "78d5edd374c3bbceec0842a064a3e936d151637758aaafbfa1ab72e025e2b4ed",
+      "attempt": 1,
+      "latency_ms": 1704,
+      "input_tokens": 232,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00057",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực lập trình",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00057-INDUSTRY",
+      "FACT-CUS-00057-PURPOSE",
+      "FACT-CUS-00057-PROFITABILITY",
+      "FACT-CUS-00057-RELATIONSHIP",
+      "FACT-CUS-00057-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "389d6a9ab2c907258e5370b1b55d513f19ace2d6eb930ef18e2ce36ea0a77d23",
+      "attempt": 1,
+      "latency_ms": 1756,
+      "input_tokens": 232,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00058",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực tư vấn",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00058-INDUSTRY",
+      "FACT-CUS-00058-PURPOSE",
+      "FACT-CUS-00058-PROFITABILITY",
+      "FACT-CUS-00058-RELATIONSHIP",
+      "FACT-CUS-00058-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "616cc0ad01b0b1fdbc9f53af78ee7c3ef7b1c088da771e336397f8149caa67ab",
+      "attempt": 1,
+      "latency_ms": 1694,
+      "input_tokens": 230,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00059",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực cung ứng lao động",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00059-INDUSTRY",
+      "FACT-CUS-00059-PURPOSE",
+      "FACT-CUS-00059-PROFITABILITY",
+      "FACT-CUS-00059-RELATIONSHIP",
+      "FACT-CUS-00059-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "010c600ae6d4ce4df63fe87c634184b2f0ab43ffb5d579341bff6dd96f04a5ce",
+      "attempt": 1,
+      "latency_ms": 1779,
+      "input_tokens": 233,
+      "output_tokens": 90
+    }
+  },
+  {
+    "customer_id": "CUS-00060",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực hóa chất",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00060-INDUSTRY",
+      "FACT-CUS-00060-PURPOSE",
+      "FACT-CUS-00060-PROFITABILITY",
+      "FACT-CUS-00060-RELATIONSHIP",
+      "FACT-CUS-00060-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "c3ab82b2048d39f08e3bfd42829245dd32f8a749479c0c5526a7748c2022486e",
+      "attempt": 1,
+      "latency_ms": 1711,
+      "input_tokens": 231,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00061",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực sản xuất thực phẩm",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00061-INDUSTRY",
+      "FACT-CUS-00061-PURPOSE",
+      "FACT-CUS-00061-PROFITABILITY",
+      "FACT-CUS-00061-RELATIONSHIP",
+      "FACT-CUS-00061-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "838e2c65ba4d72180907870df409a432925b8009993c046c0bda7ed956992f84",
+      "attempt": 1,
+      "latency_ms": 1731,
+      "input_tokens": 235,
+      "output_tokens": 90
+    }
+  },
+  {
+    "customer_id": "CUS-00062",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực May mac",
+    "rm_note": "Khách hàng có mối quan hệ tốt với ngân hàng và không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có lợi nhuận tích cực và nguồn trả nợ dựa trên dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở và không có tình trạng thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00062-INDUSTRY",
+      "FACT-CUS-00062-PURPOSE",
+      "FACT-CUS-00062-PROFITABILITY",
+      "FACT-CUS-00062-RELATIONSHIP",
+      "FACT-CUS-00062-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "c2aa91916688ebf1d0cf0d8eae31a8c7b2a7706e144847e58061d963fb96818d",
+      "attempt": 1,
+      "latency_ms": 1933,
+      "input_tokens": 230,
+      "output_tokens": 100
+    }
+  },
+  {
+    "customer_id": "CUS-00063",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực chế biến gỗ",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00063-INDUSTRY",
+      "FACT-CUS-00063-PURPOSE",
+      "FACT-CUS-00063-PROFITABILITY",
+      "FACT-CUS-00063-RELATIONSHIP",
+      "FACT-CUS-00063-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "f6c011fda71905dc1fc389bcd7c12c19f9d74d584465bdbed498f60be8726d51",
+      "attempt": 1,
+      "latency_ms": 1757,
+      "input_tokens": 231,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00064",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực Xay dựng",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00064-INDUSTRY",
+      "FACT-CUS-00064-PURPOSE",
+      "FACT-CUS-00064-PROFITABILITY",
+      "FACT-CUS-00064-RELATIONSHIP",
+      "FACT-CUS-00064-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "75f8c5a6f988aa97dcf7e99a90033eb05ef267af36b58be17ca4c8378a1fd01f",
+      "attempt": 1,
+      "latency_ms": 1740,
+      "input_tokens": 231,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00065",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực bán buôn",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00065-INDUSTRY",
+      "FACT-CUS-00065-PURPOSE",
+      "FACT-CUS-00065-PROFITABILITY",
+      "FACT-CUS-00065-RELATIONSHIP",
+      "FACT-CUS-00065-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "99625b124f01687232bd1f584b8a475596a1313de587aaf18504683e08edec8d",
+      "attempt": 1,
+      "latency_ms": 1724,
+      "input_tokens": 231,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00066",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực Ban le",
+    "rm_note": "Khách hàng có mối quan hệ tốt với tổ chức tài chính và không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ dựa trên dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở và hiện không bị thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00066-INDUSTRY",
+      "FACT-CUS-00066-PURPOSE",
+      "FACT-CUS-00066-PROFITABILITY",
+      "FACT-CUS-00066-RELATIONSHIP",
+      "FACT-CUS-00066-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "d945ffc20ec651fcee0c033fea7423d8259fcd041f9bfa5f1eb30b633f5ea560",
+      "attempt": 1,
+      "latency_ms": 1902,
+      "input_tokens": 230,
+      "output_tokens": 100
+    }
+  },
+  {
+    "customer_id": "CUS-00067",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực vận tải",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00067-INDUSTRY",
+      "FACT-CUS-00067-PURPOSE",
+      "FACT-CUS-00067-PROFITABILITY",
+      "FACT-CUS-00067-RELATIONSHIP",
+      "FACT-CUS-00067-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "49552a88f375dba944036c896de9fa3dab0c68508a20e58de610edf730e322c3",
+      "attempt": 1,
+      "latency_ms": 1704,
+      "input_tokens": 230,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00068",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực lưu trữ",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00068-INDUSTRY",
+      "FACT-CUS-00068-PURPOSE",
+      "FACT-CUS-00068-PROFITABILITY",
+      "FACT-CUS-00068-RELATIONSHIP",
+      "FACT-CUS-00068-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "78d5edd374c3bbceec0842a064a3e936d151637758aaafbfa1ab72e025e2b4ed",
+      "attempt": 1,
+      "latency_ms": 1738,
+      "input_tokens": 232,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00069",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực lập trình",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00069-INDUSTRY",
+      "FACT-CUS-00069-PURPOSE",
+      "FACT-CUS-00069-PROFITABILITY",
+      "FACT-CUS-00069-RELATIONSHIP",
+      "FACT-CUS-00069-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "389d6a9ab2c907258e5370b1b55d513f19ace2d6eb930ef18e2ce36ea0a77d23",
+      "attempt": 1,
+      "latency_ms": 1719,
+      "input_tokens": 232,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00070",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực tư vấn",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00070-INDUSTRY",
+      "FACT-CUS-00070-PURPOSE",
+      "FACT-CUS-00070-PROFITABILITY",
+      "FACT-CUS-00070-RELATIONSHIP",
+      "FACT-CUS-00070-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "616cc0ad01b0b1fdbc9f53af78ee7c3ef7b1c088da771e336397f8149caa67ab",
+      "attempt": 1,
+      "latency_ms": 1691,
+      "input_tokens": 230,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00071",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực cung ứng lao động",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00071-INDUSTRY",
+      "FACT-CUS-00071-PURPOSE",
+      "FACT-CUS-00071-PROFITABILITY",
+      "FACT-CUS-00071-RELATIONSHIP",
+      "FACT-CUS-00071-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "010c600ae6d4ce4df63fe87c634184b2f0ab43ffb5d579341bff6dd96f04a5ce",
+      "attempt": 1,
+      "latency_ms": 1753,
+      "input_tokens": 233,
+      "output_tokens": 90
+    }
+  },
+  {
+    "customer_id": "CUS-00072",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực hóa chất",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ và có mối quan hệ tốt",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00072-INDUSTRY",
+      "FACT-CUS-00072-PURPOSE",
+      "FACT-CUS-00072-PROFITABILITY",
+      "FACT-CUS-00072-RELATIONSHIP",
+      "FACT-CUS-00072-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "c3ab82b2048d39f08e3bfd42829245dd32f8a749479c0c5526a7748c2022486e",
+      "attempt": 1,
+      "latency_ms": 1841,
+      "input_tokens": 231,
+      "output_tokens": 94
+    }
+  },
+  {
+    "customer_id": "CUS-00073",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực sản xuất thực phẩm",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00073-INDUSTRY",
+      "FACT-CUS-00073-PURPOSE",
+      "FACT-CUS-00073-PROFITABILITY",
+      "FACT-CUS-00073-RELATIONSHIP",
+      "FACT-CUS-00073-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "838e2c65ba4d72180907870df409a432925b8009993c046c0bda7ed956992f84",
+      "attempt": 1,
+      "latency_ms": 1748,
+      "input_tokens": 235,
+      "output_tokens": 90
+    }
+  },
+  {
+    "customer_id": "CUS-00074",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực May mac",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00074-INDUSTRY",
+      "FACT-CUS-00074-PURPOSE",
+      "FACT-CUS-00074-PROFITABILITY",
+      "FACT-CUS-00074-RELATIONSHIP",
+      "FACT-CUS-00074-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "c2aa91916688ebf1d0cf0d8eae31a8c7b2a7706e144847e58061d963fb96818d",
+      "attempt": 1,
+      "latency_ms": 1721,
+      "input_tokens": 230,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00075",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực chế biến gỗ",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận tích cực và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00075-INDUSTRY",
+      "FACT-CUS-00075-PURPOSE",
+      "FACT-CUS-00075-PROFITABILITY",
+      "FACT-CUS-00075-RELATIONSHIP",
+      "FACT-CUS-00075-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "f6c011fda71905dc1fc389bcd7c12c19f9d74d584465bdbed498f60be8726d51",
+      "attempt": 1,
+      "latency_ms": 1779,
+      "input_tokens": 231,
+      "output_tokens": 90
+    }
+  },
+  {
+    "customer_id": "CUS-00076",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực Xay dựng",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ và có mối quan hệ tốt",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ dựa trên dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở và không có tình trạng thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00076-INDUSTRY",
+      "FACT-CUS-00076-PURPOSE",
+      "FACT-CUS-00076-PROFITABILITY",
+      "FACT-CUS-00076-RELATIONSHIP",
+      "FACT-CUS-00076-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "75f8c5a6f988aa97dcf7e99a90033eb05ef267af36b58be17ca4c8378a1fd01f",
+      "attempt": 1,
+      "latency_ms": 1934,
+      "input_tokens": 231,
+      "output_tokens": 99
+    }
+  },
+  {
+    "customer_id": "CUS-00077",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực bán buôn",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00077-INDUSTRY",
+      "FACT-CUS-00077-PURPOSE",
+      "FACT-CUS-00077-PROFITABILITY",
+      "FACT-CUS-00077-RELATIONSHIP",
+      "FACT-CUS-00077-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "99625b124f01687232bd1f584b8a475596a1313de587aaf18504683e08edec8d",
+      "attempt": 1,
+      "latency_ms": 1723,
+      "input_tokens": 231,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00078",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực Ban le",
+    "rm_note": "Khách hàng có lịch sử quan hệ tốt với tổ chức tài chính, không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có tình hình tài chính khả quan với lợi nhuận dương, nguồn trả nợ chính từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở, hiện không có thế chấp hoặc hạn chế nào",
+    "asserted_fact_ids": [
+      "FACT-CUS-00078-INDUSTRY",
+      "FACT-CUS-00078-PURPOSE",
+      "FACT-CUS-00078-PROFITABILITY",
+      "FACT-CUS-00078-RELATIONSHIP",
+      "FACT-CUS-00078-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "d945ffc20ec651fcee0c033fea7423d8259fcd041f9bfa5f1eb30b633f5ea560",
+      "attempt": 1,
+      "latency_ms": 2152,
+      "input_tokens": 230,
+      "output_tokens": 112
+    }
+  },
+  {
+    "customer_id": "CUS-00079",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực vận tải",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00079-INDUSTRY",
+      "FACT-CUS-00079-PURPOSE",
+      "FACT-CUS-00079-PROFITABILITY",
+      "FACT-CUS-00079-RELATIONSHIP",
+      "FACT-CUS-00079-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "49552a88f375dba944036c896de9fa3dab0c68508a20e58de610edf730e322c3",
+      "attempt": 1,
+      "latency_ms": 1698,
+      "input_tokens": 230,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00080",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực lưu trữ",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00080-INDUSTRY",
+      "FACT-CUS-00080-PURPOSE",
+      "FACT-CUS-00080-PROFITABILITY",
+      "FACT-CUS-00080-RELATIONSHIP",
+      "FACT-CUS-00080-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "78d5edd374c3bbceec0842a064a3e936d151637758aaafbfa1ab72e025e2b4ed",
+      "attempt": 1,
+      "latency_ms": 1710,
+      "input_tokens": 232,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00081",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực lập trình",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00081-INDUSTRY",
+      "FACT-CUS-00081-PURPOSE",
+      "FACT-CUS-00081-PROFITABILITY",
+      "FACT-CUS-00081-RELATIONSHIP",
+      "FACT-CUS-00081-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "389d6a9ab2c907258e5370b1b55d513f19ace2d6eb930ef18e2ce36ea0a77d23",
+      "attempt": 1,
+      "latency_ms": 1702,
+      "input_tokens": 232,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00082",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực tư vấn",
+    "rm_note": "Khách hàng có lịch sử quan hệ tốt, không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương, nguồn trả nợ dựa trên dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở, hiện không bị thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00082-INDUSTRY",
+      "FACT-CUS-00082-PURPOSE",
+      "FACT-CUS-00082-PROFITABILITY",
+      "FACT-CUS-00082-RELATIONSHIP",
+      "FACT-CUS-00082-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "616cc0ad01b0b1fdbc9f53af78ee7c3ef7b1c088da771e336397f8149caa67ab",
+      "attempt": 1,
+      "latency_ms": 1832,
+      "input_tokens": 230,
+      "output_tokens": 96
+    }
+  },
+  {
+    "customer_id": "CUS-00083",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực cung ứng lao động",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00083-INDUSTRY",
+      "FACT-CUS-00083-PURPOSE",
+      "FACT-CUS-00083-PROFITABILITY",
+      "FACT-CUS-00083-RELATIONSHIP",
+      "FACT-CUS-00083-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "010c600ae6d4ce4df63fe87c634184b2f0ab43ffb5d579341bff6dd96f04a5ce",
+      "attempt": 1,
+      "latency_ms": 1764,
+      "input_tokens": 233,
+      "output_tokens": 90
+    }
+  },
+  {
+    "customer_id": "CUS-00084",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực hóa chất",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00084-INDUSTRY",
+      "FACT-CUS-00084-PURPOSE",
+      "FACT-CUS-00084-PROFITABILITY",
+      "FACT-CUS-00084-RELATIONSHIP",
+      "FACT-CUS-00084-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "c3ab82b2048d39f08e3bfd42829245dd32f8a749479c0c5526a7748c2022486e",
+      "attempt": 1,
+      "latency_ms": 1821,
+      "input_tokens": 231,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00085",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực sản xuất thực phẩm",
+    "rm_note": "Doanh nghiệp không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00085-INDUSTRY",
+      "FACT-CUS-00085-PURPOSE",
+      "FACT-CUS-00085-PROFITABILITY",
+      "FACT-CUS-00085-RELATIONSHIP",
+      "FACT-CUS-00085-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "838e2c65ba4d72180907870df409a432925b8009993c046c0bda7ed956992f84",
+      "attempt": 1,
+      "latency_ms": 1778,
+      "input_tokens": 235,
+      "output_tokens": 90
+    }
+  },
+  {
+    "customer_id": "CUS-00086",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực May mac",
+    "rm_note": "Khách hàng có lịch sử quan hệ tốt với tổ chức tài chính, không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có lợi nhuận tích cực, nguồn trả nợ dựa trên dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở, không có tình trạng thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00086-INDUSTRY",
+      "FACT-CUS-00086-PURPOSE",
+      "FACT-CUS-00086-PROFITABILITY",
+      "FACT-CUS-00086-RELATIONSHIP",
+      "FACT-CUS-00086-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "c2aa91916688ebf1d0cf0d8eae31a8c7b2a7706e144847e58061d963fb96818d",
+      "attempt": 1,
+      "latency_ms": 2123,
+      "input_tokens": 230,
+      "output_tokens": 103
+    }
+  },
+  {
+    "customer_id": "CUS-00087",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực chế biến gỗ",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00087-INDUSTRY",
+      "FACT-CUS-00087-PURPOSE",
+      "FACT-CUS-00087-PROFITABILITY",
+      "FACT-CUS-00087-RELATIONSHIP",
+      "FACT-CUS-00087-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "f6c011fda71905dc1fc389bcd7c12c19f9d74d584465bdbed498f60be8726d51",
+      "attempt": 1,
+      "latency_ms": 1752,
+      "input_tokens": 231,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00088",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực Xay dựng",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00088-INDUSTRY",
+      "FACT-CUS-00088-PURPOSE",
+      "FACT-CUS-00088-PROFITABILITY",
+      "FACT-CUS-00088-RELATIONSHIP",
+      "FACT-CUS-00088-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "75f8c5a6f988aa97dcf7e99a90033eb05ef267af36b58be17ca4c8378a1fd01f",
+      "attempt": 1,
+      "latency_ms": 1727,
+      "input_tokens": 231,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00089",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực bán buôn",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00089-INDUSTRY",
+      "FACT-CUS-00089-PURPOSE",
+      "FACT-CUS-00089-PROFITABILITY",
+      "FACT-CUS-00089-RELATIONSHIP",
+      "FACT-CUS-00089-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "99625b124f01687232bd1f584b8a475596a1313de587aaf18504683e08edec8d",
+      "attempt": 1,
+      "latency_ms": 1736,
+      "input_tokens": 231,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00090",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực Ban le",
+    "rm_note": "Khách hàng có lịch sử quan hệ tốt với tổ chức tài chính, không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có lợi nhuận tích cực và dự kiến trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở, hiện không bị thế chấp hoặc hạn chế nào",
+    "asserted_fact_ids": [
+      "FACT-CUS-00090-INDUSTRY",
+      "FACT-CUS-00090-PURPOSE",
+      "FACT-CUS-00090-PROFITABILITY",
+      "FACT-CUS-00090-RELATIONSHIP",
+      "FACT-CUS-00090-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "d945ffc20ec651fcee0c033fea7423d8259fcd041f9bfa5f1eb30b633f5ea560",
+      "attempt": 1,
+      "latency_ms": 2066,
+      "input_tokens": 230,
+      "output_tokens": 106
+    }
+  },
+  {
+    "customer_id": "CUS-00091",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực vận tải",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00091-INDUSTRY",
+      "FACT-CUS-00091-PURPOSE",
+      "FACT-CUS-00091-PROFITABILITY",
+      "FACT-CUS-00091-RELATIONSHIP",
+      "FACT-CUS-00091-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "49552a88f375dba944036c896de9fa3dab0c68508a20e58de610edf730e322c3",
+      "attempt": 1,
+      "latency_ms": 1759,
+      "input_tokens": 230,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00092",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực lưu trữ",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00092-INDUSTRY",
+      "FACT-CUS-00092-PURPOSE",
+      "FACT-CUS-00092-PROFITABILITY",
+      "FACT-CUS-00092-RELATIONSHIP",
+      "FACT-CUS-00092-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "78d5edd374c3bbceec0842a064a3e936d151637758aaafbfa1ab72e025e2b4ed",
+      "attempt": 1,
+      "latency_ms": 1718,
+      "input_tokens": 232,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00093",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực lập trình",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00093-INDUSTRY",
+      "FACT-CUS-00093-PURPOSE",
+      "FACT-CUS-00093-PROFITABILITY",
+      "FACT-CUS-00093-RELATIONSHIP",
+      "FACT-CUS-00093-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "389d6a9ab2c907258e5370b1b55d513f19ace2d6eb930ef18e2ce36ea0a77d23",
+      "attempt": 1,
+      "latency_ms": 1687,
+      "input_tokens": 232,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00094",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực tư vấn",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00094-INDUSTRY",
+      "FACT-CUS-00094-PURPOSE",
+      "FACT-CUS-00094-PROFITABILITY",
+      "FACT-CUS-00094-RELATIONSHIP",
+      "FACT-CUS-00094-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "616cc0ad01b0b1fdbc9f53af78ee7c3ef7b1c088da771e336397f8149caa67ab",
+      "attempt": 1,
+      "latency_ms": 1707,
+      "input_tokens": 230,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00095",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực cung ứng lao động",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00095-INDUSTRY",
+      "FACT-CUS-00095-PURPOSE",
+      "FACT-CUS-00095-PROFITABILITY",
+      "FACT-CUS-00095-RELATIONSHIP",
+      "FACT-CUS-00095-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "010c600ae6d4ce4df63fe87c634184b2f0ab43ffb5d579341bff6dd96f04a5ce",
+      "attempt": 1,
+      "latency_ms": 1747,
+      "input_tokens": 233,
+      "output_tokens": 90
+    }
+  },
+  {
+    "customer_id": "CUS-00096",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực hóa chất",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00096-INDUSTRY",
+      "FACT-CUS-00096-PURPOSE",
+      "FACT-CUS-00096-PROFITABILITY",
+      "FACT-CUS-00096-RELATIONSHIP",
+      "FACT-CUS-00096-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "c3ab82b2048d39f08e3bfd42829245dd32f8a749479c0c5526a7748c2022486e",
+      "attempt": 1,
+      "latency_ms": 1730,
+      "input_tokens": 231,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00097",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực sản xuất thực phẩm",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00097-INDUSTRY",
+      "FACT-CUS-00097-PURPOSE",
+      "FACT-CUS-00097-PROFITABILITY",
+      "FACT-CUS-00097-RELATIONSHIP",
+      "FACT-CUS-00097-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "838e2c65ba4d72180907870df409a432925b8009993c046c0bda7ed956992f84",
+      "attempt": 1,
+      "latency_ms": 1743,
+      "input_tokens": 235,
+      "output_tokens": 90
+    }
+  },
+  {
+    "customer_id": "CUS-00098",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực May mac",
+    "rm_note": "Khách hàng có mối quan hệ tốt với ngân hàng và không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có lợi nhuận tích cực và nguồn trả nợ dựa trên dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở và không có tình trạng thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00098-INDUSTRY",
+      "FACT-CUS-00098-PURPOSE",
+      "FACT-CUS-00098-PROFITABILITY",
+      "FACT-CUS-00098-RELATIONSHIP",
+      "FACT-CUS-00098-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "c2aa91916688ebf1d0cf0d8eae31a8c7b2a7706e144847e58061d963fb96818d",
+      "attempt": 1,
+      "latency_ms": 1920,
+      "input_tokens": 230,
+      "output_tokens": 100
+    }
+  },
+  {
+    "customer_id": "CUS-00099",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực chế biến gỗ",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00099-INDUSTRY",
+      "FACT-CUS-00099-PURPOSE",
+      "FACT-CUS-00099-PROFITABILITY",
+      "FACT-CUS-00099-RELATIONSHIP",
+      "FACT-CUS-00099-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "f6c011fda71905dc1fc389bcd7c12c19f9d74d584465bdbed498f60be8726d51",
+      "attempt": 1,
+      "latency_ms": 1712,
+      "input_tokens": 231,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00100",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực Xay dung",
+    "rm_note": "Khách hàng có lịch sử quan hệ tốt với tổ chức tài chính, không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có tình hình tài chính khả quan với lợi nhuận dương, nguồn trả nợ chính từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở, hiện không bị thế chấp hoặc hạn chế nào",
+    "asserted_fact_ids": [
+      "FACT-CUS-00100-INDUSTRY",
+      "FACT-CUS-00100-PURPOSE",
+      "FACT-CUS-00100-PROFITABILITY",
+      "FACT-CUS-00100-RELATIONSHIP",
+      "FACT-CUS-00100-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "75f8c5a6f988aa97dcf7e99a90033eb05ef267af36b58be17ca4c8378a1fd01f",
+      "attempt": 1,
+      "latency_ms": 2173,
+      "input_tokens": 231,
+      "output_tokens": 113
+    }
+  },
+  {
+    "customer_id": "CUS-00101",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực bán buôn",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00101-INDUSTRY",
+      "FACT-CUS-00101-PURPOSE",
+      "FACT-CUS-00101-PROFITABILITY",
+      "FACT-CUS-00101-RELATIONSHIP",
+      "FACT-CUS-00101-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "99625b124f01687232bd1f584b8a475596a1313de587aaf18504683e08edec8d",
+      "attempt": 1,
+      "latency_ms": 1751,
+      "input_tokens": 231,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00102",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực Ban le",
+    "rm_note": "Khách hàng có lịch sử quan hệ tốt với tổ chức tài chính, không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có tình hình tài chính khả quan với lợi nhuận dương, nguồn trả nợ chính từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở, hiện không có thế chấp hoặc hạn chế nào",
+    "asserted_fact_ids": [
+      "FACT-CUS-00102-INDUSTRY",
+      "FACT-CUS-00102-PURPOSE",
+      "FACT-CUS-00102-PROFITABILITY",
+      "FACT-CUS-00102-RELATIONSHIP",
+      "FACT-CUS-00102-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "d945ffc20ec651fcee0c033fea7423d8259fcd041f9bfa5f1eb30b633f5ea560",
+      "attempt": 1,
+      "latency_ms": 2122,
+      "input_tokens": 230,
+      "output_tokens": 112
+    }
+  },
+  {
+    "customer_id": "CUS-00103",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực vận tải",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00103-INDUSTRY",
+      "FACT-CUS-00103-PURPOSE",
+      "FACT-CUS-00103-PROFITABILITY",
+      "FACT-CUS-00103-RELATIONSHIP",
+      "FACT-CUS-00103-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "49552a88f375dba944036c896de9fa3dab0c68508a20e58de610edf730e322c3",
+      "attempt": 1,
+      "latency_ms": 1689,
+      "input_tokens": 230,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00104",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực lưu trữ",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00104-INDUSTRY",
+      "FACT-CUS-00104-PURPOSE",
+      "FACT-CUS-00104-PROFITABILITY",
+      "FACT-CUS-00104-RELATIONSHIP",
+      "FACT-CUS-00104-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "78d5edd374c3bbceec0842a064a3e936d151637758aaafbfa1ab72e025e2b4ed",
+      "attempt": 1,
+      "latency_ms": 1731,
+      "input_tokens": 232,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00105",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực lập trình",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00105-INDUSTRY",
+      "FACT-CUS-00105-PURPOSE",
+      "FACT-CUS-00105-PROFITABILITY",
+      "FACT-CUS-00105-RELATIONSHIP",
+      "FACT-CUS-00105-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "389d6a9ab2c907258e5370b1b55d513f19ace2d6eb930ef18e2ce36ea0a77d23",
+      "attempt": 1,
+      "latency_ms": 1704,
+      "input_tokens": 232,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00106",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực tư vấn",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00106-INDUSTRY",
+      "FACT-CUS-00106-PURPOSE",
+      "FACT-CUS-00106-PROFITABILITY",
+      "FACT-CUS-00106-RELATIONSHIP",
+      "FACT-CUS-00106-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "616cc0ad01b0b1fdbc9f53af78ee7c3ef7b1c088da771e336397f8149caa67ab",
+      "attempt": 1,
+      "latency_ms": 1767,
+      "input_tokens": 230,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00107",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực cung ứng lao động",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00107-INDUSTRY",
+      "FACT-CUS-00107-PURPOSE",
+      "FACT-CUS-00107-PROFITABILITY",
+      "FACT-CUS-00107-RELATIONSHIP",
+      "FACT-CUS-00107-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "010c600ae6d4ce4df63fe87c634184b2f0ab43ffb5d579341bff6dd96f04a5ce",
+      "attempt": 1,
+      "latency_ms": 1736,
+      "input_tokens": 233,
+      "output_tokens": 90
+    }
+  },
+  {
+    "customer_id": "CUS-00108",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực hóa chất",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00108-INDUSTRY",
+      "FACT-CUS-00108-PURPOSE",
+      "FACT-CUS-00108-PROFITABILITY",
+      "FACT-CUS-00108-RELATIONSHIP",
+      "FACT-CUS-00108-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "c3ab82b2048d39f08e3bfd42829245dd32f8a749479c0c5526a7748c2022486e",
+      "attempt": 1,
+      "latency_ms": 1749,
+      "input_tokens": 231,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00109",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực sản xuất thực phẩm",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00109-INDUSTRY",
+      "FACT-CUS-00109-PURPOSE",
+      "FACT-CUS-00109-PROFITABILITY",
+      "FACT-CUS-00109-RELATIONSHIP",
+      "FACT-CUS-00109-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "838e2c65ba4d72180907870df409a432925b8009993c046c0bda7ed956992f84",
+      "attempt": 1,
+      "latency_ms": 1728,
+      "input_tokens": 235,
+      "output_tokens": 90
+    }
+  },
+  {
+    "customer_id": "CUS-00110",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực May mac",
+    "rm_note": "Khách hàng có mối quan hệ tốt với tổ chức tài chính và không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ dựa trên dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở và không có tình trạng thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00110-INDUSTRY",
+      "FACT-CUS-00110-PURPOSE",
+      "FACT-CUS-00110-PROFITABILITY",
+      "FACT-CUS-00110-RELATIONSHIP",
+      "FACT-CUS-00110-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "c2aa91916688ebf1d0cf0d8eae31a8c7b2a7706e144847e58061d963fb96818d",
+      "attempt": 1,
+      "latency_ms": 1932,
+      "input_tokens": 230,
+      "output_tokens": 101
+    }
+  },
+  {
+    "customer_id": "CUS-00111",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực chế biến gỗ",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00111-INDUSTRY",
+      "FACT-CUS-00111-PURPOSE",
+      "FACT-CUS-00111-PROFITABILITY",
+      "FACT-CUS-00111-RELATIONSHIP",
+      "FACT-CUS-00111-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "f6c011fda71905dc1fc389bcd7c12c19f9d74d584465bdbed498f60be8726d51",
+      "attempt": 1,
+      "latency_ms": 1706,
+      "input_tokens": 231,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00112",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực Xay dựng",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00112-INDUSTRY",
+      "FACT-CUS-00112-PURPOSE",
+      "FACT-CUS-00112-PROFITABILITY",
+      "FACT-CUS-00112-RELATIONSHIP",
+      "FACT-CUS-00112-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "75f8c5a6f988aa97dcf7e99a90033eb05ef267af36b58be17ca4c8378a1fd01f",
+      "attempt": 1,
+      "latency_ms": 1718,
+      "input_tokens": 231,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00113",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực bán buôn",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00113-INDUSTRY",
+      "FACT-CUS-00113-PURPOSE",
+      "FACT-CUS-00113-PROFITABILITY",
+      "FACT-CUS-00113-RELATIONSHIP",
+      "FACT-CUS-00113-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "99625b124f01687232bd1f584b8a475596a1313de587aaf18504683e08edec8d",
+      "attempt": 1,
+      "latency_ms": 1750,
+      "input_tokens": 231,
+      "output_tokens": 89
+    }
+  },
+  {
+    "customer_id": "CUS-00114",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực Ban le",
+    "rm_note": "Khách hàng có mối quan hệ tốt với ngân hàng và không có khoản nợ quá hạn",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở và không có tình trạng thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00114-INDUSTRY",
+      "FACT-CUS-00114-PURPOSE",
+      "FACT-CUS-00114-PROFITABILITY",
+      "FACT-CUS-00114-RELATIONSHIP",
+      "FACT-CUS-00114-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "d945ffc20ec651fcee0c033fea7423d8259fcd041f9bfa5f1eb30b633f5ea560",
+      "attempt": 1,
+      "latency_ms": 1877,
+      "input_tokens": 230,
+      "output_tokens": 98
+    }
+  },
+  {
+    "customer_id": "CUS-00115",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực vận tải",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00115-INDUSTRY",
+      "FACT-CUS-00115-PURPOSE",
+      "FACT-CUS-00115-PROFITABILITY",
+      "FACT-CUS-00115-RELATIONSHIP",
+      "FACT-CUS-00115-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "49552a88f375dba944036c896de9fa3dab0c68508a20e58de610edf730e322c3",
+      "attempt": 1,
+      "latency_ms": 1794,
+      "input_tokens": 230,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00116",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực lưu trữ",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00116-INDUSTRY",
+      "FACT-CUS-00116-PURPOSE",
+      "FACT-CUS-00116-PROFITABILITY",
+      "FACT-CUS-00116-RELATIONSHIP",
+      "FACT-CUS-00116-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "78d5edd374c3bbceec0842a064a3e936d151637758aaafbfa1ab72e025e2b4ed",
+      "attempt": 1,
+      "latency_ms": 1691,
+      "input_tokens": 232,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00117",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực lập trình",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00117-INDUSTRY",
+      "FACT-CUS-00117-PURPOSE",
+      "FACT-CUS-00117-PROFITABILITY",
+      "FACT-CUS-00117-RELATIONSHIP",
+      "FACT-CUS-00117-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "389d6a9ab2c907258e5370b1b55d513f19ace2d6eb930ef18e2ce36ea0a77d23",
+      "attempt": 1,
+      "latency_ms": 1700,
+      "input_tokens": 232,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00118",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực tư vấn",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00118-INDUSTRY",
+      "FACT-CUS-00118-PURPOSE",
+      "FACT-CUS-00118-PROFITABILITY",
+      "FACT-CUS-00118-RELATIONSHIP",
+      "FACT-CUS-00118-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "616cc0ad01b0b1fdbc9f53af78ee7c3ef7b1c088da771e336397f8149caa67ab",
+      "attempt": 1,
+      "latency_ms": 1693,
+      "input_tokens": 230,
+      "output_tokens": 88
+    }
+  },
+  {
+    "customer_id": "CUS-00119",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực cung ứng lao động",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00119-INDUSTRY",
+      "FACT-CUS-00119-PURPOSE",
+      "FACT-CUS-00119-PROFITABILITY",
+      "FACT-CUS-00119-RELATIONSHIP",
+      "FACT-CUS-00119-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "010c600ae6d4ce4df63fe87c634184b2f0ab43ffb5d579341bff6dd96f04a5ce",
+      "attempt": 1,
+      "latency_ms": 1743,
+      "input_tokens": 233,
+      "output_tokens": 90
+    }
+  },
+  {
+    "customer_id": "CUS-00120",
+    "business_description": "Doanh nghiệp hoạt động trong lĩnh vực hóa chất",
+    "rm_note": "Khách hàng không có lịch sử quá hạn trả nợ",
+    "financial_note": "Doanh nghiệp có lợi nhuận dương và nguồn trả nợ từ dòng tiền hoạt động",
+    "collateral_description": "Tài sản đảm bảo là bất động sản nhà ở không có thế chấp",
+    "asserted_fact_ids": [
+      "FACT-CUS-00120-INDUSTRY",
+      "FACT-CUS-00120-PURPOSE",
+      "FACT-CUS-00120-PROFITABILITY",
+      "FACT-CUS-00120-RELATIONSHIP",
+      "FACT-CUS-00120-COLLATERAL"
+    ],
+    "generation_provenance": {
+      "provider": "FPT_AI_FACTORY",
+      "base_url": "https://mkp-api.fptcloud.com",
+      "model": "Llama-3.3-70B-Instruct",
+      "prompt_hash": "c3ab82b2048d39f08e3bfd42829245dd32f8a749479c0c5526a7748c2022486e",
+      "attempt": 1,
+      "latency_ms": 1691,
+      "input_tokens": 231,
+      "output_tokens": 88
+    }
+  }
+]

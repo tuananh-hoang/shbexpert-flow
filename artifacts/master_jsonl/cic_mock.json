@@ -1,0 +1,2162 @@
+[
+  {
+    "cic_report_id": "CIC-00001",
+    "customer_id": "CUS-00001",
+    "checked_at": "2026-06-29",
+    "facilities": [
+      {
+        "facility_id": "CICF-00001-1",
+        "mock_lender_code": "MOCK_BANK_02",
+        "current_outstanding": 2635326000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 2,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00002",
+    "customer_id": "CUS-00002",
+    "checked_at": "2026-06-28",
+    "facilities": [
+      {
+        "facility_id": "CICF-00002-1",
+        "mock_lender_code": "MOCK_BANK_03",
+        "current_outstanding": 3443825000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 3,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00003",
+    "customer_id": "CUS-00003",
+    "checked_at": "2026-06-27",
+    "facilities": [
+      {
+        "facility_id": "CICF-00003-1",
+        "mock_lender_code": "MOCK_BANK_04",
+        "current_outstanding": 4001804000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 4,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00004",
+    "customer_id": "CUS-00004",
+    "checked_at": "2026-06-26",
+    "facilities": [
+      {
+        "facility_id": "CICF-00004-1",
+        "mock_lender_code": "MOCK_BANK_05",
+        "current_outstanding": 2599662000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 5,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00005",
+    "customer_id": "CUS-00005",
+    "checked_at": "2026-06-25",
+    "facilities": [
+      {
+        "facility_id": "CICF-00005-1",
+        "mock_lender_code": "MOCK_BANK_06",
+        "current_outstanding": 2292983000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 6,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00006",
+    "customer_id": "CUS-00006",
+    "checked_at": "2026-06-24",
+    "facilities": [
+      {
+        "facility_id": "CICF-00006-1",
+        "mock_lender_code": "MOCK_BANK_07",
+        "current_outstanding": 1371896000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 7,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00007",
+    "customer_id": "CUS-00007",
+    "checked_at": "2026-06-30",
+    "facilities": [
+      {
+        "facility_id": "CICF-00007-1",
+        "mock_lender_code": "MOCK_BANK_08",
+        "current_outstanding": 2767837000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 1,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00008",
+    "customer_id": "CUS-00008",
+    "checked_at": "2026-06-29",
+    "facilities": [
+      {
+        "facility_id": "CICF-00008-1",
+        "mock_lender_code": "MOCK_BANK_01",
+        "current_outstanding": 1584651000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 2,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00009",
+    "customer_id": "CUS-00009",
+    "checked_at": "2026-06-28",
+    "facilities": [
+      {
+        "facility_id": "CICF-00009-1",
+        "mock_lender_code": "MOCK_BANK_02",
+        "current_outstanding": 592601000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 3,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00010",
+    "customer_id": "CUS-00010",
+    "checked_at": "2026-06-27",
+    "facilities": [
+      {
+        "facility_id": "CICF-00010-1",
+        "mock_lender_code": "MOCK_BANK_03",
+        "current_outstanding": 1484213000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 4,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00011",
+    "customer_id": "CUS-00011",
+    "checked_at": "2026-06-26",
+    "facilities": [
+      {
+        "facility_id": "CICF-00011-1",
+        "mock_lender_code": "MOCK_BANK_04",
+        "current_outstanding": 730150000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 5,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00012",
+    "customer_id": "CUS-00012",
+    "checked_at": "2026-06-25",
+    "facilities": [
+      {
+        "facility_id": "CICF-00012-1",
+        "mock_lender_code": "MOCK_BANK_05",
+        "current_outstanding": 2040212000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 6,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00013",
+    "customer_id": "CUS-00013",
+    "checked_at": "2026-06-24",
+    "facilities": [
+      {
+        "facility_id": "CICF-00013-1",
+        "mock_lender_code": "MOCK_BANK_06",
+        "current_outstanding": 1397760000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 7,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00014",
+    "customer_id": "CUS-00014",
+    "checked_at": "2026-06-30",
+    "facilities": [
+      {
+        "facility_id": "CICF-00014-1",
+        "mock_lender_code": "MOCK_BANK_07",
+        "current_outstanding": 3323589000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 1,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00015",
+    "customer_id": "CUS-00015",
+    "checked_at": "2026-06-29",
+    "facilities": [
+      {
+        "facility_id": "CICF-00015-1",
+        "mock_lender_code": "MOCK_BANK_08",
+        "current_outstanding": 4845693000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 2,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00016",
+    "customer_id": "CUS-00016",
+    "checked_at": "2026-06-28",
+    "facilities": [
+      {
+        "facility_id": "CICF-00016-1",
+        "mock_lender_code": "MOCK_BANK_01",
+        "current_outstanding": 2472729000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 3,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00017",
+    "customer_id": "CUS-00017",
+    "checked_at": "2026-06-27",
+    "facilities": [
+      {
+        "facility_id": "CICF-00017-1",
+        "mock_lender_code": "MOCK_BANK_02",
+        "current_outstanding": 3362468000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 4,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00018",
+    "customer_id": "CUS-00018",
+    "checked_at": "2026-06-26",
+    "facilities": [
+      {
+        "facility_id": "CICF-00018-1",
+        "mock_lender_code": "MOCK_BANK_03",
+        "current_outstanding": 1544699000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 5,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00019",
+    "customer_id": "CUS-00019",
+    "checked_at": "2026-06-25",
+    "facilities": [
+      {
+        "facility_id": "CICF-00019-1",
+        "mock_lender_code": "MOCK_BANK_04",
+        "current_outstanding": 4651924000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 6,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00020",
+    "customer_id": "CUS-00020",
+    "checked_at": "2026-06-24",
+    "facilities": [
+      {
+        "facility_id": "CICF-00020-1",
+        "mock_lender_code": "MOCK_BANK_05",
+        "current_outstanding": 1255362000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 7,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00021",
+    "customer_id": "CUS-00021",
+    "checked_at": "2026-06-30",
+    "facilities": [
+      {
+        "facility_id": "CICF-00021-1",
+        "mock_lender_code": "MOCK_BANK_06",
+        "current_outstanding": 973365000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 1,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00022",
+    "customer_id": "CUS-00022",
+    "checked_at": "2026-06-29",
+    "facilities": [
+      {
+        "facility_id": "CICF-00022-1",
+        "mock_lender_code": "MOCK_BANK_07",
+        "current_outstanding": 2779073000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 2,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00023",
+    "customer_id": "CUS-00023",
+    "checked_at": "2026-06-28",
+    "facilities": [
+      {
+        "facility_id": "CICF-00023-1",
+        "mock_lender_code": "MOCK_BANK_08",
+        "current_outstanding": 2563285000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 3,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00024",
+    "customer_id": "CUS-00024",
+    "checked_at": "2026-06-27",
+    "facilities": [
+      {
+        "facility_id": "CICF-00024-1",
+        "mock_lender_code": "MOCK_BANK_01",
+        "current_outstanding": 1328473000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 4,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00025",
+    "customer_id": "CUS-00025",
+    "checked_at": "2026-06-26",
+    "facilities": [
+      {
+        "facility_id": "CICF-00025-1",
+        "mock_lender_code": "MOCK_BANK_02",
+        "current_outstanding": 1828771000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 5,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00026",
+    "customer_id": "CUS-00026",
+    "checked_at": "2026-06-25",
+    "facilities": [
+      {
+        "facility_id": "CICF-00026-1",
+        "mock_lender_code": "MOCK_BANK_03",
+        "current_outstanding": 2038034000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 6,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00027",
+    "customer_id": "CUS-00027",
+    "checked_at": "2026-06-24",
+    "facilities": [
+      {
+        "facility_id": "CICF-00027-1",
+        "mock_lender_code": "MOCK_BANK_04",
+        "current_outstanding": 1515515000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 7,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00028",
+    "customer_id": "CUS-00028",
+    "checked_at": "2026-06-30",
+    "facilities": [
+      {
+        "facility_id": "CICF-00028-1",
+        "mock_lender_code": "MOCK_BANK_05",
+        "current_outstanding": 1337837000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 1,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00029",
+    "customer_id": "CUS-00029",
+    "checked_at": "2026-06-29",
+    "facilities": [
+      {
+        "facility_id": "CICF-00029-1",
+        "mock_lender_code": "MOCK_BANK_06",
+        "current_outstanding": 2122348000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 2,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00030",
+    "customer_id": "CUS-00030",
+    "checked_at": "2026-06-28",
+    "facilities": [
+      {
+        "facility_id": "CICF-00030-1",
+        "mock_lender_code": "MOCK_BANK_07",
+        "current_outstanding": 3737971000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 3,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00031",
+    "customer_id": "CUS-00031",
+    "checked_at": "2026-06-27",
+    "facilities": [
+      {
+        "facility_id": "CICF-00031-1",
+        "mock_lender_code": "MOCK_BANK_08",
+        "current_outstanding": 2388872000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 4,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00032",
+    "customer_id": "CUS-00032",
+    "checked_at": "2026-06-26",
+    "facilities": [
+      {
+        "facility_id": "CICF-00032-1",
+        "mock_lender_code": "MOCK_BANK_01",
+        "current_outstanding": 1943867000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 5,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00033",
+    "customer_id": "CUS-00033",
+    "checked_at": "2026-06-25",
+    "facilities": [
+      {
+        "facility_id": "CICF-00033-1",
+        "mock_lender_code": "MOCK_BANK_02",
+        "current_outstanding": 2891013000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 6,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00034",
+    "customer_id": "CUS-00034",
+    "checked_at": "2026-06-24",
+    "facilities": [
+      {
+        "facility_id": "CICF-00034-1",
+        "mock_lender_code": "MOCK_BANK_03",
+        "current_outstanding": 2682165000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 7,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00035",
+    "customer_id": "CUS-00035",
+    "checked_at": "2026-06-30",
+    "facilities": [
+      {
+        "facility_id": "CICF-00035-1",
+        "mock_lender_code": "MOCK_BANK_04",
+        "current_outstanding": 4380272000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 1,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00036",
+    "customer_id": "CUS-00036",
+    "checked_at": "2026-06-29",
+    "facilities": [
+      {
+        "facility_id": "CICF-00036-1",
+        "mock_lender_code": "MOCK_BANK_05",
+        "current_outstanding": 1137031000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 2,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00037",
+    "customer_id": "CUS-00037",
+    "checked_at": "2026-06-28",
+    "facilities": [
+      {
+        "facility_id": "CICF-00037-1",
+        "mock_lender_code": "MOCK_BANK_06",
+        "current_outstanding": 2983955000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 3,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00038",
+    "customer_id": "CUS-00038",
+    "checked_at": "2026-06-27",
+    "facilities": [
+      {
+        "facility_id": "CICF-00038-1",
+        "mock_lender_code": "MOCK_BANK_07",
+        "current_outstanding": 2855915000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 4,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00039",
+    "customer_id": "CUS-00039",
+    "checked_at": "2026-06-26",
+    "facilities": [
+      {
+        "facility_id": "CICF-00039-1",
+        "mock_lender_code": "MOCK_BANK_08",
+        "current_outstanding": 3081600000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 5,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00040",
+    "customer_id": "CUS-00040",
+    "checked_at": "2026-06-25",
+    "facilities": [
+      {
+        "facility_id": "CICF-00040-1",
+        "mock_lender_code": "MOCK_BANK_01",
+        "current_outstanding": 2307041000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 6,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00041",
+    "customer_id": "CUS-00041",
+    "checked_at": "2026-06-24",
+    "facilities": [
+      {
+        "facility_id": "CICF-00041-1",
+        "mock_lender_code": "MOCK_BANK_02",
+        "current_outstanding": 2477546000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 7,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00042",
+    "customer_id": "CUS-00042",
+    "checked_at": "2026-06-30",
+    "facilities": [
+      {
+        "facility_id": "CICF-00042-1",
+        "mock_lender_code": "MOCK_BANK_03",
+        "current_outstanding": 2702773000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 1,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00043",
+    "customer_id": "CUS-00043",
+    "checked_at": "2026-06-29",
+    "facilities": [
+      {
+        "facility_id": "CICF-00043-1",
+        "mock_lender_code": "MOCK_BANK_04",
+        "current_outstanding": 4081317000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 2,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00044",
+    "customer_id": "CUS-00044",
+    "checked_at": "2026-06-28",
+    "facilities": [
+      {
+        "facility_id": "CICF-00044-1",
+        "mock_lender_code": "MOCK_BANK_05",
+        "current_outstanding": 2090325000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 3,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00045",
+    "customer_id": "CUS-00045",
+    "checked_at": "2026-06-27",
+    "facilities": [
+      {
+        "facility_id": "CICF-00045-1",
+        "mock_lender_code": "MOCK_BANK_06",
+        "current_outstanding": 1858587000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 4,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00046",
+    "customer_id": "CUS-00046",
+    "checked_at": "2026-06-26",
+    "facilities": [
+      {
+        "facility_id": "CICF-00046-1",
+        "mock_lender_code": "MOCK_BANK_07",
+        "current_outstanding": 3586032000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 5,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00047",
+    "customer_id": "CUS-00047",
+    "checked_at": "2026-06-25",
+    "facilities": [
+      {
+        "facility_id": "CICF-00047-1",
+        "mock_lender_code": "MOCK_BANK_08",
+        "current_outstanding": 4308873000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 6,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00048",
+    "customer_id": "CUS-00048",
+    "checked_at": "2026-06-24",
+    "facilities": [
+      {
+        "facility_id": "CICF-00048-1",
+        "mock_lender_code": "MOCK_BANK_01",
+        "current_outstanding": 596220000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 7,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00049",
+    "customer_id": "CUS-00049",
+    "checked_at": "2026-06-30",
+    "facilities": [
+      {
+        "facility_id": "CICF-00049-1",
+        "mock_lender_code": "MOCK_BANK_02",
+        "current_outstanding": 2101108000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 1,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00050",
+    "customer_id": "CUS-00050",
+    "checked_at": "2026-06-29",
+    "facilities": [
+      {
+        "facility_id": "CICF-00050-1",
+        "mock_lender_code": "MOCK_BANK_03",
+        "current_outstanding": 3812306000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 2,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00051",
+    "customer_id": "CUS-00051",
+    "checked_at": "2026-06-28",
+    "facilities": [
+      {
+        "facility_id": "CICF-00051-1",
+        "mock_lender_code": "MOCK_BANK_04",
+        "current_outstanding": 1106639000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 3,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00052",
+    "customer_id": "CUS-00052",
+    "checked_at": "2026-06-27",
+    "facilities": [
+      {
+        "facility_id": "CICF-00052-1",
+        "mock_lender_code": "MOCK_BANK_05",
+        "current_outstanding": 1609602000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 4,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00053",
+    "customer_id": "CUS-00053",
+    "checked_at": "2026-06-26",
+    "facilities": [
+      {
+        "facility_id": "CICF-00053-1",
+        "mock_lender_code": "MOCK_BANK_06",
+        "current_outstanding": 2827002000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 5,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00054",
+    "customer_id": "CUS-00054",
+    "checked_at": "2026-06-25",
+    "facilities": [
+      {
+        "facility_id": "CICF-00054-1",
+        "mock_lender_code": "MOCK_BANK_07",
+        "current_outstanding": 818497000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 6,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00055",
+    "customer_id": "CUS-00055",
+    "checked_at": "2026-06-24",
+    "facilities": [
+      {
+        "facility_id": "CICF-00055-1",
+        "mock_lender_code": "MOCK_BANK_08",
+        "current_outstanding": 1420936000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 7,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00056",
+    "customer_id": "CUS-00056",
+    "checked_at": "2026-06-30",
+    "facilities": [
+      {
+        "facility_id": "CICF-00056-1",
+        "mock_lender_code": "MOCK_BANK_01",
+        "current_outstanding": 1520060000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 1,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00057",
+    "customer_id": "CUS-00057",
+    "checked_at": "2026-06-29",
+    "facilities": [
+      {
+        "facility_id": "CICF-00057-1",
+        "mock_lender_code": "MOCK_BANK_02",
+        "current_outstanding": 2522363000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 2,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00058",
+    "customer_id": "CUS-00058",
+    "checked_at": "2026-06-28",
+    "facilities": [
+      {
+        "facility_id": "CICF-00058-1",
+        "mock_lender_code": "MOCK_BANK_03",
+        "current_outstanding": 3015617000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 3,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00059",
+    "customer_id": "CUS-00059",
+    "checked_at": "2026-06-27",
+    "facilities": [
+      {
+        "facility_id": "CICF-00059-1",
+        "mock_lender_code": "MOCK_BANK_04",
+        "current_outstanding": 3426251000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 4,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00060",
+    "customer_id": "CUS-00060",
+    "checked_at": "2026-06-26",
+    "facilities": [
+      {
+        "facility_id": "CICF-00060-1",
+        "mock_lender_code": "MOCK_BANK_05",
+        "current_outstanding": 2192186000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 5,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00061",
+    "customer_id": "CUS-00061",
+    "checked_at": "2026-06-25",
+    "facilities": [
+      {
+        "facility_id": "CICF-00061-1",
+        "mock_lender_code": "MOCK_BANK_06",
+        "current_outstanding": 2218140000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 6,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00062",
+    "customer_id": "CUS-00062",
+    "checked_at": "2026-06-24",
+    "facilities": [
+      {
+        "facility_id": "CICF-00062-1",
+        "mock_lender_code": "MOCK_BANK_07",
+        "current_outstanding": 1094286000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 7,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00063",
+    "customer_id": "CUS-00063",
+    "checked_at": "2026-06-30",
+    "facilities": [
+      {
+        "facility_id": "CICF-00063-1",
+        "mock_lender_code": "MOCK_BANK_08",
+        "current_outstanding": 1843486000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 1,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00064",
+    "customer_id": "CUS-00064",
+    "checked_at": "2026-06-29",
+    "facilities": [
+      {
+        "facility_id": "CICF-00064-1",
+        "mock_lender_code": "MOCK_BANK_01",
+        "current_outstanding": 2391857000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 2,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00065",
+    "customer_id": "CUS-00065",
+    "checked_at": "2026-06-28",
+    "facilities": [
+      {
+        "facility_id": "CICF-00065-1",
+        "mock_lender_code": "MOCK_BANK_02",
+        "current_outstanding": 2624036000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 3,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00066",
+    "customer_id": "CUS-00066",
+    "checked_at": "2026-06-27",
+    "facilities": [
+      {
+        "facility_id": "CICF-00066-1",
+        "mock_lender_code": "MOCK_BANK_03",
+        "current_outstanding": 3894776000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 4,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00067",
+    "customer_id": "CUS-00067",
+    "checked_at": "2026-06-26",
+    "facilities": [
+      {
+        "facility_id": "CICF-00067-1",
+        "mock_lender_code": "MOCK_BANK_04",
+        "current_outstanding": 3075890000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 5,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00068",
+    "customer_id": "CUS-00068",
+    "checked_at": "2026-06-25",
+    "facilities": [
+      {
+        "facility_id": "CICF-00068-1",
+        "mock_lender_code": "MOCK_BANK_05",
+        "current_outstanding": 764611000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 6,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00069",
+    "customer_id": "CUS-00069",
+    "checked_at": "2026-06-24",
+    "facilities": [
+      {
+        "facility_id": "CICF-00069-1",
+        "mock_lender_code": "MOCK_BANK_06",
+        "current_outstanding": 2942866000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 7,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00070",
+    "customer_id": "CUS-00070",
+    "checked_at": "2026-06-30",
+    "facilities": [
+      {
+        "facility_id": "CICF-00070-1",
+        "mock_lender_code": "MOCK_BANK_07",
+        "current_outstanding": 1190917000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 1,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00071",
+    "customer_id": "CUS-00071",
+    "checked_at": "2026-06-29",
+    "facilities": [
+      {
+        "facility_id": "CICF-00071-1",
+        "mock_lender_code": "MOCK_BANK_08",
+        "current_outstanding": 3866565000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 2,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00072",
+    "customer_id": "CUS-00072",
+    "checked_at": "2026-06-28",
+    "facilities": [
+      {
+        "facility_id": "CICF-00072-1",
+        "mock_lender_code": "MOCK_BANK_01",
+        "current_outstanding": 2272966000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 3,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00073",
+    "customer_id": "CUS-00073",
+    "checked_at": "2026-06-27",
+    "facilities": [
+      {
+        "facility_id": "CICF-00073-1",
+        "mock_lender_code": "MOCK_BANK_02",
+        "current_outstanding": 773830000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 4,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00074",
+    "customer_id": "CUS-00074",
+    "checked_at": "2026-06-26",
+    "facilities": [
+      {
+        "facility_id": "CICF-00074-1",
+        "mock_lender_code": "MOCK_BANK_03",
+        "current_outstanding": 1796252000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 5,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00075",
+    "customer_id": "CUS-00075",
+    "checked_at": "2026-06-25",
+    "facilities": [
+      {
+        "facility_id": "CICF-00075-1",
+        "mock_lender_code": "MOCK_BANK_04",
+        "current_outstanding": 2310895000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 6,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00076",
+    "customer_id": "CUS-00076",
+    "checked_at": "2026-06-24",
+    "facilities": [
+      {
+        "facility_id": "CICF-00076-1",
+        "mock_lender_code": "MOCK_BANK_05",
+        "current_outstanding": 1068065000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 7,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00077",
+    "customer_id": "CUS-00077",
+    "checked_at": "2026-06-30",
+    "facilities": [
+      {
+        "facility_id": "CICF-00077-1",
+        "mock_lender_code": "MOCK_BANK_06",
+        "current_outstanding": 1895165000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 1,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00078",
+    "customer_id": "CUS-00078",
+    "checked_at": "2026-06-29",
+    "facilities": [
+      {
+        "facility_id": "CICF-00078-1",
+        "mock_lender_code": "MOCK_BANK_07",
+        "current_outstanding": 1143674000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 2,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00079",
+    "customer_id": "CUS-00079",
+    "checked_at": "2026-06-28",
+    "facilities": [
+      {
+        "facility_id": "CICF-00079-1",
+        "mock_lender_code": "MOCK_BANK_08",
+        "current_outstanding": 3246315000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 3,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00080",
+    "customer_id": "CUS-00080",
+    "checked_at": "2026-06-27",
+    "facilities": [
+      {
+        "facility_id": "CICF-00080-1",
+        "mock_lender_code": "MOCK_BANK_01",
+        "current_outstanding": 1962023000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 4,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00081",
+    "customer_id": "CUS-00081",
+    "checked_at": "2026-06-26",
+    "facilities": [
+      {
+        "facility_id": "CICF-00081-1",
+        "mock_lender_code": "MOCK_BANK_02",
+        "current_outstanding": 2971260000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 5,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00082",
+    "customer_id": "CUS-00082",
+    "checked_at": "2026-06-25",
+    "facilities": [
+      {
+        "facility_id": "CICF-00082-1",
+        "mock_lender_code": "MOCK_BANK_03",
+        "current_outstanding": 820383000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 6,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00083",
+    "customer_id": "CUS-00083",
+    "checked_at": "2026-06-24",
+    "facilities": [
+      {
+        "facility_id": "CICF-00083-1",
+        "mock_lender_code": "MOCK_BANK_04",
+        "current_outstanding": 2833408000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 7,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00084",
+    "customer_id": "CUS-00084",
+    "checked_at": "2026-06-30",
+    "facilities": [
+      {
+        "facility_id": "CICF-00084-1",
+        "mock_lender_code": "MOCK_BANK_05",
+        "current_outstanding": 661522000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 1,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00085",
+    "customer_id": "CUS-00085",
+    "checked_at": "2026-06-29",
+    "facilities": [
+      {
+        "facility_id": "CICF-00085-1",
+        "mock_lender_code": "MOCK_BANK_06",
+        "current_outstanding": 2487210000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 2,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00086",
+    "customer_id": "CUS-00086",
+    "checked_at": "2026-06-28",
+    "facilities": [
+      {
+        "facility_id": "CICF-00086-1",
+        "mock_lender_code": "MOCK_BANK_07",
+        "current_outstanding": 1589388000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 3,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00087",
+    "customer_id": "CUS-00087",
+    "checked_at": "2026-06-27",
+    "facilities": [
+      {
+        "facility_id": "CICF-00087-1",
+        "mock_lender_code": "MOCK_BANK_08",
+        "current_outstanding": 4387921000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 4,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00088",
+    "customer_id": "CUS-00088",
+    "checked_at": "2026-06-26",
+    "facilities": [
+      {
+        "facility_id": "CICF-00088-1",
+        "mock_lender_code": "MOCK_BANK_01",
+        "current_outstanding": 1999698000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 5,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00089",
+    "customer_id": "CUS-00089",
+    "checked_at": "2026-06-25",
+    "facilities": [
+      {
+        "facility_id": "CICF-00089-1",
+        "mock_lender_code": "MOCK_BANK_02",
+        "current_outstanding": 1391244000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 6,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00090",
+    "customer_id": "CUS-00090",
+    "checked_at": "2026-06-24",
+    "facilities": [
+      {
+        "facility_id": "CICF-00090-1",
+        "mock_lender_code": "MOCK_BANK_03",
+        "current_outstanding": 1796198000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 7,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00091",
+    "customer_id": "CUS-00091",
+    "checked_at": "2026-06-30",
+    "facilities": [
+      {
+        "facility_id": "CICF-00091-1",
+        "mock_lender_code": "MOCK_BANK_04",
+        "current_outstanding": 1481576000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 1,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00092",
+    "customer_id": "CUS-00092",
+    "checked_at": "2026-06-29",
+    "facilities": [
+      {
+        "facility_id": "CICF-00092-1",
+        "mock_lender_code": "MOCK_BANK_05",
+        "current_outstanding": 1209200000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 2,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00093",
+    "customer_id": "CUS-00093",
+    "checked_at": "2026-06-28",
+    "facilities": [
+      {
+        "facility_id": "CICF-00093-1",
+        "mock_lender_code": "MOCK_BANK_06",
+        "current_outstanding": 514922000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 3,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00094",
+    "customer_id": "CUS-00094",
+    "checked_at": "2026-06-27",
+    "facilities": [
+      {
+        "facility_id": "CICF-00094-1",
+        "mock_lender_code": "MOCK_BANK_07",
+        "current_outstanding": 962369000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 4,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00095",
+    "customer_id": "CUS-00095",
+    "checked_at": "2026-06-26",
+    "facilities": [
+      {
+        "facility_id": "CICF-00095-1",
+        "mock_lender_code": "MOCK_BANK_08",
+        "current_outstanding": 4257406000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 5,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00096",
+    "customer_id": "CUS-00096",
+    "checked_at": "2026-06-25",
+    "facilities": [
+      {
+        "facility_id": "CICF-00096-1",
+        "mock_lender_code": "MOCK_BANK_01",
+        "current_outstanding": 1316856000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 6,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00097",
+    "customer_id": "CUS-00097",
+    "checked_at": "2026-06-24",
+    "facilities": [
+      {
+        "facility_id": "CICF-00097-1",
+        "mock_lender_code": "MOCK_BANK_02",
+        "current_outstanding": 3210368000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 7,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00098",
+    "customer_id": "CUS-00098",
+    "checked_at": "2026-06-30",
+    "facilities": [
+      {
+        "facility_id": "CICF-00098-1",
+        "mock_lender_code": "MOCK_BANK_03",
+        "current_outstanding": 1657634000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 1,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00099",
+    "customer_id": "CUS-00099",
+    "checked_at": "2026-06-29",
+    "facilities": [
+      {
+        "facility_id": "CICF-00099-1",
+        "mock_lender_code": "MOCK_BANK_04",
+        "current_outstanding": 2226180000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 2,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00100",
+    "customer_id": "CUS-00100",
+    "checked_at": "2026-06-28",
+    "facilities": [
+      {
+        "facility_id": "CICF-00100-1",
+        "mock_lender_code": "MOCK_BANK_05",
+        "current_outstanding": 439747000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 3,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00101",
+    "customer_id": "CUS-00101",
+    "checked_at": "2026-06-27",
+    "facilities": [
+      {
+        "facility_id": "CICF-00101-1",
+        "mock_lender_code": "MOCK_BANK_06",
+        "current_outstanding": 1747946000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 4,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00102",
+    "customer_id": "CUS-00102",
+    "checked_at": "2026-06-26",
+    "facilities": [
+      {
+        "facility_id": "CICF-00102-1",
+        "mock_lender_code": "MOCK_BANK_07",
+        "current_outstanding": 2677916000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 5,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00103",
+    "customer_id": "CUS-00103",
+    "checked_at": "2026-06-25",
+    "facilities": [
+      {
+        "facility_id": "CICF-00103-1",
+        "mock_lender_code": "MOCK_BANK_08",
+        "current_outstanding": 1999941000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 6,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00104",
+    "customer_id": "CUS-00104",
+    "checked_at": "2026-06-24",
+    "facilities": [
+      {
+        "facility_id": "CICF-00104-1",
+        "mock_lender_code": "MOCK_BANK_01",
+        "current_outstanding": 1973398000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 7,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00105",
+    "customer_id": "CUS-00105",
+    "checked_at": "2026-06-30",
+    "facilities": [
+      {
+        "facility_id": "CICF-00105-1",
+        "mock_lender_code": "MOCK_BANK_02",
+        "current_outstanding": 2834116000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 1,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00106",
+    "customer_id": "CUS-00106",
+    "checked_at": "2026-06-29",
+    "facilities": [
+      {
+        "facility_id": "CICF-00106-1",
+        "mock_lender_code": "MOCK_BANK_03",
+        "current_outstanding": 1414838000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 2,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00107",
+    "customer_id": "CUS-00107",
+    "checked_at": "2026-06-28",
+    "facilities": [
+      {
+        "facility_id": "CICF-00107-1",
+        "mock_lender_code": "MOCK_BANK_04",
+        "current_outstanding": 723741000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 3,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00108",
+    "customer_id": "CUS-00108",
+    "checked_at": "2026-06-27",
+    "facilities": [
+      {
+        "facility_id": "CICF-00108-1",
+        "mock_lender_code": "MOCK_BANK_05",
+        "current_outstanding": 1392342000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 4,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00109",
+    "customer_id": "CUS-00109",
+    "checked_at": "2026-06-26",
+    "facilities": [
+      {
+        "facility_id": "CICF-00109-1",
+        "mock_lender_code": "MOCK_BANK_06",
+        "current_outstanding": 2410777000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 5,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00110",
+    "customer_id": "CUS-00110",
+    "checked_at": "2026-06-25",
+    "facilities": [
+      {
+        "facility_id": "CICF-00110-1",
+        "mock_lender_code": "MOCK_BANK_07",
+        "current_outstanding": 611793000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 6,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00111",
+    "customer_id": "CUS-00111",
+    "checked_at": "2026-06-24",
+    "facilities": [
+      {
+        "facility_id": "CICF-00111-1",
+        "mock_lender_code": "MOCK_BANK_08",
+        "current_outstanding": 2616556000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 7,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00112",
+    "customer_id": "CUS-00112",
+    "checked_at": "2026-06-30",
+    "facilities": [
+      {
+        "facility_id": "CICF-00112-1",
+        "mock_lender_code": "MOCK_BANK_01",
+        "current_outstanding": 762142000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 1,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00113",
+    "customer_id": "CUS-00113",
+    "checked_at": "2026-06-29",
+    "facilities": [
+      {
+        "facility_id": "CICF-00113-1",
+        "mock_lender_code": "MOCK_BANK_02",
+        "current_outstanding": 1279004000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 2,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00114",
+    "customer_id": "CUS-00114",
+    "checked_at": "2026-06-28",
+    "facilities": [
+      {
+        "facility_id": "CICF-00114-1",
+        "mock_lender_code": "MOCK_BANK_03",
+        "current_outstanding": 4149965000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 3,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00115",
+    "customer_id": "CUS-00115",
+    "checked_at": "2026-06-27",
+    "facilities": [
+      {
+        "facility_id": "CICF-00115-1",
+        "mock_lender_code": "MOCK_BANK_04",
+        "current_outstanding": 1202769000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 4,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00116",
+    "customer_id": "CUS-00116",
+    "checked_at": "2026-06-26",
+    "facilities": [
+      {
+        "facility_id": "CICF-00116-1",
+        "mock_lender_code": "MOCK_BANK_05",
+        "current_outstanding": 2200320000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 5,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00117",
+    "customer_id": "CUS-00117",
+    "checked_at": "2026-06-25",
+    "facilities": [
+      {
+        "facility_id": "CICF-00117-1",
+        "mock_lender_code": "MOCK_BANK_06",
+        "current_outstanding": 1047984000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 6,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00118",
+    "customer_id": "CUS-00118",
+    "checked_at": "2026-06-24",
+    "facilities": [
+      {
+        "facility_id": "CICF-00118-1",
+        "mock_lender_code": "MOCK_BANK_07",
+        "current_outstanding": 951654000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 1,
+    "inquiry_count_12m": 7,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00119",
+    "customer_id": "CUS-00119",
+    "checked_at": "2026-06-30",
+    "facilities": [
+      {
+        "facility_id": "CICF-00119-1",
+        "mock_lender_code": "MOCK_BANK_08",
+        "current_outstanding": 3973395000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 2,
+    "inquiry_count_12m": 1,
+    "synthetic_flag": true
+  },
+  {
+    "cic_report_id": "CIC-00120",
+    "customer_id": "CUS-00120",
+    "checked_at": "2026-06-29",
+    "facilities": [
+      {
+        "facility_id": "CICF-00120-1",
+        "mock_lender_code": "MOCK_BANK_01",
+        "current_outstanding": 1032787000,
+        "debt_group": 1,
+        "days_past_due": 0,
+        "delinquency_history": []
+      }
+    ],
+    "inquiry_count_30d": 0,
+    "inquiry_count_12m": 2,
+    "synthetic_flag": true
+  }
+]
