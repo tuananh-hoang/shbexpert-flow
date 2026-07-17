@@ -1,0 +1,68 @@
+{
+  "schema_version": "0.1",
+  "retrieved_at": "2026-07-17T18:00:21.141245+00:00",
+  "offline_after_snapshot": true,
+  "sources": [
+    {
+      "source_id": "VSIC_2025",
+      "url": "https://chinhphu.vn/?docid=215475&pageid=27160",
+      "publisher": "Cổng Thông tin điện tử Chính phủ",
+      "filename": "vsic_2025.html",
+      "usage": "taxonomy_reference",
+      "status": "fetched",
+      "http_status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 83937,
+      "sha256": "e12b46bb6f698060bfd2ffebf566274745e0c5a89bab2e335e796d182d766e53",
+      "retrieved_at": "2026-07-17T18:00:21.141245+00:00"
+    },
+    {
+      "source_id": "NSO_PXWEB",
+      "url": "https://pxweb.nso.gov.vn/api/v1/vi",
+      "publisher": "National Statistics Office of Vietnam",
+      "filename": "nso_pxweb_root.json",
+      "usage": "aggregate_statistics_catalog",
+      "status": "fetched",
+      "http_status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "bytes": 379,
+      "sha256": "7e49298ab61dcc6ce7b7c67289e51f3530e5858b3493bf5644028e7cc6f00ba1",
+      "retrieved_at": "2026-07-17T18:00:21.141245+00:00"
+    },
+    {
+      "source_id": "ACCOUNTING_TT133",
+      "url": "https://congbao.chinhphu.vn/van-ban/thong-tu-so-133-2016-tt-btc-21048/15524.htm",
+      "publisher": "Công báo Chính phủ",
+      "filename": "accounting_tt133.html",
+      "usage": "statement_line_item_reference",
+      "status": "fetched",
+      "http_status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 158986,
+      "sha256": "3adb95120f8329951efa8724e049ca229d79ac7dc8a52a354c9fbd5659920ffb",
+      "retrieved_at": "2026-07-17T18:00:21.141245+00:00"
+    },
+    {
+      "source_id": "SME_ND80",
+      "url": "https://congbao.chinhphu.vn/van-ban/nghi-dinh-so-80-2021-nd-cp-34251.htm",
+      "publisher": "Công báo Chính phủ",
+      "filename": "sme_nd80.html",
+      "usage": "sme_segmentation_reference",
+      "status": "fetched",
+      "http_status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "bytes": 149905,
+      "sha256": "1186fcd6bd104e2048af5c096657c5a7ad62575cf6cec5eee6ed4c4fbd3733b4",
+      "retrieved_at": "2026-07-17T18:00:21.141245+00:00"
+    },
+    {
+      "source_id": "SHB_PRODUCT_REGISTRY",
+      "url": "https://www.shb.com.vn/category/khach-hang-doanh-nghiep/",
+      "publisher": "SHB",
+      "usage": "manual_product_reference_only",
+      "status": "manual_curate_only",
+      "robots_decision": "Do not mirror or use for model training; curate short factual registry manually.",
+      "retrieved_at": "2026-07-17T18:00:21.141245+00:00"
+    }
+  ]
+}

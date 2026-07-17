@@ -57,14 +57,14 @@ Mọi foreign key phải resolve trong cùng dataset version. File bị sửa ph
 |---|---:|---|
 | Customer master | 120 customers, 12 ngành | JSON/CSV |
 | Credit application | 120 active applications | JSON |
-| Hồ sơ pháp lý | Khoảng 600 document records | PDF/ảnh |
-| Báo cáo tài chính | 3 năm + 1 kỳ gần nhất/customer | XLSX/PDF |
+| Hồ sơ pháp lý | Khoảng 600 document records | JSON/JSONL |
+| Báo cáo tài chính | 3 năm + 1 kỳ gần nhất/customer | JSON/JSONL/XLSX |
 | Giao dịch tài khoản | 50–200 dòng/customer | CSV |
-| CIC mock | 1 report/customer, 0–5 facilities | JSON/PDF |
+| CIC mock | 1 report/customer, 0–5 facilities | JSON |
 | KYC/AML mock | Customer, representative và related parties | JSON |
-| Tài sản bảo đảm | 1–2 bất động sản/application | JSON/PDF/ảnh |
+| Tài sản bảo đảm | 1–2 bất động sản/application | JSON/JSONL |
 | Quan hệ SHB mock | 1–3 accounts/customer | JSON/CSV |
-| Chính sách/rulebook | 6 policy families × 3 versions | JSON/Markdown/PDF |
+| Chính sách/rulebook | 6 policy families × 3 versions | JSON/JSONL/Markdown |
 | Dữ liệu ngành | 12 ngành × 8 quý | CSV/Markdown |
 
 Canonical tabular data lưu ở Parquet/JSONL; các định dạng trong bảng là delivery views dành cho agent.
@@ -143,9 +143,9 @@ Gồm account, exposure snapshot, turnover summary, past due, products và RM no
 
 Sáu families: product eligibility; completeness; purpose/hard gates; financial assessment; collateral/valuation; CIC/KYC/AML và decision routing. Mỗi family có ba effective-dated versions, tổng 18 documents.
 
-JSON policy-as-code là source of truth; Markdown/PDF là rendered views. Ít nhất một clause thay đổi giữa v2 và v3. Mỗi policy ghi rõ `MOCK POLICY — FOR HACKATHON ONLY`.
+JSON policy-as-code là source of truth; JSONL và Markdown là delivery views. Ít nhất một clause thay đổi giữa v2 và v3. Mỗi policy ghi rõ `MOCK POLICY — FOR HACKATHON ONLY`.
 
-**Invariant:** mỗi ngày chỉ có một active version/family; không có overlap ngoài chủ đích; hard stop/exception có unit tests; PDF/Markdown chứa đúng rule IDs và version trong JSON.
+**Invariant:** mỗi ngày chỉ có một active version/family; không có overlap ngoài chủ đích; hard stop/exception có unit tests; JSONL/Markdown chứa đúng rule IDs và version trong JSON.
 
 ### 4.11 Dữ liệu ngành
 
@@ -247,7 +247,7 @@ Hard gates:
 - 100% schema, primary-key, foreign-key và temporal integrity.
 - 100% financial, transaction, exposure, turnover và collateral reconciliation.
 - 100% policy effective-date/version correctness.
-- 100% rendered evidence locators resolve đúng artifact/value.
+- 100% JSON Pointer/record locators resolve đúng artifact/value.
 - 100% planned mutations xuất hiện; không có critical contradiction ngoài manifest.
 - Cùng seed/config/version tạo cùng canonical values và deterministic hashes.
 - Không có real PII; mọi document có watermark.

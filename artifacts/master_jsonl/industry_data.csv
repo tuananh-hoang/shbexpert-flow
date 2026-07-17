@@ -1,0 +1,97 @@
+industry_code,industry_version,industry_name,period,growth_rate,benchmark_net_margin,risk_level,seasonality_index,source_type,synthetic_estimate
+C101,VSIC-2025,San xuat thuc pham,2024-Q1,0.03,0.05,MEDIUM,0.91,synthetic_benchmark,True
+C101,VSIC-2025,San xuat thuc pham,2024-Q2,0.04,0.06,MEDIUM,1.0,synthetic_benchmark,True
+C101,VSIC-2025,San xuat thuc pham,2024-Q3,0.05,0.07,MEDIUM,1.09,synthetic_benchmark,True
+C101,VSIC-2025,San xuat thuc pham,2024-Q4,0.06,0.08,MEDIUM,1.18,synthetic_benchmark,True
+C101,VSIC-2025,San xuat thuc pham,2025-Q1,0.07,0.09,MEDIUM,0.82,synthetic_benchmark,True
+C101,VSIC-2025,San xuat thuc pham,2025-Q2,0.08,0.1,MEDIUM,0.91,synthetic_benchmark,True
+C101,VSIC-2025,San xuat thuc pham,2025-Q3,0.09,0.04,MEDIUM,1.0,synthetic_benchmark,True
+C101,VSIC-2025,San xuat thuc pham,2025-Q4,0.1,0.05,MEDIUM,1.09,synthetic_benchmark,True
+C141,VSIC-2025,May mac,2024-Q1,0.04,0.06,HIGH,1.0,synthetic_benchmark,True
+C141,VSIC-2025,May mac,2024-Q2,0.05,0.07,HIGH,1.09,synthetic_benchmark,True
+C141,VSIC-2025,May mac,2024-Q3,0.06,0.08,HIGH,1.18,synthetic_benchmark,True
+C141,VSIC-2025,May mac,2024-Q4,0.07,0.09,HIGH,0.82,synthetic_benchmark,True
+C141,VSIC-2025,May mac,2025-Q1,0.08,0.1,HIGH,0.91,synthetic_benchmark,True
+C141,VSIC-2025,May mac,2025-Q2,0.09,0.04,HIGH,1.0,synthetic_benchmark,True
+C141,VSIC-2025,May mac,2025-Q3,0.1,0.05,HIGH,1.09,synthetic_benchmark,True
+C141,VSIC-2025,May mac,2025-Q4,0.11,0.06,HIGH,1.18,synthetic_benchmark,True
+C162,VSIC-2025,Che bien go,2024-Q1,0.05,0.07,LOW,1.09,synthetic_benchmark,True
+C162,VSIC-2025,Che bien go,2024-Q2,0.06,0.08,LOW,1.18,synthetic_benchmark,True
+C162,VSIC-2025,Che bien go,2024-Q3,0.07,0.09,LOW,0.82,synthetic_benchmark,True
+C162,VSIC-2025,Che bien go,2024-Q4,0.08,0.1,LOW,0.91,synthetic_benchmark,True
+C162,VSIC-2025,Che bien go,2025-Q1,0.09,0.04,LOW,1.0,synthetic_benchmark,True
+C162,VSIC-2025,Che bien go,2025-Q2,0.1,0.05,LOW,1.09,synthetic_benchmark,True
+C162,VSIC-2025,Che bien go,2025-Q3,0.11,0.06,LOW,1.18,synthetic_benchmark,True
+C162,VSIC-2025,Che bien go,2025-Q4,0.12,0.07,LOW,0.82,synthetic_benchmark,True
+F410,VSIC-2025,Xay dung,2024-Q1,0.06,0.08,MEDIUM,1.18,synthetic_benchmark,True
+F410,VSIC-2025,Xay dung,2024-Q2,0.07,0.09,MEDIUM,0.82,synthetic_benchmark,True
+F410,VSIC-2025,Xay dung,2024-Q3,0.08,0.1,MEDIUM,0.91,synthetic_benchmark,True
+F410,VSIC-2025,Xay dung,2024-Q4,0.09,0.04,MEDIUM,1.0,synthetic_benchmark,True
+F410,VSIC-2025,Xay dung,2025-Q1,0.1,0.05,MEDIUM,1.09,synthetic_benchmark,True
+F410,VSIC-2025,Xay dung,2025-Q2,0.11,0.06,MEDIUM,1.18,synthetic_benchmark,True
+F410,VSIC-2025,Xay dung,2025-Q3,0.12,0.07,MEDIUM,0.82,synthetic_benchmark,True
+F410,VSIC-2025,Xay dung,2025-Q4,0.13,0.08,MEDIUM,0.91,synthetic_benchmark,True
+G461,VSIC-2025,Ban buon,2024-Q1,0.07,0.09,HIGH,0.82,synthetic_benchmark,True
+G461,VSIC-2025,Ban buon,2024-Q2,0.08,0.1,HIGH,0.91,synthetic_benchmark,True
+G461,VSIC-2025,Ban buon,2024-Q3,0.09,0.04,HIGH,1.0,synthetic_benchmark,True
+G461,VSIC-2025,Ban buon,2024-Q4,0.1,0.05,HIGH,1.09,synthetic_benchmark,True
+G461,VSIC-2025,Ban buon,2025-Q1,0.11,0.06,HIGH,1.18,synthetic_benchmark,True
+G461,VSIC-2025,Ban buon,2025-Q2,0.12,0.07,HIGH,0.82,synthetic_benchmark,True
+G461,VSIC-2025,Ban buon,2025-Q3,0.13,0.08,HIGH,0.91,synthetic_benchmark,True
+G461,VSIC-2025,Ban buon,2025-Q4,0.02,0.09,HIGH,1.0,synthetic_benchmark,True
+G471,VSIC-2025,Ban le,2024-Q1,0.08,0.1,LOW,0.91,synthetic_benchmark,True
+G471,VSIC-2025,Ban le,2024-Q2,0.09,0.04,LOW,1.0,synthetic_benchmark,True
+G471,VSIC-2025,Ban le,2024-Q3,0.1,0.05,LOW,1.09,synthetic_benchmark,True
+G471,VSIC-2025,Ban le,2024-Q4,0.11,0.06,LOW,1.18,synthetic_benchmark,True
+G471,VSIC-2025,Ban le,2025-Q1,0.12,0.07,LOW,0.82,synthetic_benchmark,True
+G471,VSIC-2025,Ban le,2025-Q2,0.13,0.08,LOW,0.91,synthetic_benchmark,True
+G471,VSIC-2025,Ban le,2025-Q3,0.02,0.09,LOW,1.0,synthetic_benchmark,True
+G471,VSIC-2025,Ban le,2025-Q4,0.03,0.1,LOW,1.09,synthetic_benchmark,True
+H493,VSIC-2025,Van tai,2024-Q1,0.09,0.04,MEDIUM,1.0,synthetic_benchmark,True
+H493,VSIC-2025,Van tai,2024-Q2,0.1,0.05,MEDIUM,1.09,synthetic_benchmark,True
+H493,VSIC-2025,Van tai,2024-Q3,0.11,0.06,MEDIUM,1.18,synthetic_benchmark,True
+H493,VSIC-2025,Van tai,2024-Q4,0.12,0.07,MEDIUM,0.82,synthetic_benchmark,True
+H493,VSIC-2025,Van tai,2025-Q1,0.13,0.08,MEDIUM,0.91,synthetic_benchmark,True
+H493,VSIC-2025,Van tai,2025-Q2,0.02,0.09,MEDIUM,1.0,synthetic_benchmark,True
+H493,VSIC-2025,Van tai,2025-Q3,0.03,0.1,MEDIUM,1.09,synthetic_benchmark,True
+H493,VSIC-2025,Van tai,2025-Q4,0.04,0.04,MEDIUM,1.18,synthetic_benchmark,True
+I551,VSIC-2025,Luu tru,2024-Q1,0.1,0.05,HIGH,1.09,synthetic_benchmark,True
+I551,VSIC-2025,Luu tru,2024-Q2,0.11,0.06,HIGH,1.18,synthetic_benchmark,True
+I551,VSIC-2025,Luu tru,2024-Q3,0.12,0.07,HIGH,0.82,synthetic_benchmark,True
+I551,VSIC-2025,Luu tru,2024-Q4,0.13,0.08,HIGH,0.91,synthetic_benchmark,True
+I551,VSIC-2025,Luu tru,2025-Q1,0.02,0.09,HIGH,1.0,synthetic_benchmark,True
+I551,VSIC-2025,Luu tru,2025-Q2,0.03,0.1,HIGH,1.09,synthetic_benchmark,True
+I551,VSIC-2025,Luu tru,2025-Q3,0.04,0.04,HIGH,1.18,synthetic_benchmark,True
+I551,VSIC-2025,Luu tru,2025-Q4,0.05,0.05,HIGH,0.82,synthetic_benchmark,True
+J620,VSIC-2025,Lap trinh,2024-Q1,0.11,0.06,LOW,1.18,synthetic_benchmark,True
+J620,VSIC-2025,Lap trinh,2024-Q2,0.12,0.07,LOW,0.82,synthetic_benchmark,True
+J620,VSIC-2025,Lap trinh,2024-Q3,0.13,0.08,LOW,0.91,synthetic_benchmark,True
+J620,VSIC-2025,Lap trinh,2024-Q4,0.02,0.09,LOW,1.0,synthetic_benchmark,True
+J620,VSIC-2025,Lap trinh,2025-Q1,0.03,0.1,LOW,1.09,synthetic_benchmark,True
+J620,VSIC-2025,Lap trinh,2025-Q2,0.04,0.04,LOW,1.18,synthetic_benchmark,True
+J620,VSIC-2025,Lap trinh,2025-Q3,0.05,0.05,LOW,0.82,synthetic_benchmark,True
+J620,VSIC-2025,Lap trinh,2025-Q4,0.06,0.06,LOW,0.91,synthetic_benchmark,True
+M702,VSIC-2025,Tu van,2024-Q1,0.12,0.07,MEDIUM,0.82,synthetic_benchmark,True
+M702,VSIC-2025,Tu van,2024-Q2,0.13,0.08,MEDIUM,0.91,synthetic_benchmark,True
+M702,VSIC-2025,Tu van,2024-Q3,0.02,0.09,MEDIUM,1.0,synthetic_benchmark,True
+M702,VSIC-2025,Tu van,2024-Q4,0.03,0.1,MEDIUM,1.09,synthetic_benchmark,True
+M702,VSIC-2025,Tu van,2025-Q1,0.04,0.04,MEDIUM,1.18,synthetic_benchmark,True
+M702,VSIC-2025,Tu van,2025-Q2,0.05,0.05,MEDIUM,0.82,synthetic_benchmark,True
+M702,VSIC-2025,Tu van,2025-Q3,0.06,0.06,MEDIUM,0.91,synthetic_benchmark,True
+M702,VSIC-2025,Tu van,2025-Q4,0.07,0.07,MEDIUM,1.0,synthetic_benchmark,True
+N782,VSIC-2025,Cung ung lao dong,2024-Q1,0.13,0.08,HIGH,0.91,synthetic_benchmark,True
+N782,VSIC-2025,Cung ung lao dong,2024-Q2,0.02,0.09,HIGH,1.0,synthetic_benchmark,True
+N782,VSIC-2025,Cung ung lao dong,2024-Q3,0.03,0.1,HIGH,1.09,synthetic_benchmark,True
+N782,VSIC-2025,Cung ung lao dong,2024-Q4,0.04,0.04,HIGH,1.18,synthetic_benchmark,True
+N782,VSIC-2025,Cung ung lao dong,2025-Q1,0.05,0.05,HIGH,0.82,synthetic_benchmark,True
+N782,VSIC-2025,Cung ung lao dong,2025-Q2,0.06,0.06,HIGH,0.91,synthetic_benchmark,True
+N782,VSIC-2025,Cung ung lao dong,2025-Q3,0.07,0.07,HIGH,1.0,synthetic_benchmark,True
+N782,VSIC-2025,Cung ung lao dong,2025-Q4,0.08,0.08,HIGH,1.09,synthetic_benchmark,True
+C201,VSIC-2025,Hoa chat,2024-Q1,0.02,0.09,LOW,1.0,synthetic_benchmark,True
+C201,VSIC-2025,Hoa chat,2024-Q2,0.03,0.1,LOW,1.09,synthetic_benchmark,True
+C201,VSIC-2025,Hoa chat,2024-Q3,0.04,0.04,LOW,1.18,synthetic_benchmark,True
+C201,VSIC-2025,Hoa chat,2024-Q4,0.05,0.05,LOW,0.82,synthetic_benchmark,True
+C201,VSIC-2025,Hoa chat,2025-Q1,0.06,0.06,LOW,0.91,synthetic_benchmark,True
+C201,VSIC-2025,Hoa chat,2025-Q2,0.07,0.07,LOW,1.0,synthetic_benchmark,True
+C201,VSIC-2025,Hoa chat,2025-Q3,0.08,0.08,LOW,1.09,synthetic_benchmark,True
+C201,VSIC-2025,Hoa chat,2025-Q4,0.09,0.09,LOW,1.18,synthetic_benchmark,True

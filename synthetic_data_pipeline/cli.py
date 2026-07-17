@@ -25,7 +25,6 @@ def main(argv: list[str] | None = None) -> int:
         command.add_argument("--seed", type=int, default=20260718)
         command.add_argument("--as-of-date", default="2026-06-30")
     commands.choices["build"].add_argument("--output", type=Path, default=Path("artifacts/master"))
-    commands.choices["build"].add_argument("--render-documents", action="store_true")
     commands.choices["mutate"].add_argument("--output", type=Path, default=Path("artifacts/mutations.json"))
     commands.choices["assemble"].add_argument("customer_id")
     commands.choices["assemble"].add_argument("--output", type=Path, default=Path("artifacts/cases"))
@@ -44,7 +43,7 @@ def main(argv: list[str] | None = None) -> int:
     if errors:
         parser.error("validation failed:\n" + "\n".join(errors))
     if args.command == "build":
-        hashes = export_master_data(data, args.output, args.render_documents)
+        hashes = export_master_data(data, args.output)
         print(json.dumps({"validation": "passed", "output": str(args.output), "artifact_count": len(hashes)}))
     elif args.command == "validate":
         print(json.dumps({"validation": "passed", "customers": len(data["customers"])}))

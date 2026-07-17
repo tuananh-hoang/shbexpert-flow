@@ -25,11 +25,13 @@ def test_case_mutation_keeps_master_clean() -> None:
 
 def test_export_writes_prd_views(tmp_path: Path) -> None:
     data = build_master_data(PipelineConfig(customer_count=3, seed=11))
-    hashes = export_master_data(data, tmp_path, render_documents=True)
+    hashes = export_master_data(data, tmp_path)
     assert (tmp_path / "customer_master.csv").exists()
     assert (tmp_path / "financial_statements.xlsx").exists()
-    assert (tmp_path / "policy_rulebook.pdf").exists()
-    assert len(list((tmp_path / "legal").glob("*.pdf"))) == 15
+    assert (tmp_path / "legal_documents.jsonl").exists()
+    assert (tmp_path / "collateral.jsonl").exists()
+    assert (tmp_path / "policy_rulebook.jsonl").exists()
+    assert list(tmp_path.rglob("*.pdf")) == []
     assert "manifest.json" in hashes
 
 

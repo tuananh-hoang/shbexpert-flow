@@ -1,0 +1,1802 @@
+[
+  {
+    "customer_id": "CUS-00001",
+    "legal_name": "CONG TY TNHH MOCK SAN XUAT THUC PHAM 001",
+    "mock_tax_id": "MOCK-TAX-0718-00001",
+    "industry_code": "C101",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2013-02-02",
+    "legal_address": "So 101 Duong Mock 2, Ha Noi",
+    "representative_party_id": "PTY-00010",
+    "related_party_ids": [
+      "PTY-00011"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00002",
+    "legal_name": "CONG TY TNHH MOCK MAY MAC 002",
+    "mock_tax_id": "MOCK-TAX-0718-00002",
+    "industry_code": "C141",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2014-03-03",
+    "legal_address": "So 102 Duong Mock 3, Ha Noi",
+    "representative_party_id": "PTY-00020",
+    "related_party_ids": [
+      "PTY-00021"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00003",
+    "legal_name": "CONG TY TNHH MOCK CHE BIEN GO 003",
+    "mock_tax_id": "MOCK-TAX-0718-00003",
+    "industry_code": "C162",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2015-04-04",
+    "legal_address": "So 103 Duong Mock 4, Ha Noi",
+    "representative_party_id": "PTY-00030",
+    "related_party_ids": [
+      "PTY-00031"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00004",
+    "legal_name": "CONG TY TNHH MOCK XAY DUNG 004",
+    "mock_tax_id": "MOCK-TAX-0718-00004",
+    "industry_code": "F410",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2016-05-05",
+    "legal_address": "So 104 Duong Mock 5, Ha Noi",
+    "representative_party_id": "PTY-00040",
+    "related_party_ids": [
+      "PTY-00041"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00005",
+    "legal_name": "CONG TY TNHH MOCK BAN BUON 005",
+    "mock_tax_id": "MOCK-TAX-0718-00005",
+    "industry_code": "G461",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2017-06-06",
+    "legal_address": "So 105 Duong Mock 6, Ha Noi",
+    "representative_party_id": "PTY-00050",
+    "related_party_ids": [
+      "PTY-00051"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00006",
+    "legal_name": "CONG TY TNHH MOCK BAN LE 006",
+    "mock_tax_id": "MOCK-TAX-0718-00006",
+    "industry_code": "G471",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2018-07-07",
+    "legal_address": "So 106 Duong Mock 7, Ha Noi",
+    "representative_party_id": "PTY-00060",
+    "related_party_ids": [
+      "PTY-00061"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00007",
+    "legal_name": "CONG TY TNHH MOCK VAN TAI 007",
+    "mock_tax_id": "MOCK-TAX-0718-00007",
+    "industry_code": "H493",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2019-08-08",
+    "legal_address": "So 107 Duong Mock 8, Ha Noi",
+    "representative_party_id": "PTY-00070",
+    "related_party_ids": [
+      "PTY-00071"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00008",
+    "legal_name": "CONG TY TNHH MOCK LUU TRU 008",
+    "mock_tax_id": "MOCK-TAX-0718-00008",
+    "industry_code": "I551",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2020-09-09",
+    "legal_address": "So 108 Duong Mock 9, Ha Noi",
+    "representative_party_id": "PTY-00080",
+    "related_party_ids": [
+      "PTY-00081"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00009",
+    "legal_name": "CONG TY TNHH MOCK LAP TRINH 009",
+    "mock_tax_id": "MOCK-TAX-0718-00009",
+    "industry_code": "J620",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2021-10-10",
+    "legal_address": "So 109 Duong Mock 10, Ha Noi",
+    "representative_party_id": "PTY-00090",
+    "related_party_ids": [
+      "PTY-00091"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00010",
+    "legal_name": "CONG TY TNHH MOCK TU VAN 010",
+    "mock_tax_id": "MOCK-TAX-0718-00010",
+    "industry_code": "M702",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2022-11-11",
+    "legal_address": "So 110 Duong Mock 11, Ha Noi",
+    "representative_party_id": "PTY-00100",
+    "related_party_ids": [
+      "PTY-00101"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00011",
+    "legal_name": "CONG TY TNHH MOCK CUNG UNG LAO DONG 011",
+    "mock_tax_id": "MOCK-TAX-0718-00011",
+    "industry_code": "N782",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2012-12-12",
+    "legal_address": "So 111 Duong Mock 12, Ha Noi",
+    "representative_party_id": "PTY-00110",
+    "related_party_ids": [
+      "PTY-00111"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00012",
+    "legal_name": "CONG TY TNHH MOCK HOA CHAT 012",
+    "mock_tax_id": "MOCK-TAX-0718-00012",
+    "industry_code": "C201",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2013-01-13",
+    "legal_address": "So 112 Duong Mock 13, Ha Noi",
+    "representative_party_id": "PTY-00120",
+    "related_party_ids": [
+      "PTY-00121"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00013",
+    "legal_name": "CONG TY TNHH MOCK SAN XUAT THUC PHAM 013",
+    "mock_tax_id": "MOCK-TAX-0718-00013",
+    "industry_code": "C101",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2014-02-14",
+    "legal_address": "So 113 Duong Mock 14, Ha Noi",
+    "representative_party_id": "PTY-00130",
+    "related_party_ids": [
+      "PTY-00131"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00014",
+    "legal_name": "CONG TY TNHH MOCK MAY MAC 014",
+    "mock_tax_id": "MOCK-TAX-0718-00014",
+    "industry_code": "C141",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2015-03-15",
+    "legal_address": "So 114 Duong Mock 15, Ha Noi",
+    "representative_party_id": "PTY-00140",
+    "related_party_ids": [
+      "PTY-00141"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00015",
+    "legal_name": "CONG TY TNHH MOCK CHE BIEN GO 015",
+    "mock_tax_id": "MOCK-TAX-0718-00015",
+    "industry_code": "C162",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2016-04-16",
+    "legal_address": "So 115 Duong Mock 16, Ha Noi",
+    "representative_party_id": "PTY-00150",
+    "related_party_ids": [
+      "PTY-00151"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00016",
+    "legal_name": "CONG TY TNHH MOCK XAY DUNG 016",
+    "mock_tax_id": "MOCK-TAX-0718-00016",
+    "industry_code": "F410",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2017-05-17",
+    "legal_address": "So 116 Duong Mock 17, Ha Noi",
+    "representative_party_id": "PTY-00160",
+    "related_party_ids": [
+      "PTY-00161"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00017",
+    "legal_name": "CONG TY TNHH MOCK BAN BUON 017",
+    "mock_tax_id": "MOCK-TAX-0718-00017",
+    "industry_code": "G461",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2018-06-18",
+    "legal_address": "So 117 Duong Mock 18, Ha Noi",
+    "representative_party_id": "PTY-00170",
+    "related_party_ids": [
+      "PTY-00171"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00018",
+    "legal_name": "CONG TY TNHH MOCK BAN LE 018",
+    "mock_tax_id": "MOCK-TAX-0718-00018",
+    "industry_code": "G471",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2019-07-19",
+    "legal_address": "So 118 Duong Mock 19, Ha Noi",
+    "representative_party_id": "PTY-00180",
+    "related_party_ids": [
+      "PTY-00181"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00019",
+    "legal_name": "CONG TY TNHH MOCK VAN TAI 019",
+    "mock_tax_id": "MOCK-TAX-0718-00019",
+    "industry_code": "H493",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2020-08-20",
+    "legal_address": "So 119 Duong Mock 20, Ha Noi",
+    "representative_party_id": "PTY-00190",
+    "related_party_ids": [
+      "PTY-00191"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00020",
+    "legal_name": "CONG TY TNHH MOCK LUU TRU 020",
+    "mock_tax_id": "MOCK-TAX-0718-00020",
+    "industry_code": "I551",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2021-09-21",
+    "legal_address": "So 120 Duong Mock 1, Ha Noi",
+    "representative_party_id": "PTY-00200",
+    "related_party_ids": [
+      "PTY-00201"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00021",
+    "legal_name": "CONG TY TNHH MOCK LAP TRINH 021",
+    "mock_tax_id": "MOCK-TAX-0718-00021",
+    "industry_code": "J620",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2022-10-22",
+    "legal_address": "So 121 Duong Mock 2, Ha Noi",
+    "representative_party_id": "PTY-00210",
+    "related_party_ids": [
+      "PTY-00211"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00022",
+    "legal_name": "CONG TY TNHH MOCK TU VAN 022",
+    "mock_tax_id": "MOCK-TAX-0718-00022",
+    "industry_code": "M702",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2012-11-23",
+    "legal_address": "So 122 Duong Mock 3, Ha Noi",
+    "representative_party_id": "PTY-00220",
+    "related_party_ids": [
+      "PTY-00221"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00023",
+    "legal_name": "CONG TY TNHH MOCK CUNG UNG LAO DONG 023",
+    "mock_tax_id": "MOCK-TAX-0718-00023",
+    "industry_code": "N782",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2013-12-24",
+    "legal_address": "So 123 Duong Mock 4, Ha Noi",
+    "representative_party_id": "PTY-00230",
+    "related_party_ids": [
+      "PTY-00231"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00024",
+    "legal_name": "CONG TY TNHH MOCK HOA CHAT 024",
+    "mock_tax_id": "MOCK-TAX-0718-00024",
+    "industry_code": "C201",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2014-01-25",
+    "legal_address": "So 124 Duong Mock 5, Ha Noi",
+    "representative_party_id": "PTY-00240",
+    "related_party_ids": [
+      "PTY-00241"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00025",
+    "legal_name": "CONG TY TNHH MOCK SAN XUAT THUC PHAM 025",
+    "mock_tax_id": "MOCK-TAX-0718-00025",
+    "industry_code": "C101",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2015-02-26",
+    "legal_address": "So 125 Duong Mock 6, Ha Noi",
+    "representative_party_id": "PTY-00250",
+    "related_party_ids": [
+      "PTY-00251"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00026",
+    "legal_name": "CONG TY TNHH MOCK MAY MAC 026",
+    "mock_tax_id": "MOCK-TAX-0718-00026",
+    "industry_code": "C141",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2016-03-27",
+    "legal_address": "So 126 Duong Mock 7, Ha Noi",
+    "representative_party_id": "PTY-00260",
+    "related_party_ids": [
+      "PTY-00261"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00027",
+    "legal_name": "CONG TY TNHH MOCK CHE BIEN GO 027",
+    "mock_tax_id": "MOCK-TAX-0718-00027",
+    "industry_code": "C162",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2017-04-01",
+    "legal_address": "So 127 Duong Mock 8, Ha Noi",
+    "representative_party_id": "PTY-00270",
+    "related_party_ids": [
+      "PTY-00271"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00028",
+    "legal_name": "CONG TY TNHH MOCK XAY DUNG 028",
+    "mock_tax_id": "MOCK-TAX-0718-00028",
+    "industry_code": "F410",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2018-05-02",
+    "legal_address": "So 128 Duong Mock 9, Ha Noi",
+    "representative_party_id": "PTY-00280",
+    "related_party_ids": [
+      "PTY-00281"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00029",
+    "legal_name": "CONG TY TNHH MOCK BAN BUON 029",
+    "mock_tax_id": "MOCK-TAX-0718-00029",
+    "industry_code": "G461",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2019-06-03",
+    "legal_address": "So 129 Duong Mock 10, Ha Noi",
+    "representative_party_id": "PTY-00290",
+    "related_party_ids": [
+      "PTY-00291"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00030",
+    "legal_name": "CONG TY TNHH MOCK BAN LE 030",
+    "mock_tax_id": "MOCK-TAX-0718-00030",
+    "industry_code": "G471",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2020-07-04",
+    "legal_address": "So 130 Duong Mock 11, Ha Noi",
+    "representative_party_id": "PTY-00300",
+    "related_party_ids": [
+      "PTY-00301"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00031",
+    "legal_name": "CONG TY TNHH MOCK VAN TAI 031",
+    "mock_tax_id": "MOCK-TAX-0718-00031",
+    "industry_code": "H493",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2021-08-05",
+    "legal_address": "So 131 Duong Mock 12, Ha Noi",
+    "representative_party_id": "PTY-00310",
+    "related_party_ids": [
+      "PTY-00311"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00032",
+    "legal_name": "CONG TY TNHH MOCK LUU TRU 032",
+    "mock_tax_id": "MOCK-TAX-0718-00032",
+    "industry_code": "I551",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2022-09-06",
+    "legal_address": "So 132 Duong Mock 13, Ha Noi",
+    "representative_party_id": "PTY-00320",
+    "related_party_ids": [
+      "PTY-00321"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00033",
+    "legal_name": "CONG TY TNHH MOCK LAP TRINH 033",
+    "mock_tax_id": "MOCK-TAX-0718-00033",
+    "industry_code": "J620",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2012-10-07",
+    "legal_address": "So 133 Duong Mock 14, Ha Noi",
+    "representative_party_id": "PTY-00330",
+    "related_party_ids": [
+      "PTY-00331"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00034",
+    "legal_name": "CONG TY TNHH MOCK TU VAN 034",
+    "mock_tax_id": "MOCK-TAX-0718-00034",
+    "industry_code": "M702",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2013-11-08",
+    "legal_address": "So 134 Duong Mock 15, Ha Noi",
+    "representative_party_id": "PTY-00340",
+    "related_party_ids": [
+      "PTY-00341"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00035",
+    "legal_name": "CONG TY TNHH MOCK CUNG UNG LAO DONG 035",
+    "mock_tax_id": "MOCK-TAX-0718-00035",
+    "industry_code": "N782",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2014-12-09",
+    "legal_address": "So 135 Duong Mock 16, Ha Noi",
+    "representative_party_id": "PTY-00350",
+    "related_party_ids": [
+      "PTY-00351"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00036",
+    "legal_name": "CONG TY TNHH MOCK HOA CHAT 036",
+    "mock_tax_id": "MOCK-TAX-0718-00036",
+    "industry_code": "C201",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2015-01-10",
+    "legal_address": "So 136 Duong Mock 17, Ha Noi",
+    "representative_party_id": "PTY-00360",
+    "related_party_ids": [
+      "PTY-00361"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00037",
+    "legal_name": "CONG TY TNHH MOCK SAN XUAT THUC PHAM 037",
+    "mock_tax_id": "MOCK-TAX-0718-00037",
+    "industry_code": "C101",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2016-02-11",
+    "legal_address": "So 137 Duong Mock 18, Ha Noi",
+    "representative_party_id": "PTY-00370",
+    "related_party_ids": [
+      "PTY-00371"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00038",
+    "legal_name": "CONG TY TNHH MOCK MAY MAC 038",
+    "mock_tax_id": "MOCK-TAX-0718-00038",
+    "industry_code": "C141",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2017-03-12",
+    "legal_address": "So 138 Duong Mock 19, Ha Noi",
+    "representative_party_id": "PTY-00380",
+    "related_party_ids": [
+      "PTY-00381"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00039",
+    "legal_name": "CONG TY TNHH MOCK CHE BIEN GO 039",
+    "mock_tax_id": "MOCK-TAX-0718-00039",
+    "industry_code": "C162",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2018-04-13",
+    "legal_address": "So 139 Duong Mock 20, Ha Noi",
+    "representative_party_id": "PTY-00390",
+    "related_party_ids": [
+      "PTY-00391"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00040",
+    "legal_name": "CONG TY TNHH MOCK XAY DUNG 040",
+    "mock_tax_id": "MOCK-TAX-0718-00040",
+    "industry_code": "F410",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2019-05-14",
+    "legal_address": "So 140 Duong Mock 1, Ha Noi",
+    "representative_party_id": "PTY-00400",
+    "related_party_ids": [
+      "PTY-00401"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00041",
+    "legal_name": "CONG TY TNHH MOCK BAN BUON 041",
+    "mock_tax_id": "MOCK-TAX-0718-00041",
+    "industry_code": "G461",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2020-06-15",
+    "legal_address": "So 141 Duong Mock 2, Ha Noi",
+    "representative_party_id": "PTY-00410",
+    "related_party_ids": [
+      "PTY-00411"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00042",
+    "legal_name": "CONG TY TNHH MOCK BAN LE 042",
+    "mock_tax_id": "MOCK-TAX-0718-00042",
+    "industry_code": "G471",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2021-07-16",
+    "legal_address": "So 142 Duong Mock 3, Ha Noi",
+    "representative_party_id": "PTY-00420",
+    "related_party_ids": [
+      "PTY-00421"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00043",
+    "legal_name": "CONG TY TNHH MOCK VAN TAI 043",
+    "mock_tax_id": "MOCK-TAX-0718-00043",
+    "industry_code": "H493",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2022-08-17",
+    "legal_address": "So 143 Duong Mock 4, Ha Noi",
+    "representative_party_id": "PTY-00430",
+    "related_party_ids": [
+      "PTY-00431"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00044",
+    "legal_name": "CONG TY TNHH MOCK LUU TRU 044",
+    "mock_tax_id": "MOCK-TAX-0718-00044",
+    "industry_code": "I551",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2012-09-18",
+    "legal_address": "So 144 Duong Mock 5, Ha Noi",
+    "representative_party_id": "PTY-00440",
+    "related_party_ids": [
+      "PTY-00441"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00045",
+    "legal_name": "CONG TY TNHH MOCK LAP TRINH 045",
+    "mock_tax_id": "MOCK-TAX-0718-00045",
+    "industry_code": "J620",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2013-10-19",
+    "legal_address": "So 145 Duong Mock 6, Ha Noi",
+    "representative_party_id": "PTY-00450",
+    "related_party_ids": [
+      "PTY-00451"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00046",
+    "legal_name": "CONG TY TNHH MOCK TU VAN 046",
+    "mock_tax_id": "MOCK-TAX-0718-00046",
+    "industry_code": "M702",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2014-11-20",
+    "legal_address": "So 146 Duong Mock 7, Ha Noi",
+    "representative_party_id": "PTY-00460",
+    "related_party_ids": [
+      "PTY-00461"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00047",
+    "legal_name": "CONG TY TNHH MOCK CUNG UNG LAO DONG 047",
+    "mock_tax_id": "MOCK-TAX-0718-00047",
+    "industry_code": "N782",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2015-12-21",
+    "legal_address": "So 147 Duong Mock 8, Ha Noi",
+    "representative_party_id": "PTY-00470",
+    "related_party_ids": [
+      "PTY-00471"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00048",
+    "legal_name": "CONG TY TNHH MOCK HOA CHAT 048",
+    "mock_tax_id": "MOCK-TAX-0718-00048",
+    "industry_code": "C201",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2016-01-22",
+    "legal_address": "So 148 Duong Mock 9, Ha Noi",
+    "representative_party_id": "PTY-00480",
+    "related_party_ids": [
+      "PTY-00481"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00049",
+    "legal_name": "CONG TY TNHH MOCK SAN XUAT THUC PHAM 049",
+    "mock_tax_id": "MOCK-TAX-0718-00049",
+    "industry_code": "C101",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2017-02-23",
+    "legal_address": "So 149 Duong Mock 10, Ha Noi",
+    "representative_party_id": "PTY-00490",
+    "related_party_ids": [
+      "PTY-00491"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00050",
+    "legal_name": "CONG TY TNHH MOCK MAY MAC 050",
+    "mock_tax_id": "MOCK-TAX-0718-00050",
+    "industry_code": "C141",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2018-03-24",
+    "legal_address": "So 150 Duong Mock 11, Ha Noi",
+    "representative_party_id": "PTY-00500",
+    "related_party_ids": [
+      "PTY-00501"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00051",
+    "legal_name": "CONG TY TNHH MOCK CHE BIEN GO 051",
+    "mock_tax_id": "MOCK-TAX-0718-00051",
+    "industry_code": "C162",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2019-04-25",
+    "legal_address": "So 151 Duong Mock 12, Ha Noi",
+    "representative_party_id": "PTY-00510",
+    "related_party_ids": [
+      "PTY-00511"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00052",
+    "legal_name": "CONG TY TNHH MOCK XAY DUNG 052",
+    "mock_tax_id": "MOCK-TAX-0718-00052",
+    "industry_code": "F410",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2020-05-26",
+    "legal_address": "So 152 Duong Mock 13, Ha Noi",
+    "representative_party_id": "PTY-00520",
+    "related_party_ids": [
+      "PTY-00521"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00053",
+    "legal_name": "CONG TY TNHH MOCK BAN BUON 053",
+    "mock_tax_id": "MOCK-TAX-0718-00053",
+    "industry_code": "G461",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2021-06-27",
+    "legal_address": "So 153 Duong Mock 14, Ha Noi",
+    "representative_party_id": "PTY-00530",
+    "related_party_ids": [
+      "PTY-00531"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00054",
+    "legal_name": "CONG TY TNHH MOCK BAN LE 054",
+    "mock_tax_id": "MOCK-TAX-0718-00054",
+    "industry_code": "G471",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2022-07-01",
+    "legal_address": "So 154 Duong Mock 15, Ha Noi",
+    "representative_party_id": "PTY-00540",
+    "related_party_ids": [
+      "PTY-00541"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00055",
+    "legal_name": "CONG TY TNHH MOCK VAN TAI 055",
+    "mock_tax_id": "MOCK-TAX-0718-00055",
+    "industry_code": "H493",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2012-08-02",
+    "legal_address": "So 155 Duong Mock 16, Ha Noi",
+    "representative_party_id": "PTY-00550",
+    "related_party_ids": [
+      "PTY-00551"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00056",
+    "legal_name": "CONG TY TNHH MOCK LUU TRU 056",
+    "mock_tax_id": "MOCK-TAX-0718-00056",
+    "industry_code": "I551",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2013-09-03",
+    "legal_address": "So 156 Duong Mock 17, Ha Noi",
+    "representative_party_id": "PTY-00560",
+    "related_party_ids": [
+      "PTY-00561"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00057",
+    "legal_name": "CONG TY TNHH MOCK LAP TRINH 057",
+    "mock_tax_id": "MOCK-TAX-0718-00057",
+    "industry_code": "J620",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2014-10-04",
+    "legal_address": "So 157 Duong Mock 18, Ha Noi",
+    "representative_party_id": "PTY-00570",
+    "related_party_ids": [
+      "PTY-00571"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00058",
+    "legal_name": "CONG TY TNHH MOCK TU VAN 058",
+    "mock_tax_id": "MOCK-TAX-0718-00058",
+    "industry_code": "M702",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2015-11-05",
+    "legal_address": "So 158 Duong Mock 19, Ha Noi",
+    "representative_party_id": "PTY-00580",
+    "related_party_ids": [
+      "PTY-00581"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00059",
+    "legal_name": "CONG TY TNHH MOCK CUNG UNG LAO DONG 059",
+    "mock_tax_id": "MOCK-TAX-0718-00059",
+    "industry_code": "N782",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2016-12-06",
+    "legal_address": "So 159 Duong Mock 20, Ha Noi",
+    "representative_party_id": "PTY-00590",
+    "related_party_ids": [
+      "PTY-00591"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00060",
+    "legal_name": "CONG TY TNHH MOCK HOA CHAT 060",
+    "mock_tax_id": "MOCK-TAX-0718-00060",
+    "industry_code": "C201",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2017-01-07",
+    "legal_address": "So 160 Duong Mock 1, Ha Noi",
+    "representative_party_id": "PTY-00600",
+    "related_party_ids": [
+      "PTY-00601"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00061",
+    "legal_name": "CONG TY TNHH MOCK SAN XUAT THUC PHAM 061",
+    "mock_tax_id": "MOCK-TAX-0718-00061",
+    "industry_code": "C101",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2018-02-08",
+    "legal_address": "So 161 Duong Mock 2, Ha Noi",
+    "representative_party_id": "PTY-00610",
+    "related_party_ids": [
+      "PTY-00611"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00062",
+    "legal_name": "CONG TY TNHH MOCK MAY MAC 062",
+    "mock_tax_id": "MOCK-TAX-0718-00062",
+    "industry_code": "C141",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2019-03-09",
+    "legal_address": "So 162 Duong Mock 3, Ha Noi",
+    "representative_party_id": "PTY-00620",
+    "related_party_ids": [
+      "PTY-00621"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00063",
+    "legal_name": "CONG TY TNHH MOCK CHE BIEN GO 063",
+    "mock_tax_id": "MOCK-TAX-0718-00063",
+    "industry_code": "C162",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2020-04-10",
+    "legal_address": "So 163 Duong Mock 4, Ha Noi",
+    "representative_party_id": "PTY-00630",
+    "related_party_ids": [
+      "PTY-00631"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00064",
+    "legal_name": "CONG TY TNHH MOCK XAY DUNG 064",
+    "mock_tax_id": "MOCK-TAX-0718-00064",
+    "industry_code": "F410",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2021-05-11",
+    "legal_address": "So 164 Duong Mock 5, Ha Noi",
+    "representative_party_id": "PTY-00640",
+    "related_party_ids": [
+      "PTY-00641"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00065",
+    "legal_name": "CONG TY TNHH MOCK BAN BUON 065",
+    "mock_tax_id": "MOCK-TAX-0718-00065",
+    "industry_code": "G461",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2022-06-12",
+    "legal_address": "So 165 Duong Mock 6, Ha Noi",
+    "representative_party_id": "PTY-00650",
+    "related_party_ids": [
+      "PTY-00651"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00066",
+    "legal_name": "CONG TY TNHH MOCK BAN LE 066",
+    "mock_tax_id": "MOCK-TAX-0718-00066",
+    "industry_code": "G471",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2012-07-13",
+    "legal_address": "So 166 Duong Mock 7, Ha Noi",
+    "representative_party_id": "PTY-00660",
+    "related_party_ids": [
+      "PTY-00661"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00067",
+    "legal_name": "CONG TY TNHH MOCK VAN TAI 067",
+    "mock_tax_id": "MOCK-TAX-0718-00067",
+    "industry_code": "H493",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2013-08-14",
+    "legal_address": "So 167 Duong Mock 8, Ha Noi",
+    "representative_party_id": "PTY-00670",
+    "related_party_ids": [
+      "PTY-00671"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00068",
+    "legal_name": "CONG TY TNHH MOCK LUU TRU 068",
+    "mock_tax_id": "MOCK-TAX-0718-00068",
+    "industry_code": "I551",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2014-09-15",
+    "legal_address": "So 168 Duong Mock 9, Ha Noi",
+    "representative_party_id": "PTY-00680",
+    "related_party_ids": [
+      "PTY-00681"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00069",
+    "legal_name": "CONG TY TNHH MOCK LAP TRINH 069",
+    "mock_tax_id": "MOCK-TAX-0718-00069",
+    "industry_code": "J620",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2015-10-16",
+    "legal_address": "So 169 Duong Mock 10, Ha Noi",
+    "representative_party_id": "PTY-00690",
+    "related_party_ids": [
+      "PTY-00691"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00070",
+    "legal_name": "CONG TY TNHH MOCK TU VAN 070",
+    "mock_tax_id": "MOCK-TAX-0718-00070",
+    "industry_code": "M702",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2016-11-17",
+    "legal_address": "So 170 Duong Mock 11, Ha Noi",
+    "representative_party_id": "PTY-00700",
+    "related_party_ids": [
+      "PTY-00701"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00071",
+    "legal_name": "CONG TY TNHH MOCK CUNG UNG LAO DONG 071",
+    "mock_tax_id": "MOCK-TAX-0718-00071",
+    "industry_code": "N782",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2017-12-18",
+    "legal_address": "So 171 Duong Mock 12, Ha Noi",
+    "representative_party_id": "PTY-00710",
+    "related_party_ids": [
+      "PTY-00711"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00072",
+    "legal_name": "CONG TY TNHH MOCK HOA CHAT 072",
+    "mock_tax_id": "MOCK-TAX-0718-00072",
+    "industry_code": "C201",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2018-01-19",
+    "legal_address": "So 172 Duong Mock 13, Ha Noi",
+    "representative_party_id": "PTY-00720",
+    "related_party_ids": [
+      "PTY-00721"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00073",
+    "legal_name": "CONG TY TNHH MOCK SAN XUAT THUC PHAM 073",
+    "mock_tax_id": "MOCK-TAX-0718-00073",
+    "industry_code": "C101",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2019-02-20",
+    "legal_address": "So 173 Duong Mock 14, Ha Noi",
+    "representative_party_id": "PTY-00730",
+    "related_party_ids": [
+      "PTY-00731"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00074",
+    "legal_name": "CONG TY TNHH MOCK MAY MAC 074",
+    "mock_tax_id": "MOCK-TAX-0718-00074",
+    "industry_code": "C141",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2020-03-21",
+    "legal_address": "So 174 Duong Mock 15, Ha Noi",
+    "representative_party_id": "PTY-00740",
+    "related_party_ids": [
+      "PTY-00741"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00075",
+    "legal_name": "CONG TY TNHH MOCK CHE BIEN GO 075",
+    "mock_tax_id": "MOCK-TAX-0718-00075",
+    "industry_code": "C162",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2021-04-22",
+    "legal_address": "So 175 Duong Mock 16, Ha Noi",
+    "representative_party_id": "PTY-00750",
+    "related_party_ids": [
+      "PTY-00751"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00076",
+    "legal_name": "CONG TY TNHH MOCK XAY DUNG 076",
+    "mock_tax_id": "MOCK-TAX-0718-00076",
+    "industry_code": "F410",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2022-05-23",
+    "legal_address": "So 176 Duong Mock 17, Ha Noi",
+    "representative_party_id": "PTY-00760",
+    "related_party_ids": [
+      "PTY-00761"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00077",
+    "legal_name": "CONG TY TNHH MOCK BAN BUON 077",
+    "mock_tax_id": "MOCK-TAX-0718-00077",
+    "industry_code": "G461",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2012-06-24",
+    "legal_address": "So 177 Duong Mock 18, Ha Noi",
+    "representative_party_id": "PTY-00770",
+    "related_party_ids": [
+      "PTY-00771"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00078",
+    "legal_name": "CONG TY TNHH MOCK BAN LE 078",
+    "mock_tax_id": "MOCK-TAX-0718-00078",
+    "industry_code": "G471",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2013-07-25",
+    "legal_address": "So 178 Duong Mock 19, Ha Noi",
+    "representative_party_id": "PTY-00780",
+    "related_party_ids": [
+      "PTY-00781"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00079",
+    "legal_name": "CONG TY TNHH MOCK VAN TAI 079",
+    "mock_tax_id": "MOCK-TAX-0718-00079",
+    "industry_code": "H493",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2014-08-26",
+    "legal_address": "So 179 Duong Mock 20, Ha Noi",
+    "representative_party_id": "PTY-00790",
+    "related_party_ids": [
+      "PTY-00791"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00080",
+    "legal_name": "CONG TY TNHH MOCK LUU TRU 080",
+    "mock_tax_id": "MOCK-TAX-0718-00080",
+    "industry_code": "I551",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2015-09-27",
+    "legal_address": "So 180 Duong Mock 1, Ha Noi",
+    "representative_party_id": "PTY-00800",
+    "related_party_ids": [
+      "PTY-00801"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00081",
+    "legal_name": "CONG TY TNHH MOCK LAP TRINH 081",
+    "mock_tax_id": "MOCK-TAX-0718-00081",
+    "industry_code": "J620",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2016-10-01",
+    "legal_address": "So 181 Duong Mock 2, Ha Noi",
+    "representative_party_id": "PTY-00810",
+    "related_party_ids": [
+      "PTY-00811"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00082",
+    "legal_name": "CONG TY TNHH MOCK TU VAN 082",
+    "mock_tax_id": "MOCK-TAX-0718-00082",
+    "industry_code": "M702",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2017-11-02",
+    "legal_address": "So 182 Duong Mock 3, Ha Noi",
+    "representative_party_id": "PTY-00820",
+    "related_party_ids": [
+      "PTY-00821"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00083",
+    "legal_name": "CONG TY TNHH MOCK CUNG UNG LAO DONG 083",
+    "mock_tax_id": "MOCK-TAX-0718-00083",
+    "industry_code": "N782",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2018-12-03",
+    "legal_address": "So 183 Duong Mock 4, Ha Noi",
+    "representative_party_id": "PTY-00830",
+    "related_party_ids": [
+      "PTY-00831"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00084",
+    "legal_name": "CONG TY TNHH MOCK HOA CHAT 084",
+    "mock_tax_id": "MOCK-TAX-0718-00084",
+    "industry_code": "C201",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2019-01-04",
+    "legal_address": "So 184 Duong Mock 5, Ha Noi",
+    "representative_party_id": "PTY-00840",
+    "related_party_ids": [
+      "PTY-00841"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00085",
+    "legal_name": "CONG TY TNHH MOCK SAN XUAT THUC PHAM 085",
+    "mock_tax_id": "MOCK-TAX-0718-00085",
+    "industry_code": "C101",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2020-02-05",
+    "legal_address": "So 185 Duong Mock 6, Ha Noi",
+    "representative_party_id": "PTY-00850",
+    "related_party_ids": [
+      "PTY-00851"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00086",
+    "legal_name": "CONG TY TNHH MOCK MAY MAC 086",
+    "mock_tax_id": "MOCK-TAX-0718-00086",
+    "industry_code": "C141",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2021-03-06",
+    "legal_address": "So 186 Duong Mock 7, Ha Noi",
+    "representative_party_id": "PTY-00860",
+    "related_party_ids": [
+      "PTY-00861"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00087",
+    "legal_name": "CONG TY TNHH MOCK CHE BIEN GO 087",
+    "mock_tax_id": "MOCK-TAX-0718-00087",
+    "industry_code": "C162",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2022-04-07",
+    "legal_address": "So 187 Duong Mock 8, Ha Noi",
+    "representative_party_id": "PTY-00870",
+    "related_party_ids": [
+      "PTY-00871"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00088",
+    "legal_name": "CONG TY TNHH MOCK XAY DUNG 088",
+    "mock_tax_id": "MOCK-TAX-0718-00088",
+    "industry_code": "F410",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2012-05-08",
+    "legal_address": "So 188 Duong Mock 9, Ha Noi",
+    "representative_party_id": "PTY-00880",
+    "related_party_ids": [
+      "PTY-00881"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00089",
+    "legal_name": "CONG TY TNHH MOCK BAN BUON 089",
+    "mock_tax_id": "MOCK-TAX-0718-00089",
+    "industry_code": "G461",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2013-06-09",
+    "legal_address": "So 189 Duong Mock 10, Ha Noi",
+    "representative_party_id": "PTY-00890",
+    "related_party_ids": [
+      "PTY-00891"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00090",
+    "legal_name": "CONG TY TNHH MOCK BAN LE 090",
+    "mock_tax_id": "MOCK-TAX-0718-00090",
+    "industry_code": "G471",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2014-07-10",
+    "legal_address": "So 190 Duong Mock 11, Ha Noi",
+    "representative_party_id": "PTY-00900",
+    "related_party_ids": [
+      "PTY-00901"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00091",
+    "legal_name": "CONG TY TNHH MOCK VAN TAI 091",
+    "mock_tax_id": "MOCK-TAX-0718-00091",
+    "industry_code": "H493",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2015-08-11",
+    "legal_address": "So 191 Duong Mock 12, Ha Noi",
+    "representative_party_id": "PTY-00910",
+    "related_party_ids": [
+      "PTY-00911"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00092",
+    "legal_name": "CONG TY TNHH MOCK LUU TRU 092",
+    "mock_tax_id": "MOCK-TAX-0718-00092",
+    "industry_code": "I551",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2016-09-12",
+    "legal_address": "So 192 Duong Mock 13, Ha Noi",
+    "representative_party_id": "PTY-00920",
+    "related_party_ids": [
+      "PTY-00921"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00093",
+    "legal_name": "CONG TY TNHH MOCK LAP TRINH 093",
+    "mock_tax_id": "MOCK-TAX-0718-00093",
+    "industry_code": "J620",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2017-10-13",
+    "legal_address": "So 193 Duong Mock 14, Ha Noi",
+    "representative_party_id": "PTY-00930",
+    "related_party_ids": [
+      "PTY-00931"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00094",
+    "legal_name": "CONG TY TNHH MOCK TU VAN 094",
+    "mock_tax_id": "MOCK-TAX-0718-00094",
+    "industry_code": "M702",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2018-11-14",
+    "legal_address": "So 194 Duong Mock 15, Ha Noi",
+    "representative_party_id": "PTY-00940",
+    "related_party_ids": [
+      "PTY-00941"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00095",
+    "legal_name": "CONG TY TNHH MOCK CUNG UNG LAO DONG 095",
+    "mock_tax_id": "MOCK-TAX-0718-00095",
+    "industry_code": "N782",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2019-12-15",
+    "legal_address": "So 195 Duong Mock 16, Ha Noi",
+    "representative_party_id": "PTY-00950",
+    "related_party_ids": [
+      "PTY-00951"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00096",
+    "legal_name": "CONG TY TNHH MOCK HOA CHAT 096",
+    "mock_tax_id": "MOCK-TAX-0718-00096",
+    "industry_code": "C201",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2020-01-16",
+    "legal_address": "So 196 Duong Mock 17, Ha Noi",
+    "representative_party_id": "PTY-00960",
+    "related_party_ids": [
+      "PTY-00961"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00097",
+    "legal_name": "CONG TY TNHH MOCK SAN XUAT THUC PHAM 097",
+    "mock_tax_id": "MOCK-TAX-0718-00097",
+    "industry_code": "C101",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2021-02-17",
+    "legal_address": "So 197 Duong Mock 18, Ha Noi",
+    "representative_party_id": "PTY-00970",
+    "related_party_ids": [
+      "PTY-00971"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00098",
+    "legal_name": "CONG TY TNHH MOCK MAY MAC 098",
+    "mock_tax_id": "MOCK-TAX-0718-00098",
+    "industry_code": "C141",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2022-03-18",
+    "legal_address": "So 198 Duong Mock 19, Ha Noi",
+    "representative_party_id": "PTY-00980",
+    "related_party_ids": [
+      "PTY-00981"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00099",
+    "legal_name": "CONG TY TNHH MOCK CHE BIEN GO 099",
+    "mock_tax_id": "MOCK-TAX-0718-00099",
+    "industry_code": "C162",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2012-04-19",
+    "legal_address": "So 199 Duong Mock 20, Ha Noi",
+    "representative_party_id": "PTY-00990",
+    "related_party_ids": [
+      "PTY-00991"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00100",
+    "legal_name": "CONG TY TNHH MOCK XAY DUNG 100",
+    "mock_tax_id": "MOCK-TAX-0718-00100",
+    "industry_code": "F410",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2013-05-20",
+    "legal_address": "So 200 Duong Mock 1, Ha Noi",
+    "representative_party_id": "PTY-01000",
+    "related_party_ids": [
+      "PTY-01001"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00101",
+    "legal_name": "CONG TY TNHH MOCK BAN BUON 101",
+    "mock_tax_id": "MOCK-TAX-0718-00101",
+    "industry_code": "G461",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2014-06-21",
+    "legal_address": "So 201 Duong Mock 2, Ha Noi",
+    "representative_party_id": "PTY-01010",
+    "related_party_ids": [
+      "PTY-01011"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00102",
+    "legal_name": "CONG TY TNHH MOCK BAN LE 102",
+    "mock_tax_id": "MOCK-TAX-0718-00102",
+    "industry_code": "G471",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2015-07-22",
+    "legal_address": "So 202 Duong Mock 3, Ha Noi",
+    "representative_party_id": "PTY-01020",
+    "related_party_ids": [
+      "PTY-01021"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00103",
+    "legal_name": "CONG TY TNHH MOCK VAN TAI 103",
+    "mock_tax_id": "MOCK-TAX-0718-00103",
+    "industry_code": "H493",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2016-08-23",
+    "legal_address": "So 203 Duong Mock 4, Ha Noi",
+    "representative_party_id": "PTY-01030",
+    "related_party_ids": [
+      "PTY-01031"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00104",
+    "legal_name": "CONG TY TNHH MOCK LUU TRU 104",
+    "mock_tax_id": "MOCK-TAX-0718-00104",
+    "industry_code": "I551",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2017-09-24",
+    "legal_address": "So 204 Duong Mock 5, Ha Noi",
+    "representative_party_id": "PTY-01040",
+    "related_party_ids": [
+      "PTY-01041"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00105",
+    "legal_name": "CONG TY TNHH MOCK LAP TRINH 105",
+    "mock_tax_id": "MOCK-TAX-0718-00105",
+    "industry_code": "J620",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2018-10-25",
+    "legal_address": "So 205 Duong Mock 6, Ha Noi",
+    "representative_party_id": "PTY-01050",
+    "related_party_ids": [
+      "PTY-01051"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00106",
+    "legal_name": "CONG TY TNHH MOCK TU VAN 106",
+    "mock_tax_id": "MOCK-TAX-0718-00106",
+    "industry_code": "M702",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2019-11-26",
+    "legal_address": "So 206 Duong Mock 7, Ha Noi",
+    "representative_party_id": "PTY-01060",
+    "related_party_ids": [
+      "PTY-01061"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00107",
+    "legal_name": "CONG TY TNHH MOCK CUNG UNG LAO DONG 107",
+    "mock_tax_id": "MOCK-TAX-0718-00107",
+    "industry_code": "N782",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2020-12-27",
+    "legal_address": "So 207 Duong Mock 8, Ha Noi",
+    "representative_party_id": "PTY-01070",
+    "related_party_ids": [
+      "PTY-01071"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00108",
+    "legal_name": "CONG TY TNHH MOCK HOA CHAT 108",
+    "mock_tax_id": "MOCK-TAX-0718-00108",
+    "industry_code": "C201",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2021-01-01",
+    "legal_address": "So 208 Duong Mock 9, Ha Noi",
+    "representative_party_id": "PTY-01080",
+    "related_party_ids": [
+      "PTY-01081"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00109",
+    "legal_name": "CONG TY TNHH MOCK SAN XUAT THUC PHAM 109",
+    "mock_tax_id": "MOCK-TAX-0718-00109",
+    "industry_code": "C101",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2022-02-02",
+    "legal_address": "So 209 Duong Mock 10, Ha Noi",
+    "representative_party_id": "PTY-01090",
+    "related_party_ids": [
+      "PTY-01091"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00110",
+    "legal_name": "CONG TY TNHH MOCK MAY MAC 110",
+    "mock_tax_id": "MOCK-TAX-0718-00110",
+    "industry_code": "C141",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2012-03-03",
+    "legal_address": "So 210 Duong Mock 11, Ha Noi",
+    "representative_party_id": "PTY-01100",
+    "related_party_ids": [
+      "PTY-01101"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00111",
+    "legal_name": "CONG TY TNHH MOCK CHE BIEN GO 111",
+    "mock_tax_id": "MOCK-TAX-0718-00111",
+    "industry_code": "C162",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2013-04-04",
+    "legal_address": "So 211 Duong Mock 12, Ha Noi",
+    "representative_party_id": "PTY-01110",
+    "related_party_ids": [
+      "PTY-01111"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00112",
+    "legal_name": "CONG TY TNHH MOCK XAY DUNG 112",
+    "mock_tax_id": "MOCK-TAX-0718-00112",
+    "industry_code": "F410",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2014-05-05",
+    "legal_address": "So 212 Duong Mock 13, Ha Noi",
+    "representative_party_id": "PTY-01120",
+    "related_party_ids": [
+      "PTY-01121"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00113",
+    "legal_name": "CONG TY TNHH MOCK BAN BUON 113",
+    "mock_tax_id": "MOCK-TAX-0718-00113",
+    "industry_code": "G461",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2015-06-06",
+    "legal_address": "So 213 Duong Mock 14, Ha Noi",
+    "representative_party_id": "PTY-01130",
+    "related_party_ids": [
+      "PTY-01131"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00114",
+    "legal_name": "CONG TY TNHH MOCK BAN LE 114",
+    "mock_tax_id": "MOCK-TAX-0718-00114",
+    "industry_code": "G471",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2016-07-07",
+    "legal_address": "So 214 Duong Mock 15, Ha Noi",
+    "representative_party_id": "PTY-01140",
+    "related_party_ids": [
+      "PTY-01141"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00115",
+    "legal_name": "CONG TY TNHH MOCK VAN TAI 115",
+    "mock_tax_id": "MOCK-TAX-0718-00115",
+    "industry_code": "H493",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2017-08-08",
+    "legal_address": "So 215 Duong Mock 16, Ha Noi",
+    "representative_party_id": "PTY-01150",
+    "related_party_ids": [
+      "PTY-01151"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00116",
+    "legal_name": "CONG TY TNHH MOCK LUU TRU 116",
+    "mock_tax_id": "MOCK-TAX-0718-00116",
+    "industry_code": "I551",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2018-09-09",
+    "legal_address": "So 216 Duong Mock 17, Ha Noi",
+    "representative_party_id": "PTY-01160",
+    "related_party_ids": [
+      "PTY-01161"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00117",
+    "legal_name": "CONG TY TNHH MOCK LAP TRINH 117",
+    "mock_tax_id": "MOCK-TAX-0718-00117",
+    "industry_code": "J620",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2019-10-10",
+    "legal_address": "So 217 Duong Mock 18, Ha Noi",
+    "representative_party_id": "PTY-01170",
+    "related_party_ids": [
+      "PTY-01171"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00118",
+    "legal_name": "CONG TY TNHH MOCK TU VAN 118",
+    "mock_tax_id": "MOCK-TAX-0718-00118",
+    "industry_code": "M702",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2020-11-11",
+    "legal_address": "So 218 Duong Mock 19, Ha Noi",
+    "representative_party_id": "PTY-01180",
+    "related_party_ids": [
+      "PTY-01181"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00119",
+    "legal_name": "CONG TY TNHH MOCK CUNG UNG LAO DONG 119",
+    "mock_tax_id": "MOCK-TAX-0718-00119",
+    "industry_code": "N782",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2021-12-12",
+    "legal_address": "So 219 Duong Mock 20, Ha Noi",
+    "representative_party_id": "PTY-01190",
+    "related_party_ids": [
+      "PTY-01191"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  },
+  {
+    "customer_id": "CUS-00120",
+    "legal_name": "CONG TY TNHH MOCK HOA CHAT 120",
+    "mock_tax_id": "MOCK-TAX-0718-00120",
+    "industry_code": "C201",
+    "industry_version": "VSIC-2025",
+    "incorporation_date": "2022-01-13",
+    "legal_address": "So 220 Duong Mock 1, Ha Noi",
+    "representative_party_id": "PTY-01200",
+    "related_party_ids": [
+      "PTY-01201"
+    ],
+    "as_of_date": "2026-06-30",
+    "synthetic_flag": true
+  }
+]
