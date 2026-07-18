@@ -969,27 +969,38 @@ jobs:
             --query 'Command.CommandId' --output text)
           echo "SSM command: $CMD_ID"
 
+          # Ngay sau send-command, SSM thường chưa đăng ký invocation và
+          # trả InvocationDoesNotExist — `|| echo Pending` nuốt lỗi đó.
+          STATUS=Pending
           for _ in $(seq 1 120); do
             STATUS=$(aws ssm get-command-invocation \
               --command-id "$CMD_ID" --instance-id "$INSTANCE_ID" \
               --query 'Status' --output text 2>/dev/null || echo Pending)
+            # Chỉ bốn trạng thái này là kết thúc; còn lại thì đợi tiếp.
             case "$STATUS" in
-              Success) break ;;
-              Failed|Cancelled|TimedOut) ;;
-              *) sleep 10; continue ;;
+              Success|Failed|Cancelled|TimedOut) break ;;
             esac
-            break
+            sleep 10
           done
 
+          # Cạn 120 vòng (20 phút) mà vẫn chưa kết thúc: đây là timeout
+          # của workflow, không phải deploy fail. Đổi tên để log không
+          # báo "Deploy thất bại (InProgress)" gây hiểu nhầm.
+          case "$STATUS" in
+            Pending|InProgress|Delayed) STATUS="PollTimeout" ;;
+          esac
+
+          # `|| true` để một lệnh đọc log hỏng không giết cả step trước
+          # khi kịp in chẩn đoán bên dưới (set -e đang bật).
           aws ssm get-command-invocation \
             --command-id "$CMD_ID" --instance-id "$INSTANCE_ID" \
-            --query 'StandardOutputContent' --output text
+            --query 'StandardOutputContent' --output text || true
 
           if [ "$STATUS" != "Success" ]; then
-            echo "::error::Deploy thất bại ($STATUS)"
+            echo "::error::Deploy không thành công (trạng thái: $STATUS)"
             aws ssm get-command-invocation \
               --command-id "$CMD_ID" --instance-id "$INSTANCE_ID" \
-              --query 'StandardErrorContent' --output text
+              --query 'StandardErrorContent' --output text || true
             exit 1
           fi
 
