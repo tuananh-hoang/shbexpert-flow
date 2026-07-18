@@ -13,7 +13,10 @@ import {
 } from "lucide-react";
 
 import { AnalyzingView } from "../../components/AnalyzingView";
+import { ChatTab } from "../../components/ChatTab";
+import type { ActionKey } from "../../components/ActionBar";
 import { ExplainabilityDrawer } from "../../components/ExplainabilityDrawer";
+import { TaskGraph, type StepState } from "../../components/TaskGraph";
 import { decisionAction, fetchAudit, fetchCase, triggerAnalyze } from "../../lib/api";
 import type { AuditEvent, CaseDetail, Finding } from "../../lib/types";
 import { Overview360 } from "./Overview360";
@@ -718,7 +721,7 @@ function RAGEvidence({
 
 // ─── Tab types ────────────────────────────────────────────────────────────────
 
-type Tab = "review" | "overview" | "decision";
+type Tab = "review" | "overview" | "chat";
 
 // ─── Main page ────────────────────────────────────────────────────────────────
 
@@ -729,6 +732,7 @@ export default function CasePage() {
   const [caseDetail,      setCaseDetail]      = useState<CaseDetail | null>(null);
   const [selectedFinding, setSelectedFinding] = useState<Finding | null>(null);
   const [activeTab,       setActiveTab]       = useState<Tab>("review");
+  const [steps, setSteps] = useState<StepState[]>([]);
   const [auditEvents,     setAuditEvents]     = useState<AuditEvent[]>([]);
   const [busy,            setBusy]            = useState(false);
   const [log,             setLog]             = useState<string[]>([]);
@@ -745,6 +749,16 @@ export default function CasePage() {
     es.addEventListener("progress", (event) => {
       const payload = JSON.parse((event as MessageEvent).data);
       setLog((prev) => [...prev, `${payload.type}${payload.findings_written ? ": " + payload.findings_written.join(", ") : ""}`]);
+      if (payload.type === "step_started" && payload.step_id) {
+        setSteps((prev) => {
+          const exists = prev.find((s) => s.id === payload.step_id);
+          if (exists) return prev.map((s) => s.id === payload.step_id ? { ...s, status: "running" } : s);
+          return [...prev, { id: payload.step_id, agentId: payload.agent_id ?? null, status: "running" }];
+        });
+      }
+      if (payload.type === "step_completed" && payload.step_id) {
+        setSteps((prev) => prev.map((s) => s.id === payload.step_id ? { ...s, status: "done" } : s));
+      }
       if (payload.type === "job_completed" || payload.type === "job_failed") {
         setBusy(false); refresh();
       }
@@ -758,7 +772,7 @@ export default function CasePage() {
 
   const runAnalyze = async () => { setBusy(true); setLog([]); await triggerAnalyze(caseId); };
 
-  const doAction = async (action: "accept" | "rerun" | "return" | "override", reason?: string) => {
+  const doAction = async (action: "accept" | "rerun" | "return" | "override" | "reject" | "escalate", reason?: string) => {
     try {
       await decisionAction(caseId, action, reason);
       await refresh();
@@ -828,7 +842,7 @@ export default function CasePage() {
   const TABS: { key: Tab; label: string }[] = [
     { key: "overview", label: "360° Overview" },
     { key: "review",   label: "AI Multi-Agent Review" },
-    { key: "decision", label: "Decision Hub" },
+    { key: "chat",     label: "Trao đổi & Kết luận" },
   ];
 
   return (
@@ -1073,7 +1087,19 @@ export default function CasePage() {
               <Overview360 caseDetail={caseDetail} />
             )}
 
-            {/* ── Decision Hub tab ── */}
+            {/* ── Chat / Decision tab (from main) ── */}
+            {activeTab === "chat" && (
+              <ChatTab
+                caseId={caseId}
+                requestedAmountVnd={(caseDetail.requested_facility?.amount_vnd as number | null) ?? null}
+                canDecide={canDecide}
+                caseState={caseDetail.state}
+                hasDecision={Boolean(caseDetail.decision)}
+                onAction={(action: ActionKey, reason?: string) => doAction(action as "accept" | "rerun" | "return" | "override" | "reject" | "escalate", reason)}
+              />
+            )}
+
+            {/* ── Decision Hub tab (legacy — kept for audit trail) ── */}
             {activeTab === "decision" && (
               <div className="flex flex-col gap-4">
                 {decision ? (
