@@ -219,3 +219,158 @@ class Event(Base):
     versions: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)  # policy/formula/model/tool versions
 
     __table_args__ = (UniqueConstraint("case_id", "seq", name="uq_event_case_seq"),)
+
+
+# ---------------------------------------------------------------------------
+# Collateral & Legal domain — worker/app/agents/collateral.py's 4 tools
+# (validate_ownership / get_valuation / calculate_coverage /
+# search_legal_checklist). `collateral_id` reuses the existing convention
+# (== case_id — see tools-mock's _VALUATIONS keyed by case_id) rather than
+# introducing a separate bank-wide collateral master key, since this system
+# is currently 1 case = 1 customer = 1 collateral item (C06/C07/C08).
+#
+# These are read DIRECTLY via shared.db by worker (like extracted_fields/
+# requested_facility already are — see common.py's long comment on why
+# reads bypass MCP entirely), NOT exposed as a new MCP tool server: they are
+# plain relational facts/reference data, not pure computation (mcp-
+# deterministic) or an external/semantic boundary (mcp-external/mcp-rag).
+# ---------------------------------------------------------------------------
+class CollateralRegistry(Base):
+    """One row per collateral item — registered owner + registration
+    instrument. validate_ownership's primary source."""
+
+    __tablename__ = "collateral_registry"
+
+    collateral_id: Mapped[str] = mapped_column(ForeignKey("cases.case_id"), primary_key=True)
+    owner_name: Mapped[str] = mapped_column(String, nullable=False)
+    owner_id: Mapped[str] = mapped_column(String, nullable=False)  # CIF/CMND/MST
+    registration_number: Mapped[str] = mapped_column(String, nullable=True)
+    registration_date: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), nullable=True)
+    registration_authority: Mapped[str] = mapped_column(String, nullable=True)
+    collateral_type: Mapped[str] = mapped_column(String, nullable=False)  # real_estate|vehicle|machinery|other
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+
+class OwnershipEncumbrance(Base):
+    """Whether this collateral is already pledged/disputed elsewhere —
+    validate_ownership's guardrail: encumbrance_found=true at another TCTD
+    must not be silently approved."""
+
+    __tablename__ = "ownership_encumbrance"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    collateral_id: Mapped[str] = mapped_column(ForeignKey("cases.case_id"), nullable=False, index=True)
+    encumbrance_type: Mapped[str] = mapped_column(String, nullable=False)  # the_chap|cam_co|tranh_chap
+    encumbrance_holder: Mapped[str] = mapped_column(String, nullable=True)
+    start_date: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), nullable=True)
+    end_date: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), nullable=True)
+    status: Mapped[str] = mapped_column(String, nullable=False, default="ACTIVE")
+
+
+class LegalDocumentStore(Base):
+    """Registry-level record of the legal instrument itself (Sổ đỏ/GCN
+    xe/...) — distinct from `documents` (the uploaded PDF/MinIO pointer):
+    this tracks whether the ORIGINAL instrument's registry status checks
+    out, not whether a scanned copy was uploaded."""
+
+    __tablename__ = "legal_document_store"
+
+    doc_id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    collateral_id: Mapped[str] = mapped_column(ForeignKey("cases.case_id"), nullable=False, index=True)
+    doc_type: Mapped[str] = mapped_column(String, nullable=False)
+    issue_date: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), nullable=True)
+    expiry_date: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), nullable=True)
+    is_original: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    verification_status: Mapped[str] = mapped_column(String, nullable=False, default="PENDING")
+
+
+class CoOwnerRegistry(Base):
+    """Co-owners (vợ/chồng, đồng thừa kế…) whose consent is required
+    before the collateral can be pledged."""
+
+    __tablename__ = "co_owner_registry"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    collateral_id: Mapped[str] = mapped_column(ForeignKey("cases.case_id"), nullable=False, index=True)
+    co_owner_id: Mapped[str] = mapped_column(String, nullable=False)
+    consent_status: Mapped[str] = mapped_column(String, nullable=False, default="PENDING")  # CONFIRMED|PENDING|REFUSED
+
+
+class HaircutMatrix(Base):
+    """Reference table, seeded once, shared across every case (scripts/
+    seed_collateral_reference.py) — NOT case-scoped. Read directly by
+    collateral.py before calling calculate_collateral_coverage; the tool
+    itself stays a pure function and never touches Postgres."""
+
+    __tablename__ = "haircut_matrix"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    collateral_type: Mapped[str] = mapped_column(String, nullable=False, index=True)
+    region: Mapped[str] = mapped_column(String, nullable=True)  # NULL = applies to all regions
+    liquidity_tier: Mapped[str] = mapped_column(String, nullable=True)
+    haircut_rate: Mapped[float] = mapped_column(Float, nullable=False)
+
+
+class MarketPriceIndex(Base):
+    """Reference time series, seeded once — used only if a valuation
+    report's own value needs adjusting for a stale valuation_date. Not
+    consumed yet in this pass (see plan's Rủi ro note); table exists so a
+    later pass can add the adjustment without a new migration."""
+
+    __tablename__ = "market_price_index"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    collateral_type: Mapped[str] = mapped_column(String, nullable=False, index=True)
+    region: Mapped[str] = mapped_column(String, nullable=True)
+    price_date: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    index_value: Mapped[float] = mapped_column(Float, nullable=False)
+
+
+class RegulatoryReference(Base):
+    """Reference table — the actual law/article a checklist item cites
+    (mirrors Phụ lục 01/02 in the source cẩm nang). `reference_id` is a
+    meaningful string key (e.g. "LUAT-DAT-DAI-2024-D188"), not a random
+    uuid, so seed data and citations stay human-readable."""
+
+    __tablename__ = "regulatory_reference"
+
+    reference_id: Mapped[str] = mapped_column(String, primary_key=True)
+    law_name: Mapped[str] = mapped_column(String, nullable=False)
+    article: Mapped[str] = mapped_column(String, nullable=True)
+    effective_date: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class LegalChecklistTemplate(Base):
+    """Reference table — the authoritative structured checklist per
+    collateral_type/transaction_type. `checklist_id` is a meaningful string
+    key that ALSO appears in the Qdrant `legal_checklist` collection's
+    payload (scripts/seed_policies.py), linking the semantic-search hit
+    (citation text) back to this row's structured is_mandatory/
+    legal_reference — search_legal_checklist joins the two in
+    collateral.py, not inside mcp-rag itself."""
+
+    __tablename__ = "legal_checklist_template"
+
+    checklist_id: Mapped[str] = mapped_column(String, primary_key=True)
+    collateral_type: Mapped[str] = mapped_column(String, nullable=False, index=True)
+    transaction_type: Mapped[str] = mapped_column(String, nullable=True)
+    required_document: Mapped[str] = mapped_column(String, nullable=False)
+    is_mandatory: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    legal_reference: Mapped[str] = mapped_column(ForeignKey("regulatory_reference.reference_id"), nullable=True)
+
+
+class ChecklistCompletion(Base):
+    """Per-case, MUTABLE workflow state — which checklist items are done
+    for THIS collateral. Distinct from `extracted_fields` (append-only
+    facts extracted from a document): this is tracked/updated as the RM
+    completes items, so it gets its own table rather than being force-fit
+    into the extraction model."""
+
+    __tablename__ = "checklist_completion"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    collateral_id: Mapped[str] = mapped_column(ForeignKey("cases.case_id"), nullable=False, index=True)
+    checklist_id: Mapped[str] = mapped_column(ForeignKey("legal_checklist_template.checklist_id"), nullable=False)
+    completion_status: Mapped[str] = mapped_column(String, nullable=False, default="pending")  # completed|pending|missing
+    completed_date: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), nullable=True)
+    responsible_party: Mapped[str] = mapped_column(String, nullable=True)

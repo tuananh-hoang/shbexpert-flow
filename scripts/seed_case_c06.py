@@ -22,8 +22,18 @@ Idempotent — exits early if case C06 already exists.
 """
 from __future__ import annotations
 
+import datetime as dt
+
 from shared.db import get_session
-from shared.models import Case, Document, ExtractedField
+from shared.models import (
+    Case,
+    ChecklistCompletion,
+    CollateralRegistry,
+    CoOwnerRegistry,
+    Document,
+    ExtractedField,
+    LegalDocumentStore,
+)
 from shared.storage import upload_bytes
 
 from scripts.pdf_utils import render_document_pdf
@@ -42,13 +52,67 @@ DOCS = [
         "title": "BAO CAO KET QUA KINH DOANH 2025 - AN PHU PACKAGING",
         "lines": [
             ("Doanh thu thuan", "84.000.000.000 VND", "revenue_2025"),
+            # Same figure as revenue_2025, seeded under the field_key the
+            # standard-ratio formulas expect (activity turnover ratios use
+            # "net_revenue" — mcp-deterministic/app/server.py) — kept as a
+            # separate line/field_key rather than renaming revenue_2025
+            # itself, since revenue_2025 also feeds the unrelated DSCR calc.
+            ("Doanh thu thuan (dung cho phan tich ty so BCTC)", "84.000.000.000 VND", "net_revenue"),
             ("EBITDA", "9.200.000.000 VND", "ebitda_2025"),
             ("Nghia vu tra no goc + lai hang nam (uoc tinh)", "5.350.000.000 VND", "debt_service_annual"),
+            # Standard financial-statement ratio analysis fields (balance
+            # sheet / income statement / cashflow statement / period-average)
+            # — worker/app/agents/financial.py::run_financial_agent.
+            ("Tien va tuong duong tien", "5.000.000.000 VND", "cash_and_equivalents"),
+            ("Dau tu ngan han", "2.000.000.000 VND", "short_term_investments"),
+            ("Phai thu khach hang", "10.000.000.000 VND", "accounts_receivable"),
+            ("Hang ton kho", "8.000.000.000 VND", "inventory"),
+            ("Tong tai san luu dong", "25.000.000.000 VND", "current_assets_total"),
+            ("Tai san co dinh va dau tu dai han", "35.000.000.000 VND", "fixed_assets_and_ltd_investments"),
+            ("Tong tai san", "60.000.000.000 VND", "total_assets"),
+            ("No ngan han", "15.000.000.000 VND", "current_liabilities"),
+            ("No dai han", "15.000.000.000 VND", "long_term_debt"),
+            ("Tong no phai tra", "30.000.000.000 VND", "total_liabilities"),
+            ("Von chu so huu", "30.000.000.000 VND", "total_equity"),
+            ("Tong nguon von", "60.000.000.000 VND", "total_capital_source"),
+            ("Loi nhuan sau thue", "6.000.000.000 VND", "net_profit_after_tax"),
+            ("Gia von hang ban", "60.000.000.000 VND", "cogs"),
+            ("Dong tien tu hoat dong kinh doanh", "7.000.000.000 VND", "cf_operating"),
+            ("Dong tien tu hoat dong dau tu", "-3.000.000.000 VND", "cf_investing"),
+            ("Dong tien tu hoat dong tai chinh", "-2.000.000.000 VND", "cf_financing"),
+            ("TSLD binh quan", "24.000.000.000 VND", "avg_current_assets"),
+            ("Phai thu binh quan", "9.000.000.000 VND", "avg_accounts_receivable"),
+            ("Ton kho binh quan", "7.500.000.000 VND", "avg_inventory"),
+            ("Tong tai san binh quan", "57.000.000.000 VND", "avg_total_assets"),
+            ("So nam so lieu tai chinh lien tuc", "3 nam", "historical_data_years"),
         ],
         "field_defs": {
             "revenue_2025": ({"amount_vnd": 84_000_000_000}, 0.97),
+            "net_revenue": ({"amount_vnd": 84_000_000_000}, 0.97),
             "ebitda_2025": ({"amount_vnd": 9_200_000_000}, 0.95),
             "debt_service_annual": ({"amount_vnd": 5_350_000_000}, 0.94),
+            "cash_and_equivalents": ({"amount_vnd": 5_000_000_000}, 0.95),
+            "short_term_investments": ({"amount_vnd": 2_000_000_000}, 0.93),
+            "accounts_receivable": ({"amount_vnd": 10_000_000_000}, 0.95),
+            "inventory": ({"amount_vnd": 8_000_000_000}, 0.94),
+            "current_assets_total": ({"amount_vnd": 25_000_000_000}, 0.95),
+            "fixed_assets_and_ltd_investments": ({"amount_vnd": 35_000_000_000}, 0.93),
+            "total_assets": ({"amount_vnd": 60_000_000_000}, 0.96),
+            "current_liabilities": ({"amount_vnd": 15_000_000_000}, 0.95),
+            "long_term_debt": ({"amount_vnd": 15_000_000_000}, 0.94),
+            "total_liabilities": ({"amount_vnd": 30_000_000_000}, 0.95),
+            "total_equity": ({"amount_vnd": 30_000_000_000}, 0.95),
+            "total_capital_source": ({"amount_vnd": 60_000_000_000}, 0.95),
+            "net_profit_after_tax": ({"amount_vnd": 6_000_000_000}, 0.95),
+            "cogs": ({"amount_vnd": 60_000_000_000}, 0.94),
+            "cf_operating": ({"amount_vnd": 7_000_000_000}, 0.93),
+            "cf_investing": ({"amount_vnd": -3_000_000_000}, 0.9),
+            "cf_financing": ({"amount_vnd": -2_000_000_000}, 0.9),
+            "avg_current_assets": ({"amount_vnd": 24_000_000_000}, 0.9),
+            "avg_accounts_receivable": ({"amount_vnd": 9_000_000_000}, 0.9),
+            "avg_inventory": ({"amount_vnd": 7_500_000_000}, 0.9),
+            "avg_total_assets": ({"amount_vnd": 57_000_000_000}, 0.9),
+            "historical_data_years": ({"years": 3}, 0.9),
         },
     },
     {
@@ -164,6 +228,47 @@ def main() -> None:
 
         total_fields = sum(len(d["field_defs"]) for d in DOCS)
         print(f"seeded case {CASE_ID} with {len(DOCS)} documents and {total_fields} extracted fields")
+
+        # Collateral & Legal Agent domain (shared/models.py "Collateral &
+        # Legal domain" section) — collateral_id == case_id convention.
+        # collateral_type "valuation_certificate" must match
+        # worker/app/agents/collateral.py::COLLATERAL_TYPE exactly.
+        session.add(
+            CollateralRegistry(
+                collateral_id=CASE_ID,
+                owner_name="Nguyen Van A",
+                owner_id="CUST-ANPHU",  # matches Case.customer_id -> ownership_verified=True
+                registration_number="GCN-AP-2020-0456",
+                registration_date=dt.datetime(2020, 1, 15, tzinfo=dt.timezone.utc),
+                registration_authority="So Tai nguyen va Moi truong TP.HCM",
+                collateral_type="valuation_certificate",
+            )
+        )
+        # No ownership_encumbrance rows — collateral is unencumbered, keeps
+        # C06's deliberate conflicts scoped to revenue/valuation-expiry only
+        # (data-flow.md §11), not adding a new ownership dispute on top.
+        session.add(
+            LegalDocumentStore(
+                collateral_id=CASE_ID,
+                doc_type="Giay chung nhan quyen su dung dat",
+                issue_date=dt.datetime(2020, 1, 15, tzinfo=dt.timezone.utc),
+                is_original=True,
+                verification_status="VERIFIED",
+            )
+        )
+        for co_owner, pct in [("Tran Thi B", 25), ("Cong ty XYZ", 15)]:
+            session.add(CoOwnerRegistry(collateral_id=CASE_ID, co_owner_id=co_owner, consent_status="CONFIRMED"))
+        for checklist_id in ("LC-VALUATION-EXPIRY-60D", "LC-VALUATION-APPRAISER-LICENSE"):
+            session.add(
+                ChecklistCompletion(
+                    collateral_id=CASE_ID,
+                    checklist_id=checklist_id,
+                    completion_status="completed",
+                    completed_date=dt.datetime(2025, 8, 1, tzinfo=dt.timezone.utc),
+                    responsible_party="rm1",
+                )
+            )
+        print(f"seeded collateral domain rows for case {CASE_ID}")
 
 
 if __name__ == "__main__":

@@ -93,11 +93,28 @@ def _check_hard_gates(session, case_id: str, findings: list[Finding]) -> tuple[l
 
     # G5 — collateral legally ineligible with no alternative? A CAUTION
     # stance (needs revaluation) is a condition, not outright ineligibility.
-    ineligible = [f for f in findings if f.issue_key == "COLLATERAL_COVERAGE" and f.stance == "OPPOSE"]
+    # Extended to COLLATERAL_OWNERSHIP: an active encumbrance/dispute
+    # (OPPOSE — worker/app/agents/collateral.py::run_ownership_check) is the
+    # same tier of problem as under-secured coverage, not a fixable gap.
+    ineligible = [
+        f
+        for f in findings
+        if f.issue_key in ("COLLATERAL_COVERAGE", "COLLATERAL_OWNERSHIP") and f.stance == "OPPOSE"
+    ]
     g5_pass = not ineligible
-    gates.append(HardGateResult(gate_id="G5", status="PASS" if g5_pass else "FAIL", reason=None))
+    gates.append(HardGateResult(gate_id="G5", status="PASS" if g5_pass else "FAIL", reason=ineligible[0].claim if ineligible else None))
     if not g5_pass:
         return gates, "REJECT"
+
+    # G6 — mandatory legal checklist item(s) missing (collateral.py::
+    # run_legal_checklist_check, issue_key COLLATERAL_LEGAL_CHECKLIST).
+    # Unlike G5, this is fixable paperwork (complete the checklist), not a
+    # fundamental disqualification — NEED_INFO, not REJECT, same tier as G4.
+    checklist_gap = [f for f in findings if f.issue_key == "COLLATERAL_LEGAL_CHECKLIST" and f.stance == "OPPOSE"]
+    g6_pass = not checklist_gap
+    gates.append(HardGateResult(gate_id="G6", status="PASS" if g6_pass else "FAIL", reason=checklist_gap[0].claim if checklist_gap else None))
+    if not g6_pass:
+        return gates, "NEED_INFO"
 
     return gates, None
 
@@ -112,6 +129,31 @@ def _score_from_stance(stance: str | None, max_score: float) -> float:
     return round(max_score * 0.7, 1)  # no finding on this dimension yet — neutral, not fabricated
 
 
+# The 4 standard financial-statement ratio findings (worker/app/agents/
+# financial.py::run_financial_agent) — separate from REPAYMENT_CAPACITY
+# (DSCR), which stays its own scorecard dimension below.
+_STATEMENT_GROUPS = ("LIQUIDITY", "PROFITABILITY", "LEVERAGE", "ACTIVITY")
+
+
+def _financial_health_stance(by_issue: dict[str, Finding]) -> str | None:
+    """Rolls up the 4 ratio-group findings into ONE stance for the
+    FINANCIAL_HEALTH dimension, using the same "count >=3/4 groups
+    SUPPORT" rule calculate_statement_ratios uses for its own
+    count_tot_kha (mcp-deterministic/app/server.py) — 2/4 reads as
+    CAUTION, <2/4 as OPPOSE. Returns None if none of the 4 findings exist
+    yet (case seeded before this ratio set existed) so the caller falls
+    back to the neutral placeholder instead of fabricating a stance."""
+    groups = [by_issue[k] for k in _STATEMENT_GROUPS if k in by_issue]
+    if not groups:
+        return None
+    support_count = sum(1 for f in groups if f.stance == "SUPPORT")
+    if support_count >= 3:
+        return "SUPPORT"
+    if support_count == 2:
+        return "CAUTION"
+    return "OPPOSE"
+
+
 def _compute_scorecard(findings: list[Finding]) -> list[ScoreEntry]:
     """Simplified 6-group scorecard (ai-architecture.md §10 Bước B).
     Customer 360 / Industry agents aren't built yet, so CREDIT_HISTORY and
@@ -122,10 +164,11 @@ def _compute_scorecard(findings: list[Finding]) -> list[ScoreEntry]:
     repayment = by_issue.get("REPAYMENT_CAPACITY")
     collateral = by_issue.get("COLLATERAL_COVERAGE")
     policy = by_issue.get("REVENUE_RECONCILIATION")
+    financial_health_stance = _financial_health_stance(by_issue)
 
     return [
         ScoreEntry(dimension="REPAYMENT_CASHFLOW", score=_score_from_stance(repayment.stance if repayment else None, 25), max=25),
-        ScoreEntry(dimension="FINANCIAL_HEALTH", score=_score_from_stance(repayment.stance if repayment else None, 20), max=20),
+        ScoreEntry(dimension="FINANCIAL_HEALTH", score=_score_from_stance(financial_health_stance, 20), max=20),
         ScoreEntry(dimension="CREDIT_HISTORY", score=round(15 * 0.7, 1), max=15),
         ScoreEntry(dimension="COLLATERAL_LEGAL", score=_score_from_stance(collateral.stance if collateral else None, 15), max=15),
         ScoreEntry(dimension="POLICY_COMPLIANCE", score=_score_from_stance(policy.stance if policy else None, 15), max=15),

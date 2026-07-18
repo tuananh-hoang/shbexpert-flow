@@ -49,6 +49,19 @@ def get_valuation(collateral_id: str) -> dict:
     return resp.json()
 
 
+@mcp.tool()
+def get_credit_obligations(customer_id: str) -> dict:
+    """Fetches the customer's EXISTING obligations at the bank (dư nợ +
+    dư bảo lãnh + dư L/C — "Tổng nghĩa vụ tại MB", cẩm nang trang 25).
+    Collateral & Legal Agent adds the CURRENTLY-requested facility amount
+    on top of `total_obligation_vnd` itself (collateral.py) before calling
+    calculate_collateral_coverage — this tool only reports what's already
+    on the books, not the new request."""
+    resp = httpx.get(f"{TOOLS_MOCK_URL}/credit-obligations/{customer_id}", timeout=10.0)
+    resp.raise_for_status()
+    return resp.json()
+
+
 async def health(_request) -> JSONResponse:
     try:
         resp = httpx.get(f"{TOOLS_MOCK_URL}/health", timeout=5.0)

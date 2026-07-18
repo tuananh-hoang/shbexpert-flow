@@ -82,10 +82,12 @@ async def _policy_node(state: CaseGraphState) -> dict:
 
 
 async def _collateral_node(state: CaseGraphState) -> dict:
-    from app.agents.collateral import run_collateral_agent
+    from app.agents.collateral import run_collateral_agent, run_legal_checklist_check, run_ownership_check
 
-    finding = await run_collateral_agent(state["case_id"], state["as_of_date"])
-    return {"findings_written": [finding.display_id]}
+    coverage_finding = await run_collateral_agent(state["case_id"], state["as_of_date"])
+    ownership_finding = await run_ownership_check(state["case_id"])
+    checklist_finding = await run_legal_checklist_check(state["case_id"], state["as_of_date"])
+    return {"findings_written": [coverage_finding.display_id, ownership_finding.display_id, checklist_finding.display_id]}
 
 
 async def _detect_node(state: CaseGraphState) -> dict:
