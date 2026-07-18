@@ -144,6 +144,7 @@ async def run_collateral_agent(
         severity=severity,
         evidence_ids=evidence_ids,
         citations=[citation],
+        metrics={"coverage_ratio": coverage_ratio, "days_to_expiry": float(days_to_expiry)},
         confidence=0.9,
         recommended_action=recommended_action,
         change_reason=change_reason,

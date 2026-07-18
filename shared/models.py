@@ -144,6 +144,10 @@ class Finding(Base):
     # RAG-retrieved policy/legal citations (Citation schema) — distinct from
     # evidence_ids (ExtractedField/document evidence). Added Phase 8.
     citations: Mapped[list] = mapped_column(JSONB, nullable=False, default=list)
+    # Real deterministic-tool numbers (e.g. coverage_ratio, dscr) kept
+    # structured for dashboard gauges/numbers — see Citation's sibling
+    # comment in shared/schemas.py::FindingIn for why this exists.
+    metrics: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
     confidence: Mapped[float] = mapped_column(Float, nullable=False)
     recommended_action: Mapped[str] = mapped_column(String, nullable=True)
     version: Mapped[int] = mapped_column(Integer, nullable=False, default=1)

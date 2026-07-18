@@ -47,10 +47,144 @@ body {
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
+/* ---------------------------------------------------------------------
+   App layout — fixed left Sidebar + scrollable content pane. Global
+   (wraps every page via web/app/layout.tsx), not just the case
+   dashboard.
+--------------------------------------------------------------------- */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.app-content {
+  flex: 1;
+  min-width: 0;
+}
+
 .app-shell {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 0 24px 40px;
+  max-width: 1400px;
+  padding: 24px 32px 40px;
+}
+
+/* ---------------------------------------------------------------------
+   Sidebar
+--------------------------------------------------------------------- */
+.sidebar {
+  width: 230px;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, var(--navy-900), var(--navy-700));
+  color: var(--text-on-navy);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 14px;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 0 8px 20px;
+}
+
+.sidebar-logo-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: var(--accent);
+  color: white;
+  font-size: 13px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.sidebar-nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-on-navy-muted);
+  text-decoration: none;
+  cursor: default;
+}
+
+a.sidebar-nav-item {
+  cursor: pointer;
+}
+
+a.sidebar-nav-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-on-navy);
+}
+
+.sidebar-nav-item.active {
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+}
+
+.sidebar-nav-item.disabled {
+  opacity: 0.55;
+}
+
+.sidebar-nav-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--text-on-navy-muted);
+}
+
+.sidebar-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 8px 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  margin-top: 12px;
+}
+
+.sidebar-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.sidebar-officer-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: white;
+}
+
+.sidebar-officer-role {
+  font-size: 11px;
+  color: var(--text-on-navy-muted);
 }
 
 /* ---------------------------------------------------------------------
@@ -98,6 +232,12 @@ body {
   margin-top: 2px;
 }
 
+.hero-subtitle {
+  font-size: 13px;
+  color: var(--text-on-navy-muted);
+  margin-top: 4px;
+}
+
 .status-pill {
   display: inline-flex;
   align-items: center;
@@ -117,6 +257,30 @@ body {
   border-radius: 50%;
   background: var(--status-dot-color, #4fd67a);
   display: inline-block;
+}
+
+/* Ghost button for use on the navy hero-strip background — a solid
+   .btn (light surface + dark text) reads as a stray light-theme element
+   pasted onto navy; this matches .status-pill's translucent-white look
+   instead. */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-on-navy);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.16);
 }
 
 /* ---------------------------------------------------------------------
@@ -226,6 +390,78 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 16px;
+}
+
+/* ---------------------------------------------------------------------
+   KPI strip — 6 white cards under the navy hero-strip (Phase 8 redesign).
+--------------------------------------------------------------------- */
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.kpi-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.kpi-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--text-muted);
+}
+
+.kpi-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--navy-900);
+  margin-top: 4px;
+}
+
+/* ---------------------------------------------------------------------
+   Progress bar — Document Completeness widget
+--------------------------------------------------------------------- */
+.progress-track {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+/* ---------------------------------------------------------------------
+   Recommendation card — full-width verdict, light-green surface
+--------------------------------------------------------------------- */
+.recommendation-card {
+  background: var(--support-bg);
+  border-color: var(--support);
+}
+
+.recommendation-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.recommendation-col-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  margin-bottom: 6px;
 }
 
 /* ---------------------------------------------------------------------

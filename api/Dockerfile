@@ -19,6 +19,11 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 
 COPY shared/ /app/shared/
 COPY scripts/ /app/scripts/
+# Source data for scripts/seed_synthetic_cases.py (synthetic-data-pipeline
+# branch) — only the 4 assembled case bundles, not the full master_jsonl/
+# reference_snapshots tree (unused by this adapter, no need to bloat the
+# image with it).
+COPY artifacts/cases/ /app/artifacts/cases/
 COPY api/app/ /app/app/
 COPY api/alembic/ /app/alembic/
 COPY api/alembic.ini /app/alembic.ini

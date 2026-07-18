@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Sidebar } from "./components/Sidebar";
 
 export const metadata: Metadata = {
   title: "SHBExpert Flow",
@@ -9,7 +10,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="vi">
-      <body>{children}</body>
+      <body>
+        {/* Sidebar is global (Queue + every case page) — see
+            web/app/components/Sidebar.tsx for why. */}
+        <div className="app-layout">
+          <Sidebar />
+          <div className="app-content">{children}</div>
+        </div>
+      </body>
     </html>
   );
 }

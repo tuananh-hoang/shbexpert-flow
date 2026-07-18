@@ -98,6 +98,7 @@ def write_finding(
         severity=finding.severity,
         evidence_ids=finding.evidence_ids,
         citations=[c.model_dump() for c in finding.citations],
+        metrics=finding.metrics,
         confidence=finding.confidence,
         recommended_action=finding.recommended_action,
         version=version,

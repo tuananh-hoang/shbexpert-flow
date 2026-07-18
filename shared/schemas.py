@@ -52,6 +52,12 @@ class FindingIn(BaseModel):
     severity: Severity
     evidence_ids: list[str] = Field(default_factory=list)
     citations: list[Citation] = Field(default_factory=list)
+    # Real numbers a deterministic tool (mcp-deterministic) already
+    # computed — e.g. {"coverage_ratio": 1.267}, {"dscr": 1.72} — kept
+    # structured so the dashboard can render a gauge/number directly
+    # instead of regex-parsing the LLM-phrased claim text (fragile,
+    # especially with a real LLM varying its wording run to run).
+    metrics: dict[str, float] = Field(default_factory=dict)
     confidence: float = Field(ge=0.0, le=1.0)
     recommended_action: str | None = None
     change_reason: str | None = None  # required when this supersedes a prior finding_key

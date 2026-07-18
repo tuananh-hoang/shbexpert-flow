@@ -19,13 +19,13 @@ from __future__ import annotations
 
 from sqlalchemy import select
 
+from shared.constants import REQUIRED_DOC_TYPES
 from shared.db import get_session
 from shared.models import Case, ConflictRecord, Document, Finding
 from shared.schemas import DecisionPackageIn, HardGateResult, ScoreEntry
 from shared.state import write_decision
 
 DECISION_MATRIX_VERSION = "DM-0.3-MOCK"
-REQUIRED_DOC_TYPES = {"financial_statement", "tax_filing", "valuation_certificate", "business_registration"}
 
 
 def _latest_findings(session, case_id: str) -> list[Finding]:
