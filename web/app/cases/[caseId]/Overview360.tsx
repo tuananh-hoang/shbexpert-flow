@@ -1,6 +1,10 @@
 "use client";
 
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import {
+  Scale, Banknote, BarChart3, CreditCard, Home, Clock,
+  Building, Users, ClipboardList, CheckCircle2,
+} from "lucide-react";
 import type { CaseDetail } from "../../lib/types";
 import { Badge } from "../../components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
@@ -70,12 +74,12 @@ const COLLATERAL_MIX = [
 ];
 
 const SCORE_DIMENSIONS = [
-  { icon: "🏛", label: "Năng lực pháp lý",     score: 90 },
-  { icon: "💰", label: "Năng lực tài chính",    score: 68 },
-  { icon: "📊", label: "Hiệu quả kinh doanh",   score: 70 },
-  { icon: "💳", label: "Dòng tiền & trả nợ",    score: 72 },
-  { icon: "🏠", label: "Tài sản bảo đảm",       score: 66 },
-  { icon: "⏱", label: "Lịch sử quan hệ",       score: 80 },
+  { icon: <Scale className="size-3.5" />,      label: "Năng lực pháp lý",     score: 90 },
+  { icon: <Banknote className="size-3.5" />,   label: "Năng lực tài chính",    score: 68 },
+  { icon: <BarChart3 className="size-3.5" />,  label: "Hiệu quả kinh doanh",   score: 70 },
+  { icon: <CreditCard className="size-3.5" />, label: "Dòng tiền & trả nợ",    score: 72 },
+  { icon: <Home className="size-3.5" />,       label: "Tài sản bảo đảm",       score: 66 },
+  { icon: <Clock className="size-3.5" />,      label: "Lịch sử quan hệ",       score: 80 },
 ];
 
 function scoreVerdict(s: number): string {
@@ -97,7 +101,7 @@ function KYCCard({ caseDetail }: { caseDetail: CaseDetail }) {
           {/* Legal info */}
           <div className="p-4">
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-base">🏢</span>
+              <Building className="size-3.5 text-muted-foreground shrink-0" />
               <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Thông tin pháp lý</p>
             </div>
             <dl className="flex flex-col gap-2">
@@ -120,7 +124,7 @@ function KYCCard({ caseDetail }: { caseDetail: CaseDetail }) {
           {/* Legal representatives */}
           <div className="p-4">
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-base">👥</span>
+              <Users className="size-3.5 text-muted-foreground shrink-0" />
               <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Đại diện pháp luật</p>
             </div>
             <div className="flex flex-col gap-4">
@@ -135,7 +139,7 @@ function KYCCard({ caseDetail }: { caseDetail: CaseDetail }) {
                     <p className="text-[11px] text-muted-foreground">Sinh ngày: {person.dob}</p>
                     <p className="text-[11px] text-muted-foreground">CCCD: {person.cccd}</p>
                     <div className="flex items-center gap-1 mt-1.5">
-                      <span className="text-[var(--color-success-600)] text-xs">✓</span>
+                      <CheckCircle2 className="size-3 text-[var(--color-success-600)] shrink-0" />
                       <span className="text-[11px] font-semibold text-[var(--color-success-600)]">Đã xác thực eKYC</span>
                     </div>
                   </div>
@@ -147,7 +151,7 @@ function KYCCard({ caseDetail }: { caseDetail: CaseDetail }) {
           {/* Company profile */}
           <div className="p-4">
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-base">📋</span>
+              <ClipboardList className="size-3.5 text-muted-foreground shrink-0" />
               <p className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Chân dung doanh nghiệp</p>
             </div>
             <dl className="flex flex-col gap-2">
@@ -475,7 +479,7 @@ function ScoreSidebar({ compositePct }: { compositePct: number | null }) {
           return (
             <div key={d.label} className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-2 min-w-0">
-                <span className="text-sm shrink-0">{d.icon}</span>
+                <span className="text-muted-foreground shrink-0">{d.icon}</span>
                 <span className="text-[11px] text-muted-foreground font-medium truncate">{d.label}</span>
               </div>
               <div className="flex items-center gap-1.5 shrink-0">

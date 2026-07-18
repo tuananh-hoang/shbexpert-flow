@@ -9,6 +9,7 @@ import {
 import {
   Search, Bell, ChevronDown, Eye, RefreshCw, CheckCircle,
   ArrowLeft, Info, ChevronRight, Download, FileEdit, MoreVertical,
+  Scale, BarChart3, Building2, ShieldCheck, Bot,
 } from "lucide-react";
 
 import { AnalyzingView } from "../../components/AnalyzingView";
@@ -84,29 +85,33 @@ const AGENT_CARDS = [
     id: "legal_review",
     name: "Legal Agent",
     desc: "Đánh giá tình pháp lý DN & DADT",
-    bg: "var(--color-navy-700)",
-    icon: "⚖️",
+    bg: "var(--color-navy-50)",
+    iconColor: "var(--color-navy-700)",
+    icon: <Scale className="size-5" />,
   },
   {
     id: "financial_analysis",
     name: "Financial Agent",
     desc: "Phân tích BCTC, khả năng trả nợ & tính PD",
-    bg: "var(--color-success-600)",
-    icon: "📊",
+    bg: "var(--color-success-100)",
+    iconColor: "var(--color-success-600)",
+    icon: <BarChart3 className="size-5" />,
   },
   {
     id: "collateral_legal",
     name: "Collateral Agent",
     desc: "Định giá TSDB, LTV, tính thanh khoản",
-    bg: "var(--color-warning-600)",
-    icon: "🏛",
+    bg: "var(--color-warning-100)",
+    iconColor: "var(--color-warning-700)",
+    icon: <Building2 className="size-5" />,
   },
   {
     id: "cic_check",
     name: "Risk Agent",
     desc: "Nhận diện rủi ro & đối chiếu CIC",
-    bg: "var(--color-danger-600)",
-    icon: "🛡",
+    bg: "var(--color-danger-100)",
+    iconColor: "var(--color-danger-600)",
+    icon: <ShieldCheck className="size-5" />,
   },
 ];
 
@@ -182,8 +187,8 @@ function AgentCard({
       <div className="flex items-start justify-between px-4 pt-4 pb-3">
         <div className="flex items-center gap-3">
           <div
-            className="size-10 rounded-lg flex items-center justify-center text-lg shrink-0"
-            style={{ background: config.bg }}
+            className="size-10 rounded-lg flex items-center justify-center shrink-0"
+            style={{ background: config.bg, color: config.iconColor }}
           >
             {config.icon}
           </div>
@@ -325,8 +330,8 @@ function PlannerWorkflow({ state, updatedAt }: { state: string; updatedAt?: stri
       <CardContent className="flex items-center gap-4 px-5 py-4 flex-wrap">
         {/* Planner identity */}
         <div className="flex items-center gap-3 flex-none w-48 border-r border-border pr-5">
-          <div className="size-10 rounded-lg bg-[var(--color-navy-700)] flex items-center justify-center text-lg shrink-0">
-            🤖
+          <div className="size-10 rounded-lg bg-[var(--color-navy-50)] flex items-center justify-center shrink-0 text-[var(--color-navy-700)]">
+            <Bot className="size-5" />
           </div>
           <div>
             <p className="text-sm font-bold text-[var(--color-navy-900)]">Planner Agent</p>
