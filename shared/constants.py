@@ -66,3 +66,36 @@ INDUSTRY_AVG_RATIOS: dict[str, float] = {
     "inventory_turnover": 5.0,
     "asset_utilization": 1.2,
 }
+
+
+# ---------------------------------------------------------------------------
+# Phân luồng xanh/đỏ khi tiếp nhận hồ sơ — spec
+# docs/superpowers/specs/2026-07-19-intake-routing-design.md §4.
+#
+# Luồng xanh (ACAS-SLINK, tự động 100%, không qua Credit Officer) chỉ nhận
+# thấu chi MicroSME trong hạn mức tự động. Mọi trường hợp khác là luồng đỏ.
+#
+# Dùng MÃ sản phẩm chứ không phải tên tiếng Việt: chuỗi có dấu làm khóa so
+# sánh thì đổi chính tả là vỡ, mà lỗi lại im lặng — hồ sơ rơi nhầm luồng
+# thay vì báo lỗi.
+#
+# Ba giá trị dưới đây là số của prototype demo (AUTO_APPROVAL_CEILING_VND,
+# AUTO_APPROVAL_ELIGIBLE_PRODUCTS trong shb_credit_agents/src/data/
+# registries.ts), KHÔNG phải chính sách hay khẩu vị rủi ro thật của SHB.
+# ---------------------------------------------------------------------------
+
+PRODUCT_LABEL_VI: dict[str, str] = {
+    "MICRO_OD": "Thấu chi doanh nghiệp",
+    "SME_WC": "Vay vốn lưu động SME",
+    "SME_TERM": "Vay đầu tư tài sản cố định",
+}
+
+VALID_PRODUCTS: frozenset[str] = frozenset(PRODUCT_LABEL_VI)
+
+VALID_SEGMENTS: frozenset[str] = frozenset({"SME", "MICROSME"})
+
+VALID_CHANNELS: frozenset[str] = frozenset({"RM_LMS", "MOBILE_KHDN"})
+
+AUTO_APPROVAL_ELIGIBLE_PRODUCTS: frozenset[str] = frozenset({"MICRO_OD"})
+AUTO_APPROVAL_SEGMENT = "MICROSME"
+AUTO_APPROVAL_CEILING_VND = 300_000_000

@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 
 import { AnalyzingView } from "../../components/AnalyzingView";
+import { NotificationBell } from "../../components/NotificationBell";
 import { TraoDoiTab } from "./TraoDoi";
 import { ExplainabilityDrawer } from "../../components/ExplainabilityDrawer";
 import { decisionAction, fetchAudit, fetchCase, triggerAnalyze } from "../../lib/api";
@@ -852,10 +853,7 @@ export default function CasePage() {
             />
           </div>
           <div className="flex items-center gap-3 shrink-0 ml-auto">
-            <button className="relative p-2 rounded-lg hover:bg-muted transition-colors">
-              <Bell className="size-5 text-muted-foreground" />
-              <span className="absolute top-1 right-1 size-4 bg-[var(--color-orange-600)] text-white text-[9px] font-bold rounded-full flex items-center justify-center">6</span>
-            </button>
+            <NotificationBell />
             <div className="flex items-center gap-2 text-sm">
               <div className="size-8 rounded-full bg-[var(--color-navy-700)] flex items-center justify-center text-white text-xs font-bold shrink-0">NA</div>
               <div className="hidden sm:block">

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronRight, LayoutDashboard, FolderOpen, Bot, CheckSquare, BarChart2, Settings } from "lucide-react";
+import { ChevronRight, LayoutDashboard, FolderOpen, Bot, CheckSquare, BarChart2, Settings, FileUp } from "lucide-react";
 import { cn } from "../lib/utils";
 
 interface NavItem {
@@ -19,6 +19,7 @@ export function Sidebar() {
   const pathname = usePathname();
   const onCasePage  = pathname?.startsWith("/cases/") ?? false;
   const onQueuePage = pathname === "/";
+  const onLmsPage   = pathname === "/lms";
 
   const navItems: NavItem[] = [
     {
@@ -41,6 +42,12 @@ export function Sidebar() {
       children: onCasePage && pathname
         ? [{ label: pathname.split("/").pop() ?? "Hồ sơ", href: pathname, active: true }]
         : [],
+    },
+    {
+      icon: <FileUp className="size-4.5" />,
+      label: "LMS — Tiếp nhận hồ sơ",
+      href: "/lms",
+      active: onLmsPage,
     },
     {
       icon: <CheckSquare className="size-4.5" />,
