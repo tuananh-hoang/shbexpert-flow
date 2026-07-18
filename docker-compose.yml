@@ -207,6 +207,15 @@ services:
       MCP_RAG_URL: ${MCP_RAG_URL:-http://mcp-rag:8201/mcp}
       MCP_EXTERNAL_URL: ${MCP_EXTERNAL_URL:-http://mcp-external:8202/mcp}
       MCP_STATE_URL: ${MCP_STATE_URL:-http://mcp-state:8203/mcp}
+      # LLM thật cho demo. worker/app/llm/adapter.py đọc OPENAI_* (models.yaml
+      # tier = provider openai trỏ FPT AI Factory). Repo lưu credential dưới
+      # tên FPT_* trong .env, nên map sang OPENAI_* ở đây — không phải nhân đôi
+      # secret, compose nội suy từ .env lúc chạy. Đặt OPENAI_API_KEY trực tiếp
+      # trong .env sẽ override. LLM_MOCK mặc định false (demo thật); đặt
+      # LLM_MOCK=true trong .env để chạy deterministic không cần key.
+      LLM_MOCK: ${LLM_MOCK:-false}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-${FPT_API_KEY:-}}
+      OPENAI_BASE_URL: ${OPENAI_BASE_URL:-${FPT_BASE_URL:-}}
     depends_on:
       postgres: { condition: service_healthy }
       redis: { condition: service_healthy }

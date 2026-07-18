@@ -46,6 +46,15 @@ from eval.common.scoring import (DOMAINS, load_golden, score_conflict,
 
 RESULTS_PATH = Path(__file__).resolve().parent / "results" / "metrics.jsonl"
 K = int(os.environ.get("EVAL_K", "3"))
+# Nhãn phân biệt lần chạy — ghép vào thread_id để LangGraph KHÔNG phát lại
+# checkpoint của lần chạy trước (thread_id đã hoàn tất chỉ replay tức thì chứ
+# không chạy lại node). Đổi tag mỗi khi sửa logic pipeline (vd thêm hard gate)
+# rồi muốn đo lại thật. Rỗng = giữ tương thích lần chạy đầu.
+RUN_TAG = os.environ.get("EVAL_RUN_TAG", "")
+
+
+def _thread_id(case_id: str, rep: int) -> str:
+    return f"{case_id}-{RUN_TAG}-r{rep}" if RUN_TAG else f"{case_id}-r{rep}"
 
 # (agent_id, metrics key) -> khoá trong ground_truth_numbers. Các con số này do
 # mcp-deterministic tính (không phải LLM tự nhẩm), nên đây chính là chỗ kỳ vọng
@@ -108,7 +117,7 @@ async def _run_once(case_id: str, golden_row: dict, graph, rep: int) -> dict:
     try:
         await graph.ainvoke(
             {"case_id": case_id, "as_of_date": "", "findings_written": []},
-            config={"configurable": {"thread_id": f"{case_id}-r{rep}"}},
+            config={"configurable": {"thread_id": _thread_id(case_id, rep)}},
         )
     except Exception as exc:  # noqa: BLE001 -- ghi lại rồi chạy tiếp, không mất các case khác
         error = f"{type(exc).__name__}: {exc}"

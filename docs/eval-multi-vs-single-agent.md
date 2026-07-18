@@ -361,53 +361,82 @@ pipeline (~30 phút/lượt). Golden là nguồn sự thật duy nhất tại th
 
 Chi tiết đầy đủ ở `eval/compare/summary.md`.
 
-| Chỉ số chất lượng | single_agent | multi_agent |
-|---|---|---|
-| Quyết định đúng | 0.125 | **0.500** |
-| Risk recall | 0.651 | **0.984** |
-| **Numeric accuracy** | 0.117 | **0.784** |
-| Consistency pass³ | 0.708 | **0.958** |
-| Tỷ lệ cảnh báo giả (thấp = tốt) | 0.125 | **0** |
-| Phát hiện mâu thuẫn | 0.5 | **1.0** |
+Số dưới đây là **sau khi bổ sung hard gate G7–G9** (xem §9.1 — chính bộ eval này
+phát hiện ra lỗ hổng đó rồi được dùng để kiểm chứng bản vá).
+
+| Chỉ số chất lượng | single_agent | multi_agent (trước G7–G9) | multi_agent (sau) |
+|---|---|---|---|
+| Quyết định đúng | 0.125 | 0.500 | **0.875** |
+| Risk recall | 0.651 | 0.984 | **1.000** |
+| **Numeric accuracy** | 0.117 | 0.784 | **0.801** |
+| Consistency pass³ | 0.708 | 0.958 | **1.000** |
+| Tỷ lệ cảnh báo giả (thấp = tốt) | 0.125 | 0 | **0** |
+| Phát hiện mâu thuẫn | 0.5 | 1.0 | **1.0** |
 
 | Chỉ số chi phí | single_agent | multi_agent |
 |---|---|---|
-| Thời gian chạy (ms) | **10 930** | 23 428 |
-| Số lệnh gọi LLM | **1** | 14.0 |
-| Tổng token | **3 049** | 3 590 |
-| Độ sâu vết audit (lượt 1) | 5.3 | **19.2** |
+| Thời gian chạy (ms) | **10 930** | 20 931 |
+| Số lệnh gọi LLM | **1** | 14.5 |
+| Tổng token | **3 049** | 3 981 |
+| Độ sâu vết audit (lượt 1) | 5.3 | **68.0** ¹ |
+
+¹ `events` là append-only nên không xoá được khi dọn dữ liệu giữa hai lần chạy
+(đúng thiết kế — xem `docs/ai-safety-grounding.md` §3). Con số này vì thế **cộng
+dồn** qua các lần chạy của cùng case; chỉ đọc theo hướng "multi-agent để lại vết
+audit sâu hơn hẳn", không đọc như số tuyệt đối một lần chạy.
 
 **Kết luận theo tiêu chí go/no-go §16.3:** kiến trúc tách agent cải thiện rõ rệt
-mọi chiều chất lượng, đổi lại ~2.1× độ trễ và ~14× số lệnh gọi LLM (nhưng chỉ
-~1.18× token, do mỗi lệnh gọi nhỏ và tập trung hơn). Với nghiệp vụ thẩm định tín
-dụng — nơi một quyết định sai đắt hơn nhiều so với 13 giây chờ — đánh đổi này là
+mọi chiều chất lượng, đổi lại ~1.9× độ trễ và ~14.5× số lệnh gọi LLM (nhưng chỉ
+~1.3× token, do mỗi lệnh gọi nhỏ và tập trung hơn). Với nghiệp vụ thẩm định tín
+dụng — nơi một quyết định sai đắt hơn nhiều so với 10 giây chờ — đánh đổi này là
 hợp lý.
 
-### 9.1 Những chỗ multi-agent trượt (phát hiện có giá trị nhất)
+### 9.1 Lỗi thật mà bộ eval phát hiện, và bản vá đã kiểm chứng
 
-4/8 archetype multi-agent ra sai quyết định: `BAD_CREDIT_HISTORY`,
-`VALUATION_STALE`, `WEAK_DSCR`, `HIGH_LEVERAGE`. Nguyên nhân chung: **scorecard
-không có hard gate** cho các tín hiệu này, mà điểm nền all-SUPPORT đã là 88/100
-nên một chiều yếu vẫn không kéo được xuống dưới ngưỡng APPROVE (80).
+**Phát hiện (lần chạy đầu):** 4/8 archetype multi-agent ra sai quyết định —
+`BAD_CREDIT_HISTORY`, `VALUATION_STALE`, `WEAK_DSCR`, `HIGH_LEVERAGE`. Nguyên
+nhân chung: **scorecard không có hard gate** cho các tín hiệu này, mà điểm nền
+all-SUPPORT đã là 88/100 nên một chiều yếu vẫn không kéo được xuống dưới ngưỡng
+APPROVE (80). Nặng nhất: khách nợ CIC nhóm 3–4 (nợ xấu theo phân loại NHNN) vẫn
+nhận `APPROVE` — và single-agent còn làm đúng hơn ở archetype này (0.556 so 0).
 
-Cụ thể ở `BAD_CREDIT_HISTORY`: khách nợ CIC nhóm 3–4 (nợ xấu theo phân loại
-NHNN) vẫn nhận `APPROVE`. **Đây là lỗi nghiêm trọng cần sửa**, và single-agent
-còn làm đúng hơn ở archetype này. Đề xuất: bổ sung hard gate cho nợ nhóm ≥3,
-định giá hết hiệu lực, và DSCR dưới ngưỡng — cùng nhóm với G1–G6 hiện có.
+**Bản vá:** bổ sung 3 hard gate `G7` (nợ nhóm ≥3 → REJECT), `G8` (DSCR < 1.3 →
+REFER), `G9` (định giá hết hiệu lực → NEED_INFO) trong
+`worker/app/graph/decision.py`, gate theo **metric xác định của tool** thay vì
+stance mềm để trigger không trôi khi agent tinh chỉnh banding.
 
-Nếu bộ eval này được thiết kế để "chứng minh multi-agent thắng", những phát hiện
-trên đã không xuất hiện.
+**Kiểm chứng (chạy lại nguyên bộ 24 case × 3 lượt trên chính harness này):**
+
+| Archetype | Trước | Sau | Quyết định sau |
+|---|---|---|---|
+| BAD_CREDIT_HISTORY | 0.00 | **1.00** | `REJECT` |
+| WEAK_DSCR | 0.00 | **1.00** | `REFER` |
+| VALUATION_STALE | 0.00 | **1.00** | `NEED_INFO` |
+| HIGH_LEVERAGE | 0.00 | 0.00 | `APPROVE` (chưa gate — xem dưới) |
+| 4 archetype vốn đúng | 1.00 | 1.00 | không hồi quy |
+| **Tổng** | **0.500** | **0.875** | |
+
+`HIGH_LEVERAGE` **cố ý chưa vá**: đòn bẩy cao là tín hiệu mềm hơn (DSCR vẫn
+1.45, TSBĐ vẫn dư bảo đảm), biến nó thành hard gate là một quyết định khẩu vị
+rủi ro cần chủ sở hữu nghiệp vụ chốt, không phải quyết định kỹ thuật. Ghi lại ở
+đây như một mục còn mở, không lặng lẽ bỏ qua.
+
+Nếu bộ eval này được thiết kế để "chứng minh multi-agent thắng", cả phát hiện
+lẫn bản vá trên đã không tồn tại.
 
 ---
 
 ## 10. Các nguồn sai số đã biết
 
-1. **Lỗi 409 khi lặp:** 50/72 lượt multi-agent báo lỗi, phần lớn là
-   `update_case_status 409 Conflict` ở lượt 2–3 — case đã chuyển sang
-   `READY_FOR_REVIEW` ở lượt 1. Node transition chạy **sau** khi DecisionPackage
-   đã ghi, nên quyết định/finding vẫn hợp lệ (đã kiểm: 100% lượt lỗi 409 vẫn có
-   quyết định đầy đủ). Muốn sạch tuyệt đối thì mỗi lượt lặp phải seed case_id
-   riêng.
+1. **Lỗi 409 khi lặp:** ở lần chạy kiểm chứng, **72/72** lượt báo lỗi (lần đầu
+   là 50/72): 62× `update_case_status 409 Conflict` + 10× MCP timeout thoáng
+   qua. Tỷ lệ 409 tăng vì khi dọn dữ liệu để chạy lại, `findings/decisions`
+   được xoá nhưng **case vẫn ở trạng thái `READY_FOR_REVIEW`** từ lần trước,
+   nên lượt 1 lần này cũng 409 (lần đầu case còn ở `ANALYZING` nên lượt 1
+   sạch). Node transition chạy **sau** khi DecisionPackage đã ghi, nên quyết
+   định/finding vẫn hợp lệ — đã kiểm: **72/72 lượt đều có quyết định đầy đủ**,
+   recall 1.0, numeric 0.801. Muốn sạch tuyệt đối thì mỗi lượt lặp phải seed
+   case_id riêng (hoặc reset case state trước khi chạy lại).
 2. **Finding tích luỹ qua các lượt lặp:** chạy lại cùng `case_id` mint
    `finding_key` mới, làm số đếm ở lượt 2–3 bị thổi phồng (38 so với 15.9). Đã
    xử lý bằng cách **chỉ lấy lượt 1** cho các chỉ số đếm; chỉ số chất lượng

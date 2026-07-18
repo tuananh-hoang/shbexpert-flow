@@ -7,11 +7,11 @@
 
 | Chỉ số | single_agent | multi_agent |
 |---|---|---|
-| Quyết định đúng (decision_correct) | 0.125 | 0.5 |
-| Risk recall (nêu đủ rủi ro bắt buộc) | 0.651 | 0.984 |
-| Numeric accuracy (số liệu tính đúng) | 0.117 | 0.784 |
+| Quyết định đúng (decision_correct) | 0.125 | 0.875 |
+| Risk recall (nêu đủ rủi ro bắt buộc) | 0.651 | 1.0 |
+| Numeric accuracy (số liệu tính đúng) | 0.117 | 0.801 |
 | Evidence coverage (claim có dẫn chứng) | 1.0 | 1.0 |
-| Consistency pass^k (mọi lượt cùng KQ) | 0.708 | 0.958 |
+| Consistency pass^k (mọi lượt cùng KQ) | 0.708 | 1.0 |
 | Tỷ lệ có cảnh báo giả (thấp = tốt) | 0.125 | 0 |
 | Phát hiện mâu thuẫn đúng kỳ vọng | 0.5 | 1 |
 
@@ -19,30 +19,30 @@
 
 | Chỉ số | single_agent | multi_agent |
 |---|---|---|
-| Thời gian chạy (ms) | 10929.601 | 23428.079 |
-| Số lệnh gọi LLM | 1 | 14.028 |
-| Tổng token | 3049.236 | 3589.736 |
-| Số lệnh gọi tool (chỉ lượt 1; multi là chặn dưới) | 0 | 15.25 |
-| Số finding (chỉ lượt 1) | 4.333 | 15.25 |
-| Độ sâu vết audit (chỉ lượt 1) | 5.333 | 19.208 |
+| Thời gian chạy (ms) | 10929.601 | 20930.503 |
+| Số lệnh gọi LLM | 1 | 14.528 |
+| Tổng token | 3049.236 | 3980.569 |
+| Số lệnh gọi tool (chỉ lượt 1; multi là chặn dưới) | 0 | 14.75 |
+| Số finding (chỉ lượt 1) | 4.333 | 14.75 |
+| Độ sâu vết audit (chỉ lượt 1) | 5.333 | 67.958 |
 
 ## Theo từng archetype nghiệp vụ
 
 | Archetype | QĐ đúng (single) | QĐ đúng (multi) | Recall (single) | Recall (multi) |
 |---|---|---|---|---|
-| BAD_CREDIT_HISTORY | 0.556 | 0 | 1.0 | 1.0 |
+| BAD_CREDIT_HISTORY | 0.556 | 1 | 1.0 | 1.0 |
 | CLEAN_APPROVE | 0.444 | 1 | None | None |
 | COLLATERAL_SHORTFALL | 0 | 1 | 0.0 | 1.0 |
-| HIGH_LEVERAGE | 0 | 0 | 1.0 | 0.889 |
+| HIGH_LEVERAGE | 0 | 0 | 1.0 | 1.0 |
 | IDENTITY_UNCLEAR | 0 | 1 | 1.0 | 1.0 |
 | REVENUE_MISMATCH | 0 | 1 | 1.0 | 1.0 |
-| VALUATION_STALE | 0 | 0 | 0.0 | 1.0 |
-| WEAK_DSCR | 0 | 0 | 0.556 | 1.0 |
+| VALUATION_STALE | 0 | 1 | 0.0 | 1.0 |
+| WEAK_DSCR | 0 | 1 | 0.556 | 1.0 |
 
 ## Lỗi trong lúc chạy (công bố đầy đủ)
 
 - single_agent: 0/72 lượt lỗi
-- multi_agent: 50/72 lượt lỗi — phần lớn là `update_case_status 409 Conflict` ở lượt lặp 2-3. Đây là **hệ quả của cách đo pass^k**, không phải hệ thống hỏng: case đã chuyển sang READY_FOR_REVIEW ở lượt 1 nên state machine từ chối chuyển tiếp lần nữa. Node transition chạy SAU khi DecisionPackage đã ghi, nên quyết định và finding của các lượt đó vẫn hợp lệ (đã kiểm: 100% lượt lỗi 409 vẫn có quyết định đầy đủ). Muốn sạch hoàn toàn thì mỗi lượt lặp phải seed case_id riêng.
+- multi_agent: 72/72 lượt lỗi — phần lớn là `update_case_status 409 Conflict` ở lượt lặp 2-3. Đây là **hệ quả của cách đo pass^k**, không phải hệ thống hỏng: case đã chuyển sang READY_FOR_REVIEW ở lượt 1 nên state machine từ chối chuyển tiếp lần nữa. Node transition chạy SAU khi DecisionPackage đã ghi, nên quyết định và finding của các lượt đó vẫn hợp lệ (đã kiểm: 100% lượt lỗi 409 vẫn có quyết định đầy đủ). Muốn sạch hoàn toàn thì mỗi lượt lặp phải seed case_id riêng.
 
 ## Ghi chú đọc số
 
