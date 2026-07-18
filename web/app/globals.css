@@ -1,50 +1,46 @@
-/* Design tokens — "Ngân hàng chuyên nghiệp" theme (Phase 8 UI redesign).
-   Navy/blue SHB palette, dense information density, tab-based navigation.
-   Kept as plain CSS custom properties (no Tailwind/CSS-in-JS dependency
-   in this project) so both page.tsx and ExplainabilityDrawer.tsx can
-   share one source of truth for color/spacing instead of duplicating
-   STANCE_COLOR-style constants per component. */
+/* SHB Design System tokens — imported from /web/SHB Design System/
+   This pulls in colors, typography (Poppins + Inter + JetBrains Mono),
+   spacing, effects (radius/shadow/motion), and base resets. */
+@import url('../SHB Design System/styles.css');
 
+/* Compat layer — maps the legacy variable names used across this codebase
+   to the new design system tokens, so no component files need to change. */
 :root {
-  --navy-900: #0b2545;
-  --navy-700: #13315c;
-  --navy-500: #1d4e8f;
-  --accent: #2f6fed;
-  --accent-hover: #1d56c9;
+  /* Navy scale */
+  --navy-900: var(--color-navy-900);
+  --navy-700: var(--color-navy-700);
+  --navy-500: var(--color-navy-500);
 
-  --bg: #f4f6f9;
-  --surface: #ffffff;
-  --border: #d7dee6;
-  --border-strong: #b7c3d1;
+  /* Brand accent — SHB orange (logo primary CTA/link color) */
+  --accent: var(--brand-primary);
+  --accent-hover: var(--brand-primary-hover);
 
-  --text: #1c2733;
-  --text-muted: #5c6b7a;
-  --text-on-navy: #eef3fb;
-  --text-on-navy-muted: #a9c0e0;
+  /* Surfaces */
+  --bg: var(--surface-page);
+  --surface: var(--surface-card);
 
-  --support: #1a7f37;
-  --support-bg: #dafbe1;
-  --caution: #9a6700;
-  --caution-bg: #fff8c5;
-  --oppose: #cf222e;
-  --oppose-bg: #ffebe9;
-  --need-data: #57606a;
-  --need-data-bg: #eaeef2;
+  /* Borders */
+  --border: var(--border-subtle);
+  --border-strong: var(--border-default);
 
-  --radius: 8px;
-  --shadow-sm: 0 1px 2px rgba(11, 37, 69, 0.06);
-  --shadow-md: 0 4px 16px rgba(11, 37, 69, 0.10);
-}
+  /* Text */
+  --text: var(--text-primary);
+  --text-muted: var(--text-secondary);
+  --text-on-navy: var(--color-white);
+  --text-on-navy-muted: var(--color-navy-300);
 
-* {
-  box-sizing: border-box;
-}
+  /* Semantic status */
+  --support: var(--status-success-fg);
+  --support-bg: var(--status-success-bg);
+  --caution: var(--status-warning-fg);
+  --caution-bg: var(--status-warning-bg);
+  --oppose: var(--status-danger-fg);
+  --oppose-bg: var(--status-danger-bg);
+  --need-data: var(--text-secondary);
+  --need-data-bg: var(--surface-sunken);
 
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Geometry */
+  --radius: var(--radius-sm);
 }
 
 /* ---------------------------------------------------------------------
