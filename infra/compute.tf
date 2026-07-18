@@ -9,6 +9,7 @@ resource "aws_instance" "app" {
   subnet_id              = aws_subnet.lz.id
   vpc_security_group_ids = [aws_security_group.app.id]
   key_name               = aws_key_pair.deploy.key_name
+  iam_instance_profile   = aws_iam_instance_profile.ssm.name
   user_data              = file("${path.module}/user_data.sh")
 
   root_block_device {
