@@ -337,13 +337,17 @@ flowchart TB
     start["Findings đã resolve<br/>+ dissent (nếu có)"] --> pre{"Mọi hard gate<br/>đã có trạng thái?"}
     pre -->|"Không"| block["<b>Không sinh DecisionPackage</b><br/>guardrail Decision Synthesis"]
 
-    pre -->|"Có"| gates["<b>Bước A — Hard gates</b><br/>G1 → G2 → G3 → G4 → G5"]
+    pre -->|"Có"| gates["<b>Bước A — Hard gates</b><br/>G1 → G2 → … → G9"]
 
-    gates -->|"G1 fail"| ni["<b>NEED_INFO</b>"]
-    gates -->|"G2 fail"| ref1["<b>REFER</b>"]
-    gates -->|"G3 fail"| rej1["<b>REJECT</b> + citation"]
-    gates -->|"G4 fail"| ref2["<b>REFER</b> / <b>NEED_INFO</b>"]
-    gates -->|"G5 fail"| rej2["<b>REJECT</b> / <b>REFER</b>"]
+    gates -->|"G1 thiếu chứng từ"| ni["<b>NEED_INFO</b>"]
+    gates -->|"G2 nhận dạng chưa rõ"| ref1["<b>REFER</b>"]
+    gates -->|"G3 mục đích bị cấm"| rej1["<b>REJECT</b> + citation"]
+    gates -->|"G4 lệch doanh thu"| ref2["<b>NEED_INFO</b>"]
+    gates -->|"G5 TSBĐ không đủ ĐK"| rej2["<b>REJECT</b>"]
+    gates -->|"G6 thiếu checklist"| ni
+    gates -->|"G7 nợ CIC nhóm ≥3"| rej2
+    gates -->|"G8 DSCR < 1.3"| ref1
+    gates -->|"G9 định giá hết hiệu lực"| ni
 
     gates -->|"tất cả PASS"| score["<b>Bước B — Scorecard</b><br/>6 nhóm · tổng 100"]
 
