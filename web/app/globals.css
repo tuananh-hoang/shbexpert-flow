@@ -171,6 +171,15 @@
   --status-critical-bg:  var(--status-danger-bg);
 }
 
+/* Global: remove underline from all links — SHB design uses color +
+   weight to signal interactivity, never underline outside body copy. */
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+
 /* ---------------------------------------------------------------------
    App layout — fixed left Sidebar + scrollable content pane. Global
    (wraps every page via web/app/layout.tsx), not just the case

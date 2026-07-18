@@ -419,11 +419,9 @@ function FilterBar({
 
 // ─── Case table ───────────────────────────────────────────────────────────────
 
-function CaseTable({ cases, loading, onSelect, selectedId }: {
+function CaseTable({ cases, loading }: {
   cases: EnrichedCase[];
   loading: boolean;
-  onSelect: (id: string) => void;
-  selectedId: string | null;
 }) {
   return (
     <Card className="py-0 gap-0 overflow-hidden">
@@ -460,15 +458,14 @@ function CaseTable({ cases, loading, onSelect, selectedId }: {
               <TableHead>Độ ưu tiên</TableHead>
               <TableHead>SLA</TableHead>
               <TableHead>Trạng thái</TableHead>
+              <TableHead className="w-[130px]"></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {cases.map((c, i) => {
               const pm = VI_PRIORITY[c.priority];
               const sla = SLA_PATTERN[i % SLA_PATTERN.length];
-              const isSelected = selectedId === c.raw.case_id;
 
-              // Status label & variant from state
               let statusLabel: string;
               let statusVariant: "warning" | "navy" | "success" | "muted";
               if (c.recommendation === "ANALYZING") {
@@ -482,19 +479,11 @@ function CaseTable({ cases, loading, onSelect, selectedId }: {
               }
 
               return (
-                <TableRow
-                  key={c.raw.case_id}
-                  data-selected={isSelected}
-                  className="cursor-pointer"
-                  onClick={() => onSelect(c.raw.case_id)}
-                  tabIndex={0}
-                  onKeyDown={(e) => e.key === "Enter" && onSelect(c.raw.case_id)}
-                >
+                <TableRow key={c.raw.case_id}>
                   <TableCell>
                     <Link
                       href={`/cases/${c.raw.case_id}`}
-                      className="font-bold text-primary hover:underline text-sm"
-                      onClick={(e) => e.stopPropagation()}
+                      className="font-bold text-primary text-sm"
                     >
                       {c.raw.case_id}
                     </Link>
@@ -523,6 +512,11 @@ function CaseTable({ cases, loading, onSelect, selectedId }: {
                     <Badge variant={statusVariant} className="rounded-full text-xs whitespace-nowrap">
                       {statusLabel}
                     </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <Button asChild variant="outline" size="sm" className="text-xs h-7 px-3 whitespace-nowrap">
+                      <Link href={`/cases/${c.raw.case_id}`}>Mở hồ sơ</Link>
+                    </Button>
                   </TableCell>
                 </TableRow>
               );
@@ -689,7 +683,7 @@ function HighPriorityList({ cases }: { cases: EnrichedCase[] }) {
             className="flex items-start justify-between gap-3 border border-border rounded-lg p-3 hover:bg-muted/40 hover:border-[var(--color-navy-300)] transition-colors group"
           >
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-bold text-primary group-hover:underline truncate">{c.raw.case_id}</p>
+              <p className="text-sm font-bold text-primary truncate">{c.raw.case_id}</p>
               <p className="text-xs text-muted-foreground truncate mt-0.5">{c.raw.customer_id}</p>
               <p className="text-xs text-muted-foreground mt-0.5">
                 Hạn mức: <span className="font-semibold text-foreground">{formatVnd(c.amountVnd)}</span>
@@ -827,7 +821,6 @@ function StatusBar({ lastUpdated }: { lastUpdated: string | null }) {
 
 export default function ApplicationQueue() {
   const [cases, setCases] = useState<CaseSummary[] | null>(null);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [selectedProducts, setSelectedProducts] = useState<Set<string>>(new Set());
   const [maxAmountB, setMaxAmountB] = useState(100); // in tỷ VND, 100 = no filter
 
@@ -891,11 +884,6 @@ export default function ApplicationQueue() {
     [enriched]
   );
 
-  const selectedCase = useMemo(
-    () => enriched.find((c) => c.raw.case_id === selectedId) ?? (enriched[0] ?? null),
-    [enriched, selectedId]
-  );
-
   function toggleProduct(p: string) {
     setSelectedProducts((prev) => {
       const next = new Set(prev);
@@ -939,8 +927,6 @@ export default function ApplicationQueue() {
           <CaseTable
             cases={filteredCases}
             loading={loading}
-            onSelect={setSelectedId}
-            selectedId={selectedId}
           />
           {!loading && <ProcessingFunnel counts={funnelCounts} />}
         </div>
@@ -951,11 +937,6 @@ export default function ApplicationQueue() {
           <HighPriorityList cases={highPriorityCases} />
         </div>
       </div>
-
-      {/* ── AI Reasoning panel (on row select) ───────────────── */}
-      {selectedCase && !loading && (
-        <ReasoningPanel c={selectedCase} />
-      )}
 
       {/* ── Status bar ────────────────────────────────────────── */}
       <StatusBar lastUpdated={lastUpdated} />

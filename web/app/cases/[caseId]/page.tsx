@@ -306,10 +306,10 @@ function AgentCard({
         <>
           <Separator />
           <button
-            className="px-4 py-2.5 text-xs font-semibold text-primary hover:bg-muted/50 transition-colors text-left flex items-center gap-1"
+            className="group px-4 py-2.5 text-xs font-semibold text-primary hover:bg-muted/50 transition-colors text-left flex items-center gap-1 no-underline"
             onClick={() => onFindingClick(finding)}
           >
-            Xem phân tích chi tiết <ChevronRight className="size-3" />
+            Xem phân tích chi tiết <ChevronRight className="size-3 transition-transform duration-150 group-hover:translate-x-0.5" />
           </button>
         </>
       )}
@@ -871,8 +871,8 @@ export default function CasePage() {
 
         {/* Sub-header: back + action buttons */}
         <div className="flex items-center justify-between px-6 py-2 border-t border-border bg-muted/30">
-          <Link href="/" className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
-            <ChevronRight className="size-4 rotate-180" />
+          <Link href="/" className="group flex items-center gap-1.5 text-sm text-[var(--color-orange-600)] transition-colors no-underline">
+            <ChevronRight className="size-4 rotate-180 transition-transform duration-150 group-hover:-translate-x-0.5" />
             Quay lại danh sách
           </Link>
           <div className="flex items-center gap-2">

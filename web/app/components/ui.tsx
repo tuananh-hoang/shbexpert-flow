@@ -187,10 +187,10 @@ type ButtonVariant = "primary" | "secondary" | "ghost" | "danger";
 type ButtonSize = "sm" | "md";
 
 const VARIANT_STYLE: Record<ButtonVariant, React.CSSProperties> = {
-  primary: { background: "var(--brand)", color: "#fff" },
-  danger: { background: "var(--status-critical)", color: "#fff" },
-  secondary: { background: "var(--surface-1)", color: "var(--text-primary)", border: "1px solid var(--border-hairline)" },
-  ghost: { background: "transparent", color: "var(--text-secondary)" },
+  primary:   { background: "var(--color-orange-600)", color: "#fff" },
+  danger:    { background: "var(--status-critical)", color: "#fff" },
+  secondary: { background: "#fff", color: "var(--color-orange-600)", border: "1px solid var(--color-orange-600)" },
+  ghost:     { background: "transparent", color: "var(--text-secondary)" },
 };
 
 const SIZE_CLASS: Record<ButtonSize, string> = {
@@ -220,7 +220,7 @@ export function Button({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`inline-flex items-center justify-center gap-1.5 rounded-lg font-medium transition-opacity disabled:cursor-not-allowed disabled:opacity-40 ${SIZE_CLASS[size]} ${className}`}
+      className={`inline-flex items-center justify-center gap-1.5 rounded-full font-medium transition-all duration-150 disabled:cursor-not-allowed disabled:opacity-40 hover:opacity-90 ${SIZE_CLASS[size]} ${className}`}
       style={VARIANT_STYLE[variant]}
     >
       {children}
