@@ -15,6 +15,8 @@ from __future__ import annotations
 
 import asyncio
 import os
+import time
+from contextvars import ContextVar
 from functools import lru_cache
 from pathlib import Path
 from typing import Any, AsyncIterator
@@ -22,6 +24,22 @@ from typing import Any, AsyncIterator
 import yaml
 
 _CONFIG_PATH = Path(__file__).resolve().parent.parent.parent / "config" / "models.yaml"
+
+# Eval-harness hook (eval/common/instrumentation.py) — off by default (None),
+# so normal app traffic is byte-for-byte unaffected. When an eval runner sets
+# a collector list via `set_metrics_collector` before invoking agent code, every
+# `complete()` call appends its {tier, provider, model, latency_ms,
+# prompt_tokens, completion_tokens} here. A ContextVar (not a module global)
+# because LangGraph's FanOut runs several agents as concurrent asyncio tasks
+# on one event loop — asyncio copies the current context into each child
+# task, so setting this once before `ainvoke()` attributes every concurrent
+# agent's calls back to the same collector without threading a parameter
+# through every call site.
+_metrics_collector: ContextVar[list | None] = ContextVar("_metrics_collector", default=None)
+
+
+def set_metrics_collector(collector: list | None) -> None:
+    _metrics_collector.set(collector)
 
 
 @lru_cache(maxsize=1)
@@ -69,14 +87,30 @@ async def complete(*, tier: str, system: str, user: str) -> str:
     model = cfg["model"]
     max_tokens = cfg.get("max_tokens", 4096)
 
+    start = time.monotonic()
     if provider == "anthropic":
-        return await _complete_anthropic(model=model, max_tokens=max_tokens, system=system, user=user)
-    if provider == "openai":
-        return await _complete_openai(model=model, max_tokens=max_tokens, system=system, user=user)
-    raise ValueError(f"unsupported provider {provider!r} for tier {tier!r}")
+        text, usage = await _complete_anthropic(model=model, max_tokens=max_tokens, system=system, user=user)
+    elif provider == "openai":
+        text, usage = await _complete_openai(model=model, max_tokens=max_tokens, system=system, user=user)
+    else:
+        raise ValueError(f"unsupported provider {provider!r} for tier {tier!r}")
+
+    collector = _metrics_collector.get()
+    if collector is not None:
+        collector.append(
+            {
+                "tier": tier,
+                "provider": provider,
+                "model": model,
+                "latency_ms": (time.monotonic() - start) * 1000,
+                "prompt_tokens": usage.get("prompt_tokens"),
+                "completion_tokens": usage.get("completion_tokens"),
+            }
+        )
+    return text
 
 
-async def _complete_anthropic(*, model: str, max_tokens: int, system: str, user: str) -> str:
+async def _complete_anthropic(*, model: str, max_tokens: int, system: str, user: str) -> tuple[str, dict]:
     from anthropic import AsyncAnthropic
 
     client = AsyncAnthropic()  # reads ANTHROPIC_API_KEY from env
@@ -86,10 +120,12 @@ async def _complete_anthropic(*, model: str, max_tokens: int, system: str, user:
         system=system,
         messages=[{"role": "user", "content": user}],
     )
-    return "".join(block.text for block in response.content if block.type == "text")
+    text = "".join(block.text for block in response.content if block.type == "text")
+    usage = {"prompt_tokens": response.usage.input_tokens, "completion_tokens": response.usage.output_tokens}
+    return text, usage
 
 
-async def _complete_openai(*, model: str, max_tokens: int, system: str, user: str) -> str:
+async def _complete_openai(*, model: str, max_tokens: int, system: str, user: str) -> tuple[str, dict]:
     from openai import AsyncOpenAI
 
     # OPENAI_BASE_URL lets this point at a self-hosted OpenAI-compatible
@@ -104,7 +140,13 @@ async def _complete_openai(*, model: str, max_tokens: int, system: str, user: st
             {"role": "user", "content": user},
         ],
     )
-    return response.choices[0].message.content or ""
+    text = response.choices[0].message.content or ""
+    usage = (
+        {"prompt_tokens": response.usage.prompt_tokens, "completion_tokens": response.usage.completion_tokens}
+        if response.usage
+        else {"prompt_tokens": None, "completion_tokens": None}
+    )
+    return text, usage
 
 
 # ---------------------------------------------------------------------------

@@ -8,9 +8,32 @@ calls — so a replayed run always sees the same "external system" answer.
 Only `mcp-external` (Policy, Collateral, Customer 360 agents) is allowed
 to call this service — see overview.md §4 "Ai KHÔNG được gọi ai".
 """
+import json
+import os
+from pathlib import Path
+
 from fastapi import FastAPI, HTTPException
 
 app = FastAPI(title="tools-mock")
+
+
+def _load_overlay() -> dict:
+    """Nạp thêm bản ghi cho các case sinh bởi eval/generate_cases.py.
+
+    Ba dict bên dưới hardcode theo case_id/customer_id và 404 với ID lạ, nên
+    bộ eval case sinh mới sẽ làm Collateral/Customer360 agent lỗi nếu không có
+    đường nạp thêm. Overlay là file JSON tuỳ chọn (bind-mount, trỏ bởi
+    TOOLS_MOCK_OVERLAY) — không có file thì hành vi y hệt như trước, nên
+    demo/dev không đổi gì. Dữ liệu eval nằm ngoài source, không lẫn vào các
+    case demo cố định ở đây."""
+    path = os.environ.get("TOOLS_MOCK_OVERLAY")
+    if not path or not Path(path).is_file():
+        return {}
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+_OVERLAY = _load_overlay()
 
 
 @app.get("/health")
@@ -57,6 +80,9 @@ _VALUATIONS = {
 }
 
 
+_VALUATIONS.update(_OVERLAY.get("valuations", {}))
+
+
 @app.get("/valuation/{collateral_id}")
 def get_valuation(collateral_id: str) -> dict:
     record = _VALUATIONS.get(collateral_id)
@@ -84,6 +110,9 @@ _OBLIGATIONS = {
     "CUS-00003": {"outstanding_loan_vnd": 4_001_804_000, "outstanding_guarantee_vnd": 0, "outstanding_lc_vnd": 0},
     "CUS-00004": {"outstanding_loan_vnd": 2_599_662_000, "outstanding_guarantee_vnd": 0, "outstanding_lc_vnd": 0},
 }
+
+
+_OBLIGATIONS.update(_OVERLAY.get("obligations", {}))
 
 
 @app.get("/credit-obligations/{customer_id}")
@@ -159,6 +188,9 @@ _CIC_RECORDS = {
         "identity_match_score": 97,
     },
 }
+
+
+_CIC_RECORDS.update(_OVERLAY.get("cic", {}))
 
 
 @app.get("/cic/{customer_id}")

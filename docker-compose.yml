@@ -88,6 +88,12 @@ services:
       # upgrade` (run manually / at deploy time) uses ADMIN_DATABASE_URL.
       DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg2://shbapp:shbapppass@postgres:5432/shbexpert}
       ADMIN_DATABASE_URL: ${ADMIN_DATABASE_URL:-postgresql+psycopg2://shbuser:shbpass@postgres:5432/shbexpert}
+      # api/app/main.py's /health check pings this directly -- without an
+      # override it falls back to its own redis://localhost:6379/0 default,
+      # which is never reachable from inside the container, so /health (and
+      # therefore mcp-state's and worker's depends_on: service_healthy) never
+      # passes.
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
       # Chat Orchestrator's internal HTTP surface (ai-architecture_v2.md
       # §11.8, worker/app/chat/server.py) — a runtime-only call, not a
       # startup dependency, so `worker` is deliberately NOT in this
@@ -111,6 +117,13 @@ services:
     build:
       context: .
       dockerfile: tools-mock/Dockerfile
+    environment:
+      # Bản ghi valuation/obligations/CIC cho bộ eval case sinh bởi
+      # eval/generate_cases.py. File không tồn tại thì tools-mock chạy y hệt
+      # như cũ (xem _load_overlay) — mount read-only, không ảnh hưởng demo.
+      TOOLS_MOCK_OVERLAY: /app/eval_cases/tools_mock_overlay.json
+    volumes:
+      - ./artifacts/eval_cases:/app/eval_cases:ro
     networks: [internal]
     healthcheck:
       test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8100/health', timeout=3)"]
