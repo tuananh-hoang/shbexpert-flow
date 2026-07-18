@@ -1,0 +1,7 @@
+# Local Terraform state (no remote backend — we apply locally, no CI/CD)
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfvars
+crash.log

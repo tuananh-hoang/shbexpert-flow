@@ -1,0 +1,9 @@
+# Single public entry point. Caddy terminates TLS (auto Let's Encrypt for
+# the sslip.io host) and reverse-proxies to the web container over the
+# internal Docker network. The browser only ever talks to `web`'s origin;
+# web itself rewrites /api/* to the api container (see web/next.config.mjs),
+# so nothing else needs to be exposed.
+{$APP_DOMAIN} {
+	encode gzip
+	reverse_proxy web:3000
+}

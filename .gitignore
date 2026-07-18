@@ -19,3 +19,6 @@ dist/
 # Dữ liệu và artifact runtime
 *.log
 .DS_Store
+
+# Codegraph local index (máy-cục-bộ, không đưa lên repo)
+.codegraph/
