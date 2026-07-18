@@ -468,7 +468,7 @@ function ScoreSidebar({ compositePct }: { compositePct: number | null }) {
   const overall = scoreVerdict(composite);
 
   return (
-    <Card className="py-0 gap-0 w-[260px] shrink-0">
+    <Card className="py-0 gap-0 w-full">
       <CardHeader className="pt-4 pb-3 px-4">
         <CardTitle className="text-sm">Tóm tắt đánh giá sơ bộ</CardTitle>
       </CardHeader>
@@ -538,18 +538,13 @@ export function Overview360({ caseDetail }: { caseDetail: CaseDetail }) {
     : null;
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex gap-4 items-start flex-wrap xl:flex-nowrap">
 
-      {/* Row 1: KYC + Credit Request */}
-      <div className="flex gap-4 items-start flex-wrap xl:flex-nowrap">
+      {/* Left column: KYC + Financial stacked */}
+      <div className="flex-1 min-w-0 flex flex-col gap-4">
         <KYCCard caseDetail={caseDetail} />
-        <CreditRequestCard caseDetail={caseDetail} />
-      </div>
 
-      {/* Row 2: Financial & Collateral + Score sidebar */}
-      <div className="flex gap-4 items-start flex-wrap xl:flex-nowrap">
-        {/* Main financial/collateral card */}
-        <Card className="py-0 gap-0 flex-1 min-w-0 overflow-hidden">
+        <Card className="py-0 gap-0 overflow-hidden">
           <CardHeader className="pt-4 pb-3 px-5">
             <CardTitle className="text-sm">3. Financial &amp; Collateral</CardTitle>
           </CardHeader>
@@ -560,10 +555,14 @@ export function Overview360({ caseDetail }: { caseDetail: CaseDetail }) {
             <CollateralSection ltvPct={ltvPct} />
           </CardContent>
         </Card>
+      </div>
 
-        {/* Score sidebar */}
+      {/* Right column: Credit Request + Score sidebar stacked */}
+      <div className="flex flex-col gap-4 w-[300px] shrink-0">
+        <CreditRequestCard caseDetail={caseDetail} />
         <ScoreSidebar compositePct={compositePct} />
       </div>
+
     </div>
   );
 }

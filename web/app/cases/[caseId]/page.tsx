@@ -760,6 +760,26 @@ export default function CasePage() {
 
   const runAnalyze = async () => { setBusy(true); setLog([]); await triggerAnalyze(caseId); };
 
+  const downloadMemo = async () => {
+    try {
+      const res = await fetch(`/api/cases/${caseId}/memo/pdf`, { cache: "no-store" });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        alert(body.detail ?? "Không thể xuất PDF — hãy tạo tờ trình trước.");
+        return;
+      }
+      const blob = await res.blob();
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement("a");
+      a.href     = url;
+      a.download = `to-trinh-${caseId}-${new Date().toISOString().slice(0, 10)}.pdf`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      alert("Lỗi khi tải PDF.");
+    }
+  };
+
   const doAction = async (action: "accept" | "rerun" | "return" | "override" | "reject" | "escalate", reason?: string) => {
     try {
       await decisionAction(caseId, action, reason);
@@ -872,7 +892,7 @@ export default function CasePage() {
             Quay lại danh sách
           </Link>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" className="gap-1.5 text-xs">
+            <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={downloadMemo}>
               <Download className="size-3.5" /> Tải báo cáo
             </Button>
             <Button size="sm" className="gap-1.5 text-xs">
