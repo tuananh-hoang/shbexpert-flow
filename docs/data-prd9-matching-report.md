@@ -5,6 +5,7 @@ Phạm vi: dữ liệu đã commit trên nhánh `tuananh/synthetic-data-pipeline
 
 ## 1. Kết luận ngắn
 
+
 Bộ dữ liệu hiện tại **đã đủ tốt để làm master pool có cấu trúc cho agent phát triển và kiểm thử integration**, nhưng **chưa phải bộ benchmark hoàn chỉnh theo mục 9 của PRD**.
 
 - Đã có **11/12 nhóm dữ liệu** trong danh mục mục 9.1. Nhóm còn thiếu là `Workflow & audit`.
