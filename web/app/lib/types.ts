@@ -30,6 +30,9 @@ export interface Finding {
   confidence: number;
   evidence_ids: string[];
   citations: Citation[];
+  // Real numbers a deterministic tool computed (coverage_ratio, dscr,
+  // ...) — see Citation's sibling comment in shared/schemas.py.
+  metrics: Record<string, number>;
   recommended_action: string | null;
   version: number;
   change_reason: string | null;
@@ -86,6 +89,11 @@ export interface CaseSummary {
   has_findings: boolean;
 }
 
+export interface DocumentSummary {
+  document_id: string;
+  doc_type: string;
+}
+
 export interface CaseDetail {
   case_id: string;
   customer_id: string;
@@ -93,6 +101,8 @@ export interface CaseDetail {
   state: string;
   version: number;
   requested_facility: Record<string, unknown>;
+  documents: DocumentSummary[];
+  required_doc_types: string[];
   findings: Finding[];
   conflicts: Conflict[];
   decision: Decision | null;

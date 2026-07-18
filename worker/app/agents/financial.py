@@ -93,6 +93,7 @@ async def _repayment_capacity_finding(case_id: str, tools: dict, fields: dict) -
         stance=stance,
         severity=severity,
         evidence_ids=evidence_ids,
+        metrics={"dscr": dscr, "ebitda_margin": ebitda_margin},
         confidence=0.9 if stance == "SUPPORT" else 0.7,
         recommended_action=None,
     )
@@ -137,6 +138,7 @@ async def _collateral_coverage_finding(case_id: str, tools: dict, fields: dict, 
         stance=stance,
         severity="MEDIUM",
         evidence_ids=evidence_ids,
+        metrics={"coverage_ratio": coverage_ratio},
         confidence=0.85,
         recommended_action=None,
     )

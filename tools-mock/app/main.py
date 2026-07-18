@@ -41,6 +41,33 @@ _VALUATIONS = {
         "valuation_date": "2025-06-01",
         "source": "SHB_INTERNAL_REGISTRY",
     },
+    # scripts/seed_synthetic_cases.py — official value = 0.97 x the
+    # customer-submitted valuation_amount from each case's collateral[0],
+    # same "differs slightly from submitted" convention as C06/C07/C08.
+    "CASE-CUS-00001": {
+        "collateral_id": "CASE-CUS-00001",
+        "official_value_vnd": 18_405_113_680,
+        "valuation_date": "2025-06-01",
+        "source": "SHB_INTERNAL_REGISTRY",
+    },
+    "CASE-CUS-00002": {
+        "collateral_id": "CASE-CUS-00002",
+        "official_value_vnd": 21_156_561_360,
+        "valuation_date": "2025-06-01",
+        "source": "SHB_INTERNAL_REGISTRY",
+    },
+    "CASE-CUS-00003": {
+        "collateral_id": "CASE-CUS-00003",
+        "official_value_vnd": 22_181_430_380,
+        "valuation_date": "2025-06-01",
+        "source": "SHB_INTERNAL_REGISTRY",
+    },
+    "CASE-CUS-00004": {
+        "collateral_id": "CASE-CUS-00004",
+        "official_value_vnd": 21_434_210_280,
+        "valuation_date": "2025-06-01",
+        "source": "SHB_INTERNAL_REGISTRY",
+    },
 }
 
 

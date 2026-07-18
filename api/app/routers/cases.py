@@ -15,6 +15,7 @@ from fastapi import APIRouter, HTTPException, Query, Response
 from pydantic import BaseModel
 from sqlalchemy import select
 
+from shared.constants import REQUIRED_DOC_TYPES
 from shared.db import get_session
 from shared.models import Case, ConflictRecord, DecisionPackage, Document, Event, ExtractedField, Finding
 from shared.queue import ANALYZE_QUEUE, progress_channel
@@ -41,6 +42,7 @@ def _finding_dict(f: Finding) -> dict:
         "confidence": f.confidence,
         "evidence_ids": f.evidence_ids,
         "citations": f.citations,
+        "metrics": f.metrics,
         "recommended_action": f.recommended_action,
         "version": f.version,
         "change_reason": f.change_reason,
@@ -121,6 +123,8 @@ def get_case(case_id: str) -> dict:
             .first()
         )
 
+        documents = session.execute(select(Document).where(Document.case_id == case_id)).scalars().all()
+
         return {
             "case_id": case.case_id,
             "customer_id": case.customer_id,
@@ -128,6 +132,8 @@ def get_case(case_id: str) -> dict:
             "state": case.state,
             "version": case.version,
             "requested_facility": case.requested_facility,
+            "documents": [{"document_id": d.document_id, "doc_type": d.doc_type} for d in documents],
+            "required_doc_types": sorted(REQUIRED_DOC_TYPES),
             "findings": [_finding_dict(f) for f in findings],
             "conflicts": [
                 {
