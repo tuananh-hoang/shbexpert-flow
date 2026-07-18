@@ -104,14 +104,26 @@ LEGAL_CHECKLIST = [
             "ngày giải ngân dự kiến; nếu không đáp ứng, phải yêu cầu định giá lại trước khi "
             "giải ngân."
         ),
-        "metadata": {"collateral_type": "valuation_certificate", "version": "1.0"},
+        # checklist_id links this Qdrant hit (semantic text + score) back to
+        # the structured legal_checklist_template row of the same id
+        # (scripts/seed_collateral_reference.py) — collateral.py joins the
+        # two by checklist_id to build checklist_items[]/condition_precedent[].
+        "metadata": {"collateral_type": "valuation_certificate", "version": "1.0", "checklist_id": "LC-VALUATION-EXPIRY-60D", "is_mandatory": True},
+    },
+    {
+        "text": (
+            "Chứng thư định giá phải do thẩm định viên có chứng chỉ hành nghề hợp lệ ký phát "
+            "hành; chứng thư không có chữ ký/chứng chỉ hợp lệ không được sử dụng làm căn cứ "
+            "tính coverage."
+        ),
+        "metadata": {"collateral_type": "valuation_certificate", "version": "1.0", "checklist_id": "LC-VALUATION-APPRAISER-LICENSE", "is_mandatory": True},
     },
     {
         "text": (
             "Bất động sản thế chấp phải có giấy chứng nhận quyền sử dụng đất hợp lệ, không có "
             "tranh chấp, và đã đăng ký giao dịch bảo đảm tại cơ quan có thẩm quyền."
         ),
-        "metadata": {"collateral_type": "real_estate", "version": "1.0"},
+        "metadata": {"collateral_type": "real_estate", "version": "1.0", "checklist_id": "LC-REAL-ESTATE-TITLE", "is_mandatory": True},
     },
 ]
 

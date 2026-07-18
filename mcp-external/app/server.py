@@ -49,6 +49,31 @@ def get_valuation(collateral_id: str) -> dict:
     return resp.json()
 
 
+@mcp.tool()
+def get_credit_obligations(customer_id: str) -> dict:
+    """Fetches the customer's EXISTING obligations at the bank (dư nợ +
+    dư bảo lãnh + dư L/C — "Tổng nghĩa vụ tại MB", cẩm nang trang 25).
+    Collateral & Legal Agent adds the CURRENTLY-requested facility amount
+    on top of `total_obligation_vnd` itself (collateral.py) before calling
+    calculate_collateral_coverage — this tool only reports what's already
+    on the books, not the new request."""
+    resp = httpx.get(f"{TOOLS_MOCK_URL}/credit-obligations/{customer_id}", timeout=10.0)
+    resp.raise_for_status()
+    return resp.json()
+
+
+@mcp.tool()
+def query_cic_mock(customer_id: str) -> dict:
+    """Fetches a mock CIC (Credit Information Center) snapshot — dư nợ tại
+    TCTD khác, nhóm nợ theo phân loại NHNN, sự kiện quá hạn, và
+    identity_match_score. Guardrail bắt buộc ở caller (worker/app/agents/
+    customer360.py): identity_match_score thấp KHÔNG được tự coi là match
+    — đây là lý do tồn tại của golden case C05 (ai-architecture.md §5.5)."""
+    resp = httpx.get(f"{TOOLS_MOCK_URL}/cic/{customer_id}", timeout=10.0)
+    resp.raise_for_status()
+    return resp.json()
+
+
 async def health(_request) -> JSONResponse:
     try:
         resp = httpx.get(f"{TOOLS_MOCK_URL}/health", timeout=5.0)

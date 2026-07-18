@@ -88,6 +88,12 @@ services:
       # upgrade` (run manually / at deploy time) uses ADMIN_DATABASE_URL.
       DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg2://shbapp:shbapppass@postgres:5432/shbexpert}
       ADMIN_DATABASE_URL: ${ADMIN_DATABASE_URL:-postgresql+psycopg2://shbuser:shbpass@postgres:5432/shbexpert}
+      # Chat Orchestrator's internal HTTP surface (ai-architecture_v2.md
+      # §11.8, worker/app/chat/server.py) — a runtime-only call, not a
+      # startup dependency, so `worker` is deliberately NOT in this
+      # service's `depends_on` (avoids a circular start-order requirement;
+      # worker already transitively starts after api via mcp-state).
+      WORKER_INTERNAL_URL: ${WORKER_INTERNAL_URL:-http://worker:8300}
     depends_on:
       postgres: { condition: service_healthy }
       redis: { condition: service_healthy }
@@ -197,7 +203,10 @@ services:
       mcp-state: { condition: service_healthy }
     networks: [internal]
     healthcheck:
-      # worker có no HTTP surface — kiểm heartbeat file thay vì port.
+      # Heartbeat file, not the Chat Orchestrator's HTTP port (8300, internal-
+      # only — ai-architecture_v2.md §11.8): the file check validates the
+      # analyze-job consumer loop is genuinely alive, which the HTTP server
+      # alone wouldn't (it's a separate asyncio task in the same process).
       test: ["CMD", "python3", "-c", "import time,sys; t=float(open('/tmp/heartbeat').read()); sys.exit(0 if time.time()-t<60 else 1)"]
       interval: 10s
       timeout: 5s

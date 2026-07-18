@@ -1,107 +1,61 @@
 "use client";
 
 /**
- * Application Queue — Screen 0 of the frontend flow (FE_flow.jpeg): list
- * of customers waiting for credit review. Selecting a row navigates to
- * `/cases/{case_id}` (web/app/cases/[caseId]/page.tsx), which shows the
- * Analyzing/"thinking" view if the case hasn't been analyzed yet, or the
- * full Dashboard once findings/decision exist.
- *
- * Data flows through /api/* only (overview.md §4) — GET /cases
+ * Application Queue — redesigned per dashmint_ai-trang's Dashboard.tsx:
+ * header -> StatsBar -> FilterBar -> QueueList (cards, not a table).
+ * Priority is computed client-side (lib/priority.ts) since `Case` has no
+ * priority column; everything else binds to real GET /cases data
  * (api/app/routers/cases.py::list_cases).
  */
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { fetchCases } from "./lib/api";
 import type { CaseSummary } from "./lib/types";
-
-function formatVnd(amount: unknown): string {
-  if (typeof amount !== "number") return "—";
-  return `${(amount / 1_000_000_000).toLocaleString("vi-VN", { maximumFractionDigits: 1 })} tỷ VND`;
-}
-
-function statusLabel(c: CaseSummary): string {
-  if (!c.has_findings) return "Chờ phân tích";
-  if (c.state === "READY_FOR_REVIEW") return "Sẵn sàng duyệt";
-  if (c.state === "NEED_INFO") return "Cần bổ sung";
-  if (c.state === "ANALYZING") return "Đang phân tích";
-  return c.state;
-}
-
-function statusDotColor(c: CaseSummary): string {
-  if (!c.has_findings) return "#8b98a8"; // grey — nothing has run yet
-  if (c.state === "NEED_INFO") return "#e0a000"; // amber — needs attention
-  if (c.state === "READY_FOR_REVIEW") return "#4fd67a"; // green — ready
-  return "#8b98a8";
-}
+import { StatsBar } from "./components/StatsBar";
+import { FilterBar, applyFilters, type QueueFilters } from "./components/FilterBar";
+import { QueueList } from "./components/QueueList";
+import { averageApprovalHours, isPending, sortByPriority } from "./lib/priority";
+import { useI18n } from "./lib/i18n";
 
 export default function ApplicationQueue() {
+  const { t } = useI18n();
   const [cases, setCases] = useState<CaseSummary[] | null>(null);
+  const [filters, setFilters] = useState<QueueFilters>({ product: "all", amountBucket: "all" });
 
   useEffect(() => {
     fetchCases().then(setCases).catch(() => setCases([]));
   }, []);
 
+  const pending = useMemo(() => (cases ?? []).filter(isPending), [cases]);
+  const sorted = useMemo(() => sortByPriority(pending), [pending]);
+  const filtered = useMemo(() => applyFilters(sorted, filters), [sorted, filters]);
+  const urgentCount = useMemo(() => sorted.filter((c) => c.priority === "urgent").length, [sorted]);
+  const avgApprovalHours = useMemo(() => averageApprovalHours(cases ?? []), [cases]);
+  const products = useMemo(() => Array.from(new Set((cases ?? []).map((c) => c.product))).sort(), [cases]);
+
   return (
-    <main className="app-shell">
-      <div className="hero-strip">
-        <div className="breadcrumb">SHBExpert AI</div>
-        <h1>Application Queue</h1>
-        <div className="hero-metrics">
-          <div>
-            <div className="hero-metric-label">Hồ sơ chờ xử lý</div>
-            <div className="hero-metric-value">{cases?.length ?? "—"}</div>
-          </div>
-        </div>
+    <main className="mx-auto max-w-7xl px-8 py-8">
+      <div className="mb-6">
+        <h1 className="text-2xl font-semibold" style={{ color: "var(--text-primary)" }}>
+          {t("queue.title")}
+        </h1>
+        <p className="mt-1 text-sm" style={{ color: "var(--text-secondary)" }}>
+          {t("queue.subtitle")}
+        </p>
       </div>
 
-      <section className="card">
-        {cases === null && <p className="muted">Đang tải danh sách hồ sơ...</p>}
-        {cases?.length === 0 && <p className="muted">Chưa có hồ sơ nào.</p>}
-        {cases && cases.length > 0 && (
-          <table className="audit-table">
-            <thead>
-              <tr>
-                <th>Case</th>
-                <th>Khách hàng</th>
-                <th>Sản phẩm</th>
-                <th>Số tiền đề nghị</th>
-                <th>Trạng thái</th>
-                <th>Cập nhật</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {cases.map((c) => (
-                <tr key={c.case_id}>
-                  <td style={{ fontWeight: 700 }}>{c.case_id}</td>
-                  <td>{c.customer_id}</td>
-                  <td>{c.product}</td>
-                  <td>{formatVnd(c.requested_facility.amount_vnd)}</td>
-                  <td>
-                    <span
-                      className="status-pill"
-                      style={{
-                        background: "var(--need-data-bg)",
-                        color: "var(--text)",
-                        ["--status-dot-color" as string]: statusDotColor(c),
-                      }}
-                    >
-                      {statusLabel(c)}
-                    </span>
-                  </td>
-                  <td className="muted">{new Date(c.updated_at).toLocaleString("vi-VN")}</td>
-                  <td>
-                    <Link href={`/cases/${c.case_id}`}>
-                      <button className="btn btn-primary">{c.has_findings ? "Mở hồ sơ" : "Bắt đầu phân tích"}</button>
-                    </Link>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </section>
+      <div className="mb-5">
+        <StatsBar pendingCount={pending.length} urgentCount={urgentCount} avgApprovalHours={avgApprovalHours} />
+      </div>
+
+      <div className="mb-4">
+        <FilterBar products={products} filters={filters} onChange={setFilters} />
+      </div>
+
+      {cases === null ? (
+        <p style={{ color: "var(--text-muted-2)" }}>{t("queue.loading")}</p>
+      ) : (
+        <QueueList cases={filtered} />
+      )}
     </main>
   );
 }

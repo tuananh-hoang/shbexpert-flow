@@ -1,60 +1,116 @@
 "use client";
 
 /**
- * Fixed left sidebar (FE_Dashboard.jpeg mockup) — persistent across every
- * page via web/app/layout.tsx, not just the case Dashboard.
+ * Fixed left sidebar — restyled per the dashmint_ai-trang prototype's
+ * `Shell.tsx` (brand block + nav + user footer, violet/token-driven), but
+ * routing logic is UNCHANGED from the original: only "Dashboard" (current
+ * case, highlight-only) and "Applications" (the Queue, `/`) are real;
+ * everything else stays a disabled "Sắp có" placeholder rather than a
+ * prototype-style HashRouter with routes that don't exist here (this app
+ * is Next.js App Router, not react-router — no router swap, just a
+ * visual reskin of the same two real routes).
  *
- * Only "Dashboard" (the currently-open case, if any) and "Applications"
- * (the Queue, web/app/page.tsx) correspond to real pages. Tasks /
- * Documents / Reports / Settings / Audit Trail don't exist yet — shown
- * disabled with a "Sắp có" badge rather than linking to a 404, same
- * honesty convention as the PlaceholderWidget cards on the case
- * dashboard (web/app/cases/[caseId]/page.tsx).
- *
- * "Dashboard" itself isn't a clickable link: there's no page that means
- * "dashboard with no case selected" in this app's actual routing
- * (`/` is the Queue, `/cases/[id]` is a specific case) — it just
- * highlights when a case is open, showing where you are rather than
- * linking somewhere new.
+ * Navy/orange palette + EN/VI LanguageToggle added per the FE_flow.jpeg
+ * redesign — see globals.css's --sidebar-* / --logo-accent tokens.
  */
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { GitCompareArrows, LayoutGrid, UserCircle2 } from "lucide-react";
+import { useI18n } from "../lib/i18n";
+import { LanguageToggle } from "./LanguageToggle";
 
-const DISABLED_ITEMS = ["Tasks", "Documents", "Reports", "Audit Trail", "Settings"];
+const DISABLED_KEYS = ["nav.tasks", "nav.documents", "nav.reports", "nav.auditTrail", "nav.settings"] as const;
 
 export function Sidebar() {
   const pathname = usePathname();
+  const { t } = useI18n();
   const onCasePage = pathname?.startsWith("/cases/") ?? false;
   const onQueuePage = pathname === "/";
 
   return (
-    <aside className="sidebar">
-      <div className="sidebar-logo">
-        <span className="sidebar-logo-mark">M</span>
-        SHBExpert AI
+    <aside
+      className="flex h-screen w-60 shrink-0 flex-col px-3 py-5"
+      style={{
+        background: "linear-gradient(180deg, var(--sidebar-bg), var(--sidebar-bg-2))",
+        position: "sticky",
+        top: 0,
+      }}
+    >
+      <div className="flex items-center gap-2.5 px-2 pb-5">
+        <span
+          className="flex h-8 w-8 items-center justify-center rounded-lg"
+          style={{ background: "var(--logo-accent)", color: "#fff" }}
+        >
+          <GitCompareArrows size={16} />
+        </span>
+        <div>
+          <div className="text-sm font-semibold" style={{ color: "var(--sidebar-fg)" }}>
+            {t("nav.appName")}
+          </div>
+          <div className="text-xs" style={{ color: "var(--sidebar-fg-muted)" }}>
+            {t("nav.tagline")}
+          </div>
+        </div>
       </div>
 
-      <nav className="sidebar-nav">
-        <div className={`sidebar-nav-item${onCasePage ? " active" : ""}`}>Dashboard</div>
-        <Link href="/" className={`sidebar-nav-item${onQueuePage ? " active" : ""}`}>
-          Applications
+      <nav className="flex flex-1 flex-col gap-1">
+        <div
+          className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium"
+          style={
+            onCasePage
+              ? { background: "var(--sidebar-active-bg)", color: "#fff" }
+              : { color: "var(--sidebar-fg-muted)" }
+          }
+        >
+          <LayoutGrid size={16} />
+          {t("nav.dashboard")}
+        </div>
+        <Link
+          href="/"
+          className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium"
+          style={
+            onQueuePage
+              ? { background: "var(--sidebar-active-bg)", color: "#fff" }
+              : { color: "var(--sidebar-fg-muted)" }
+          }
+        >
+          <LayoutGrid size={16} />
+          {t("nav.applications")}
         </Link>
-        {DISABLED_ITEMS.map((label) => (
-          <div key={label} className="sidebar-nav-item disabled" title="Chưa có trang này">
-            {label}
-            <span className="sidebar-nav-badge">Sắp có</span>
+        {DISABLED_KEYS.map((key) => (
+          <div
+            key={key}
+            className="flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm font-medium opacity-50"
+            style={{ color: "var(--sidebar-fg-muted)" }}
+            title={t("nav.comingSoonTitle")}
+          >
+            {t(key)}
+            <span
+              className="rounded-full px-1.5 py-0.5 text-[10px] font-semibold"
+              style={{ background: "rgba(255,255,255,0.14)", color: "var(--sidebar-fg-muted)" }}
+            >
+              {t("nav.comingSoon")}
+            </span>
           </div>
         ))}
       </nav>
 
+      <div className="px-2 pb-3">
+        <LanguageToggle />
+      </div>
+
       {/* Danh tính demo tĩnh — hệ thống chưa có auth thật, khớp
           Actor(type="USER", id="credit_officer_demo") backend đã dùng
           cho mọi hành động HITL (api/app/routers/cases.py). */}
-      <div className="sidebar-footer">
-        <div className="sidebar-avatar">NA</div>
+      <div className="flex items-center gap-2.5 border-t px-2 pt-3" style={{ borderColor: "rgba(255,255,255,0.12)" }}>
+        <UserCircle2 size={28} style={{ color: "var(--sidebar-fg-muted)" }} />
         <div>
-          <div className="sidebar-officer-name">Nguyễn Văn A</div>
-          <div className="sidebar-officer-role">Credit Officer</div>
+          <div className="text-xs font-medium" style={{ color: "var(--sidebar-fg)" }}>
+            {t("nav.officerName")}
+          </div>
+          <div className="text-xs" style={{ color: "var(--sidebar-fg-muted)" }}>
+            {t("nav.officerRole")}
+          </div>
         </div>
       </div>
     </aside>

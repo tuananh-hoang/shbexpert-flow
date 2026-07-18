@@ -17,7 +17,18 @@ from sqlalchemy import select
 
 from shared.constants import REQUIRED_DOC_TYPES
 from shared.db import get_session
-from shared.models import Case, ConflictRecord, DecisionPackage, Document, Event, ExtractedField, Finding
+from shared.models import (
+    Case,
+    CollateralRegistry,
+    ConflictRecord,
+    CustomerMaster,
+    DecisionPackage,
+    Document,
+    Event,
+    ExtractedField,
+    Finding,
+    LegalRepresentative,
+)
 from shared.queue import ANALYZE_QUEUE, progress_channel
 from shared.schemas import Actor
 from shared.state import InvalidTransitionError, emit_event, transition_state
@@ -79,6 +90,7 @@ def list_cases() -> dict:
                     "product": c.product,
                     "state": c.state,
                     "requested_facility": c.requested_facility,
+                    "created_at": c.created_at.isoformat(),
                     "updated_at": c.updated_at.isoformat(),
                     "has_findings": c.case_id in case_ids_with_findings,
                 }
@@ -99,6 +111,67 @@ async def analyze_case(case_id: str) -> dict:
     finally:
         await r.aclose()
     return {"status": "queued", "case_id": case_id}
+
+
+# Selected ExtractedField keys shown on the "Tổng quan" tab's income/
+# collateral section — a curated subset (not every field a case has),
+# each returned WITH its field_id as evidence_id so the frontend can still
+# open the real Evidence Viewer, never a bare number with no source.
+_OVERVIEW_INCOME_FIELD_KEYS = ("revenue_2025", "ebitda_2025", "net_profit_after_tax", "valuation_amount")
+
+
+def _case_identity(session, case: Case) -> dict:
+    """Additive data for the "Tổng quan" tab (web redesign Phase 3) —
+    customer identity + legal representative + collateral registry, all
+    OPTIONAL joins: an older case seeded before Customer 360/Collateral
+    domain tables existed (or a case whose customer/collateral was never
+    seeded into those tables) must still return 200 with these fields
+    null, never a 500. Nothing here replaces or changes any existing
+    response field — purely additive."""
+    customer = session.get(CustomerMaster, case.customer_id)
+    # Joined by customer_id, not CustomerMaster.legal_rep_id -> rep_id:
+    # scripts/seed_customer360_reference.py never populates rep_id (left
+    # null), only customer_id — using the indirection would silently
+    # return no representative for every seeded case.
+    legal_rep = session.execute(
+        select(LegalRepresentative).where(LegalRepresentative.customer_id == case.customer_id)
+    ).scalars().first()
+    collateral = session.get(CollateralRegistry, case.case_id)
+
+    identity = (
+        {
+            "customer_name": customer.customer_name,
+            "tax_code": customer.tax_code,
+            "industry_code": customer.industry_code,
+            "establish_date": customer.establish_date.isoformat() if customer.establish_date else None,
+            "representative_name": legal_rep.rep_name if legal_rep else None,
+            "representative_role": legal_rep.role if legal_rep else None,
+        }
+        if customer
+        else None
+    )
+
+    collateral_summary = (
+        {
+            "collateral_type": collateral.collateral_type,
+            "owner_name": collateral.owner_name,
+            "registration_number": collateral.registration_number,
+        }
+        if collateral
+        else None
+    )
+
+    income_rows = session.execute(
+        select(ExtractedField)
+        .join(Document, ExtractedField.document_id == Document.document_id)
+        .where(Document.case_id == case.case_id, ExtractedField.field_key.in_(_OVERVIEW_INCOME_FIELD_KEYS))
+    ).scalars().all()
+    income_evidence = [
+        {"field_key": f.field_key, "value": f.value, "evidence_id": f.field_id, "confidence": f.confidence}
+        for f in income_rows
+    ]
+
+    return {"identity": identity, "collateral_summary": collateral_summary, "income_evidence": income_evidence}
 
 
 @router.get("/{case_id}")
@@ -124,6 +197,7 @@ def get_case(case_id: str) -> dict:
         )
 
         documents = session.execute(select(Document).where(Document.case_id == case_id)).scalars().all()
+        identity_data = _case_identity(session, case)
 
         return {
             "case_id": case.case_id,
@@ -132,8 +206,11 @@ def get_case(case_id: str) -> dict:
             "state": case.state,
             "version": case.version,
             "requested_facility": case.requested_facility,
+            "created_at": case.created_at.isoformat(),
+            "updated_at": case.updated_at.isoformat(),
             "documents": [{"document_id": d.document_id, "doc_type": d.doc_type} for d in documents],
             "required_doc_types": sorted(REQUIRED_DOC_TYPES),
+            **identity_data,
             "findings": [_finding_dict(f) for f in findings],
             "conflicts": [
                 {
@@ -260,7 +337,7 @@ def get_audit(case_id: str) -> dict:
 
 
 class DecisionActionRequest(BaseModel):
-    action: str  # accept | edit | rerun | return | override
+    action: str  # accept | edit | rerun | return | override | reject | escalate
     reason: str | None = None
 
 
@@ -269,18 +346,28 @@ _ACTION_TRANSITIONS = {
     "override": "SUBMITTED_FOR_APPROVAL",
     "return": "NEED_INFO",
     "rerun": "ANALYZING",
-    # "edit" has no state transition — see below.
+    # "edit"/"reject"/"escalate" have no state transition — see below.
 }
-_REASON_REQUIRED_ACTIONS = {"edit", "override"}  # FR-11 / AS-05
+_REASON_REQUIRED_ACTIONS = {"edit", "override", "reject", "escalate"}  # FR-11 / AS-05
+
+# "reject" and "escalate" are audit-only (CO_ACTION event, no state
+# transition): the case state machine (ALLOWED_TRANSITIONS above) has no
+# REJECTED/ESCALATED terminal state modeled — inventing one here would be
+# designing new state-machine behavior as a side effect of a UI redesign
+# pass, not something to do without a real review (ai-architecture_v2.md
+# §1.2 non-goals: don't suggest authority/workflow structure that hasn't
+# been confirmed). The action is still fully auditable via the CO_ACTION
+# event emitted below either way.
+_VALID_ACTIONS = {"accept", "edit", "rerun", "return", "override", "reject", "escalate"}
 
 
 @router.post("/{case_id}/decision/action")
 async def decision_action(case_id: str, body: DecisionActionRequest) -> dict:
     """Credit Officer actions (data-flow.md §8): accept / edit / rerun /
-    return / override. Edit and override REQUIRE a reason (FR-11, AS-05) —
-    enforced server-side, not just as a client-side form validation that a
-    direct API call could skip."""
-    if body.action not in {"accept", "edit", "rerun", "return", "override"}:
+    return / override / reject / escalate. Edit/override/reject/escalate
+    REQUIRE a reason (FR-11, AS-05) — enforced server-side, not just as a
+    client-side form validation that a direct API call could skip."""
+    if body.action not in _VALID_ACTIONS:
         raise HTTPException(status_code=400, detail=f"unknown action {body.action!r}")
     if body.action in _REASON_REQUIRED_ACTIONS and not body.reason:
         raise HTTPException(status_code=400, detail=f"action {body.action!r} requires a reason (FR-11)")

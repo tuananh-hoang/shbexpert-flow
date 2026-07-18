@@ -32,6 +32,46 @@ itself so nobody mistakes a derived number for an extracted one):
                                 expiry — assumes a 12-month validity
                                 window)
 
+Also seeds the identity/collateral-ownership rows the Customer 360 and
+Collateral & Legal agents' tools read from directly (customer_master,
+legal_representative, collateral_registry) — added after discovering these
+4 cases' analyze jobs were crashing outright on tool 404s because this
+script predates those agents and never wrote them:
+  - customer_master        <- customer.legal_name/mock_tax_id/
+                                industry_code/incorporation_date/
+                                representative_party_id (direct)
+  - legal_representative    : rep_name has no source field (case.json
+                                only has a party ID, no person name) — a
+                                placeholder derived from legal_name, same
+                                "clearly synthetic, not fabricated-real"
+                                spirit as everything else in this script
+  - collateral_registry.owner_id <- customer.customer_id (matches
+                                Case.customer_id, same convention
+                                scripts/seed_case_c06.py uses, so
+                                validate_ownership's ownership_verified
+                                comes back True — case.json's own
+                                encumbrance_status=NONE agrees)
+Deliberately NOT seeded: credit_obligations/CIC records — those live in
+tools-mock (external system), not this DB; see tools-mock/app/main.py's
+_OBLIGATIONS/_CIC_RECORDS for the matching CUS-00001..4 entries.
+
+Also seeds cashflow_statement_summary — its absence wasn't just a missing-
+field gap, it crashed the whole job one node later than the tool-404s
+above: worker/app/agents/customer360.py::run_cashflow_check's "no data"
+branch (summary is None) legitimately writes evidence_ids=[] (there's
+nothing to cite), which is correct — but the synthesize node's NFR-01
+check rejects ANY DecisionPackage-referenced finding with empty
+evidence_ids, so `job_completed` never fired even after Việc 1's fan-out
+isolation fix (that fix only covers agent EXCEPTIONS, not a legitimately-
+empty-evidence finding produced by a fully-successful agent). Seeding real
+values here — instead of hardening the NFR-01 check — keeps this the same
+"missing data" root cause as the rest of this script, and avoids weakening
+a real traceability guardrail. cf_operating/investing/financing derived
+from each case's financials[2025] BCTC-reported cashflow, scaled by 0.92
+so SHB's own transaction view deliberately differs from the customer-
+submitted figure — same "official vs submitted" convention as
+tools-mock/app/main.py::_valuation_record.
+
 Known limitation (see plan): 2 of the 4 planted mutations won't manifest
 through this system as originally intended —
   - MUT-001 (missing LOAN_RESOLUTION doc, CASE-1): LOAN_RESOLUTION isn't
@@ -48,13 +88,22 @@ from __future__ import annotations
 
 import json
 import os
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 import redis
 
 from shared.db import get_session
-from shared.models import Case, Document, ExtractedField
+from shared.models import (
+    CashflowStatementSummary,
+    Case,
+    ChecklistCompletion,
+    CollateralRegistry,
+    CustomerMaster,
+    Document,
+    ExtractedField,
+    LegalRepresentative,
+)
 from shared.queue import ANALYZE_QUEUE
 from shared.storage import upload_bytes
 
@@ -66,6 +115,7 @@ CASE_IDS = ["CASE-CUS-00001", "CASE-CUS-00002", "CASE-CUS-00003", "CASE-CUS-0000
 
 _DEBT_AMORTIZATION_YEARS = 5
 _VALUATION_VALIDITY_DAYS = 365
+_SHB_CASHFLOW_FACTOR = 0.92
 
 
 def _fmt_vnd(amount: float) -> str:
@@ -81,6 +131,7 @@ def _load_case(case_id: str) -> dict:
 def _build_docs(raw: dict) -> list[dict]:
     customer = raw["customer"]
     fin2025 = next(x for x in raw["financials"] if x["period"] == "2025")
+    fin2024 = next(x for x in raw["financials"] if x["period"] == "2024")
     col = raw["collateral"][0]
     bizreg = next(x for x in raw["legal_documents"] if x["document_type"] == "BUSINESS_REGISTRATION")
 
@@ -90,6 +141,26 @@ def _build_docs(raw: dict) -> list[dict]:
     valuation_expiry = (
         date.fromisoformat(col["valuation_date"]) + timedelta(days=_VALUATION_VALIDITY_DAYS)
     ).isoformat()
+
+    # Standard financial-statement ratio fields (shared/constants.py::
+    # REQUIRED_STATEMENT_FIELDS + financial.py::_STATEMENT_AMOUNT_FIELDS) —
+    # added after discovering these 4 cases' BCTC document only ever carried
+    # the 3 DSCR-only fields above, so run_financial_agent's
+    # _missing_required_statement_fields ALWAYS returned non-empty, forcing
+    # the NEED_DATA fallback finding — whose evidence_ids were themselves
+    # empty (no REQUIRED_STATEMENT_FIELDS present to cite), which crashed
+    # the whole job at synthesize's NFR-01 check. Mapped directly from
+    # case.json's financials[] block (balance sheet already balances:
+    # assets = current_assets_total + fixed_assets_and_ltd_investments,
+    # liabilities = current_liabilities(payables) + long_term_debt(debt)) —
+    # only short_term_investments has no source field, left at 0 rather
+    # than fabricated. avg_* fields use the (2024 + 2025) two-point average,
+    # same convention scripts/seed_case_c06.py's fixed mock figures assume.
+    current_assets_total = fin2025["assets"] - fin2025["fixed_assets"]
+    avg_current_assets = ((fin2024["assets"] - fin2024["fixed_assets"]) + current_assets_total) / 2
+    avg_accounts_receivable = (fin2024["receivables"] + fin2025["receivables"]) / 2
+    avg_inventory = (fin2024["inventory"] + fin2025["inventory"]) / 2
+    avg_total_assets = (fin2024["assets"] + fin2025["assets"]) / 2
 
     return [
         {
@@ -121,11 +192,57 @@ def _build_docs(raw: dict) -> list[dict]:
                     _fmt_vnd(debt_service),
                     "debt_service_annual",
                 ),
+                ("Doanh thu thuan (dung cho phan tich ty so BCTC)", _fmt_vnd(fin2025["revenue"]), "net_revenue"),
+                ("Tien va tuong duong tien", _fmt_vnd(fin2025["cash"]), "cash_and_equivalents"),
+                ("Dau tu ngan han (khong co du lieu nguon, gia dinh = 0)", _fmt_vnd(0), "short_term_investments"),
+                ("Phai thu khach hang", _fmt_vnd(fin2025["receivables"]), "accounts_receivable"),
+                ("Hang ton kho", _fmt_vnd(fin2025["inventory"]), "inventory"),
+                ("Tong tai san luu dong", _fmt_vnd(current_assets_total), "current_assets_total"),
+                ("Tai san co dinh va dau tu dai han", _fmt_vnd(fin2025["fixed_assets"]), "fixed_assets_and_ltd_investments"),
+                ("Tong tai san", _fmt_vnd(fin2025["assets"]), "total_assets"),
+                ("No ngan han", _fmt_vnd(fin2025["payables"]), "current_liabilities"),
+                ("No dai han", _fmt_vnd(fin2025["debt"]), "long_term_debt"),
+                ("Tong no phai tra", _fmt_vnd(fin2025["liabilities"]), "total_liabilities"),
+                ("Von chu so huu", _fmt_vnd(fin2025["equity"]), "total_equity"),
+                ("Tong nguon von", _fmt_vnd(fin2025["liabilities"] + fin2025["equity"]), "total_capital_source"),
+                ("Loi nhuan sau thue", _fmt_vnd(fin2025["net_profit"]), "net_profit_after_tax"),
+                ("Gia von hang ban", _fmt_vnd(fin2025["cogs"]), "cogs"),
+                ("Dong tien tu hoat dong kinh doanh", _fmt_vnd(fin2025["operating_cash_flow"]), "cf_operating"),
+                ("Dong tien tu hoat dong dau tu", _fmt_vnd(fin2025["investing_cash_flow"]), "cf_investing"),
+                ("Dong tien tu hoat dong tai chinh", _fmt_vnd(fin2025["financing_cash_flow"]), "cf_financing"),
+                ("TSLD binh quan", _fmt_vnd(avg_current_assets), "avg_current_assets"),
+                ("Phai thu binh quan", _fmt_vnd(avg_accounts_receivable), "avg_accounts_receivable"),
+                ("Ton kho binh quan", _fmt_vnd(avg_inventory), "avg_inventory"),
+                ("Tong tai san binh quan", _fmt_vnd(avg_total_assets), "avg_total_assets"),
+                ("So nam so lieu tai chinh lien tuc", "3 nam", "historical_data_years"),
             ],
             "field_defs": {
                 "revenue_2025": ({"amount_vnd": fin2025["revenue"]}, 0.97),
                 "ebitda_2025": ({"amount_vnd": round(ebitda)}, 0.6),
                 "debt_service_annual": ({"amount_vnd": round(debt_service)}, 0.6),
+                "net_revenue": ({"amount_vnd": fin2025["revenue"]}, 0.97),
+                "cash_and_equivalents": ({"amount_vnd": fin2025["cash"]}, 0.95),
+                "short_term_investments": ({"amount_vnd": 0}, 0.93),
+                "accounts_receivable": ({"amount_vnd": fin2025["receivables"]}, 0.95),
+                "inventory": ({"amount_vnd": fin2025["inventory"]}, 0.94),
+                "current_assets_total": ({"amount_vnd": round(current_assets_total)}, 0.95),
+                "fixed_assets_and_ltd_investments": ({"amount_vnd": fin2025["fixed_assets"]}, 0.93),
+                "total_assets": ({"amount_vnd": fin2025["assets"]}, 0.96),
+                "current_liabilities": ({"amount_vnd": fin2025["payables"]}, 0.95),
+                "long_term_debt": ({"amount_vnd": fin2025["debt"]}, 0.94),
+                "total_liabilities": ({"amount_vnd": fin2025["liabilities"]}, 0.95),
+                "total_equity": ({"amount_vnd": fin2025["equity"]}, 0.95),
+                "total_capital_source": ({"amount_vnd": fin2025["liabilities"] + fin2025["equity"]}, 0.95),
+                "net_profit_after_tax": ({"amount_vnd": fin2025["net_profit"]}, 0.95),
+                "cogs": ({"amount_vnd": fin2025["cogs"]}, 0.94),
+                "cf_operating": ({"amount_vnd": fin2025["operating_cash_flow"]}, 0.93),
+                "cf_investing": ({"amount_vnd": fin2025["investing_cash_flow"]}, 0.9),
+                "cf_financing": ({"amount_vnd": fin2025["financing_cash_flow"]}, 0.9),
+                "avg_current_assets": ({"amount_vnd": round(avg_current_assets)}, 0.9),
+                "avg_accounts_receivable": ({"amount_vnd": round(avg_accounts_receivable)}, 0.9),
+                "avg_inventory": ({"amount_vnd": round(avg_inventory)}, 0.9),
+                "avg_total_assets": ({"amount_vnd": round(avg_total_assets)}, 0.9),
+                "historical_data_years": ({"years": 3}, 0.9),
             },
         },
         {
@@ -181,6 +298,71 @@ def _seed_one(case_id: str) -> bool:
             )
         )
         session.flush()
+
+        customer = raw["customer"]
+        col = raw["collateral"][0]
+        session.add(
+            CustomerMaster(
+                customer_id=customer["customer_id"],
+                customer_name=customer["legal_name"],
+                tax_code=customer["mock_tax_id"],
+                establish_date=datetime.fromisoformat(customer["incorporation_date"]).replace(tzinfo=timezone.utc),
+                industry_code=customer["industry_code"],
+                legal_rep_id=customer["representative_party_id"],
+            )
+        )
+        session.add(
+            LegalRepresentative(
+                customer_id=customer["customer_id"],
+                rep_id=customer["representative_party_id"],
+                rep_name=f"Nguoi dai dien phap luat cua {customer['legal_name']}",
+                role="LEGAL_REPRESENTATIVE",
+                authorization_scope="TOAN_QUYEN",
+            )
+        )
+        session.add(
+            CollateralRegistry(
+                collateral_id=case_id,
+                owner_name=customer["legal_name"],
+                owner_id=customer["customer_id"],
+                registration_number=col.get("ownership_document_id"),
+                collateral_type="real_estate",
+            )
+        )
+        # legal_checklist_template's 2 valuation_certificate items are a
+        # global template (already seeded once, shared across all cases) —
+        # only checklist_completion (per-case) was ever missing for these 4,
+        # which left run_legal_checklist_check's grounded_evidence_ids
+        # empty (no completion_id to cite) even though it had real Qdrant
+        # citations, tripping the same NFR-01 check. Marked "completed" for
+        # both mandatory items, same as scripts/seed_case_c06.py's precedent
+        # — encumbrance_status is NONE for all 4 synthetic collaterals, so
+        # there's no missing-checklist story being tested here.
+        for checklist_id in ("LC-VALUATION-EXPIRY-60D", "LC-VALUATION-APPRAISER-LICENSE"):
+            session.add(
+                ChecklistCompletion(
+                    collateral_id=case_id,
+                    checklist_id=checklist_id,
+                    completion_status="completed",
+                    completed_date=datetime.now(timezone.utc),
+                    responsible_party="rm1",
+                )
+            )
+
+        fin2025 = next(x for x in raw["financials"] if x["period"] == "2025")
+        cf_operating = round(fin2025["operating_cash_flow"] * _SHB_CASHFLOW_FACTOR)
+        cf_investing = round(fin2025["investing_cash_flow"] * _SHB_CASHFLOW_FACTOR)
+        cf_financing = round(fin2025["financing_cash_flow"] * _SHB_CASHFLOW_FACTOR)
+        session.add(
+            CashflowStatementSummary(
+                customer_id=customer["customer_id"],
+                period="2025",
+                cf_operating=cf_operating,
+                cf_investing=cf_investing,
+                cf_financing=cf_financing,
+                net_cashflow=cf_operating + cf_investing + cf_financing,
+            )
+        )
 
         for doc in _build_docs(raw):
             pdf_bytes, bbox_by_field_key = render_document_pdf(doc["title"], doc["lines"])
