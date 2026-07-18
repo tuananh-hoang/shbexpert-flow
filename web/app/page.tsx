@@ -1018,18 +1018,21 @@ export default function ApplicationQueue() {
         />
       )}
 
-      {/* ── Table (full width) ────────────────────────────────── */}
-      <CaseTable cases={filteredCases} loading={loading} />
+      {/* ── Main 2-column layout ──────────────────────────────── */}
+      <div className="grid grid-cols-1 xl:grid-cols-[1fr_360px] gap-4 items-start">
 
-      {/* ── Infographics row below table ──────────────────────── */}
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_360px] gap-4 items-start">
+        {/* Left: table + funnel */}
         <div className="flex flex-col gap-4">
+          <CaseTable cases={filteredCases} loading={loading} />
           {!loading && <ProcessingFunnel counts={funnelCounts} />}
         </div>
+
+        {/* Right: donut + priority list */}
         <div className="flex flex-col gap-4">
           {!loading && <ProductDonutChart distribution={productDistribution} />}
           <HighPriorityList cases={highPriorityCases} />
         </div>
+
       </div>
 
       {/* ── Status bar ────────────────────────────────────────── */}
