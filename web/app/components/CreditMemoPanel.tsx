@@ -12,6 +12,7 @@ import { ClipboardList, FileCheck2 } from "lucide-react";
 import { fetchCreditMemo } from "../lib/api";
 import type { CreditMemo } from "../lib/types";
 import { useI18n } from "../lib/i18n";
+import { RichText } from "./RichText";
 import { Button, Card, RecommendationChip, SectionTitle, formatFullDateTime, type Recommendation } from "./ui";
 
 export function CreditMemoPanel({
@@ -79,13 +80,18 @@ export function CreditMemoPanel({
               <div className="text-xs font-semibold" style={{ color: "var(--text-primary)" }}>
                 {section.title}
               </div>
-              <ul className="mt-1 list-inside list-disc space-y-0.5">
+              <div className="mt-1 space-y-1" style={{ color: "var(--text-secondary)" }}>
+                {/* Was a hard <ul><li> list of raw text — content items are
+                    full LLM-generated markdown (bold, and sometimes a whole
+                    table, e.g. the legal checklist finding), which doesn't
+                    fit inside a single bullet <li>; RichText renders each
+                    item as its own block instead. */}
                 {section.content.map((line, i) => (
-                  <li key={i} className="text-xs" style={{ color: "var(--text-secondary)" }}>
-                    {line}
-                  </li>
+                  <div key={i} className="text-xs">
+                    <RichText text={line} />
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           ))}
         </div>

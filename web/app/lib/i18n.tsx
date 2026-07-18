@@ -186,6 +186,7 @@ const messages: Record<Lang, Record<string, string>> = {
     // ---- ActionBar ------------------------------------------------------------
     "actionBar.title": "Hành động",
     "actionBar.memoRequired": "Cần tạo Credit Memo trước khi thực hiện hành động.",
+    "actionBar.wrongState": "Hồ sơ đang ở trạng thái {state} — chỉ thực hiện được hành động khi hồ sơ ở trạng thái Sẵn sàng để duyệt (READY_FOR_REVIEW).",
     "actionBar.overAuthority": "Số tiền đề nghị ({amount}) vượt hạn mức demo ({limit}) — chỉ có thể chuyển lãnh đạo cấp trên, không tự phê duyệt.",
     "actionBar.action.return": "Trả RM bổ sung thông tin",
     "actionBar.action.reject": "Từ chối",
@@ -406,6 +407,7 @@ const messages: Record<Lang, Record<string, string>> = {
 
     "actionBar.title": "Actions",
     "actionBar.memoRequired": "A Credit Memo must be generated before taking action.",
+    "actionBar.wrongState": "This case is in state {state} — actions are only available while the case is Ready for review (READY_FOR_REVIEW).",
     "actionBar.overAuthority": "The requested amount ({amount}) exceeds the demo authority limit ({limit}) — this can only be escalated, not approved directly.",
     "actionBar.action.return": "Return to RM for more information",
     "actionBar.action.reject": "Reject",

@@ -28,12 +28,14 @@ export function ChatTab({
   caseId,
   requestedAmountVnd,
   canDecide,
+  caseState,
   hasDecision,
   onAction,
 }: {
   caseId: string;
   requestedAmountVnd: number | null;
   canDecide: boolean;
+  caseState: string;
   hasDecision: boolean;
   onAction: (action: ActionKey, reason?: string) => void;
 }) {
@@ -143,6 +145,7 @@ export function ChatTab({
         <ActionBar
           requestedAmountVnd={requestedAmountVnd}
           canDecide={canDecide}
+          caseState={caseState}
           memoReady={memoReady}
           onAction={onAction}
         />

@@ -49,11 +49,18 @@ const REASON_REQUIRED: ActionKey[] = ["reject", "escalate", "override"];
 export function ActionBar({
   requestedAmountVnd,
   canDecide,
+  caseState,
   memoReady,
   onAction,
 }: {
   requestedAmountVnd: number | null;
   canDecide: boolean;
+  /** Real Case.state (shared/state.py) — shown in a banner when !canDecide
+   * so "every button is greyed out" has a visible reason instead of
+   * reading as broken. Without this, a case that has moved past
+   * READY_FOR_REVIEW (or hasn't reached it yet) looked identical to a
+   * genuinely broken ActionBar. */
+  caseState: string;
   memoReady: boolean;
   onAction: (action: ActionKey, reason?: string) => void;
 }) {
@@ -76,7 +83,16 @@ export function ActionBar({
         {t("actionBar.title")}
       </div>
 
-      {!memoReady && (
+      {!canDecide && (
+        <div
+          className="flex items-start gap-1.5 rounded-lg p-2 text-xs"
+          style={{ background: "var(--status-warning-bg)", color: "var(--status-warning)" }}
+        >
+          <ShieldAlert size={14} className="mt-0.5 shrink-0" />
+          {t("actionBar.wrongState", { state: caseState })}
+        </div>
+      )}
+      {canDecide && !memoReady && (
         <div
           className="flex items-start gap-1.5 rounded-lg p-2 text-xs"
           style={{ background: "var(--status-warning-bg)", color: "var(--status-warning)" }}

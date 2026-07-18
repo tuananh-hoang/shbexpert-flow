@@ -115,11 +115,19 @@ export default function CasePage() {
     await triggerAnalyze(caseId);
   };
 
-  const doAction = async (action: "accept" | "return" | "override" | "reject" | "escalate", reason?: string) => {
+  const doAction = async (action: "accept" | "rerun" | "return" | "override" | "reject" | "escalate", reason?: string) => {
+    // Set busy BEFORE the request (not after refresh()) so AnalyzingView
+    // takes over immediately — matches runAnalyze's own ordering, avoids a
+    // flash of the stale tab view while the request is in flight.
+    if (action === "rerun") {
+      setBusy(true);
+      setSteps([]);
+    }
     try {
       await decisionAction(caseId, action, reason);
       await refresh();
     } catch (err) {
+      if (action === "rerun") setBusy(false);
       alert(t("case.actionFailed", { err: String(err) }));
       await refresh();
     }
@@ -201,6 +209,11 @@ export default function CasePage() {
                 {t(TAB_KEY[tabId])}
               </button>
             ))}
+            <div className="ml-auto flex items-center" title={canDecide ? undefined : t("case.staleTitle", { state: caseDetail.state })}>
+              <Button variant="secondary" size="sm" onClick={() => doAction("rerun")} disabled={busy || !canDecide}>
+                {t("case.rerun")}
+              </Button>
+            </div>
           </div>
 
           {activeTab === "overview" && <OverviewTab caseDetail={caseDetail} onOpenEvidence={openEvidenceById} />}
@@ -212,6 +225,7 @@ export default function CasePage() {
               caseId={caseId}
               requestedAmountVnd={(caseDetail.requested_facility.amount_vnd as number) ?? null}
               canDecide={canDecide}
+              caseState={caseDetail.state}
               hasDecision={caseDetail.decision != null}
               onAction={handleActionBarAction}
             />
