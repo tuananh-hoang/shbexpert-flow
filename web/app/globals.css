@@ -141,6 +141,34 @@
 
   /* Geometry */
   --radius: var(--radius-md);
+
+  /* ── ui.tsx / ChatTab compat tokens ─────────────────────────────────
+     Components from the merged prototype use these names; map them to
+     SHB design-system equivalents so no component files need to change. */
+
+  /* Brand */
+  --brand:               var(--color-orange-600);
+  --brand-bg:            var(--color-orange-50);
+
+  /* Surfaces */
+  --surface-raised:      var(--color-white);
+  --surface-1:           var(--color-gray-50);
+
+  /* Text */
+  --text-muted-2:        var(--color-gray-400);
+
+  /* Borders */
+  --border-hairline:     var(--color-gray-200);
+
+  /* Status — short names used by ui.tsx chips/buttons */
+  --status-good:         var(--status-success-fg);
+  --status-good-bg:      var(--status-success-bg);
+  --status-warning:      var(--status-warning-fg);
+  --status-warning-bg:   var(--status-warning-bg);
+  --status-serious:      var(--status-warning-fg);
+  --status-serious-bg:   var(--status-warning-bg);
+  --status-critical:     var(--status-danger-fg);
+  --status-critical-bg:  var(--status-danger-bg);
 }
 
 /* ---------------------------------------------------------------------
