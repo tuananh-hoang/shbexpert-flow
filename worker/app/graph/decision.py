@@ -25,7 +25,12 @@ from shared.models import Case, ConflictRecord, Document, Finding
 from shared.schemas import DecisionPackageIn, HardGateResult, ScoreEntry
 from shared.state import write_decision
 
-DECISION_MATRIX_VERSION = "DM-0.3-MOCK"
+DECISION_MATRIX_VERSION = "DM-0.4-MOCK"  # bumped: added hard gates G7-G9
+
+# Nguồn sự thật: worker/app/agents/financial.py::_DSCR_SUPPORT_THRESHOLD. Giữ
+# bản sao ở đây (không import chéo từ module agent) và có comment để không
+# trôi lệch — nếu đổi ngưỡng, đổi cả hai chỗ.
+_DSCR_MIN_THRESHOLD = 1.3
 
 
 def _latest_findings(session, case_id: str) -> list[Finding]:
@@ -126,6 +131,59 @@ def _check_hard_gates(session, case_id: str, findings: list[Finding]) -> tuple[l
     g6_pass = not checklist_gap
     gates.append(HardGateResult(gate_id="G6", status="PASS" if g6_pass else "FAIL", reason=checklist_gap[0].claim if checklist_gap else None))
     if not g6_pass:
+        return gates, "NEED_INFO"
+
+    # -----------------------------------------------------------------------
+    # G7-G9 — added after the multi-vs-single-agent eval (docs/eval-multi-vs-
+    # single-agent.md) showed the scorecard alone let genuinely bad cases
+    # through: an all-SUPPORT base already scores 88/100, so ONE weak
+    # dimension can't pull below the APPROVE cutoff (80). These three signals
+    # are hard disqualifiers/hold-points regardless of the scorecard — exactly
+    # the "gate chạy trước scorecard" posture G1-G6 already embody. Gate on
+    # the deterministic tool metric (cic_debt_group / dscr) or the agent's own
+    # recommended_action, not on stance/severity, so the trigger can't drift
+    # if an agent later re-tunes its stance banding.
+    #
+    # Ordered most-severe first (REJECT > REFER > NEED_INFO) so that if a case
+    # trips more than one, the most severe recommendation wins the short-circuit.
+
+    # G7 — CIC nợ nhóm >=3 (nợ xấu theo phân loại NHNN). This is the one the
+    # eval caught as a hard SAFETY hole: a known bad-debt borrower was being
+    # APPROVED. Not a "condition", a disqualification -> REJECT.
+    bad_debt = [
+        f for f in findings
+        if f.issue_key == "CREDIT_CONDUCT" and (f.metrics or {}).get("cic_debt_group", 0) >= 3
+    ]
+    g7_pass = not bad_debt
+    gates.append(HardGateResult(gate_id="G7", status="PASS" if g7_pass else "FAIL", reason=bad_debt[0].claim if bad_debt else None))
+    if not g7_pass:
+        return gates, "REJECT"
+
+    # G8 — DSCR dưới ngưỡng an toàn (financial.py::_DSCR_SUPPORT_THRESHOLD=1.3):
+    # nguồn trả nợ không đủ đệm. Cần phán quyết cấp thẩm quyền, không tự động
+    # phê duyệt -> REFER.
+    weak_dscr = [
+        f for f in findings
+        if f.issue_key == "REPAYMENT_CAPACITY"
+        and (f.metrics or {}).get("dscr") is not None
+        and f.metrics["dscr"] < _DSCR_MIN_THRESHOLD
+    ]
+    g8_pass = not weak_dscr
+    gates.append(HardGateResult(gate_id="G8", status="PASS" if g8_pass else "FAIL", reason=weak_dscr[0].claim if weak_dscr else None))
+    if not g8_pass:
+        return gates, "REFER"
+
+    # G9 — report định giá TSBĐ hết hiệu lực (collateral.py đặt
+    # recommended_action=REQUIRE_REVALUATION khi cert/report quá hạn). Giá trị
+    # TSBĐ chưa được xác nhận tại thời điểm thẩm định -> phải định giá lại
+    # trước khi quyết -> NEED_INFO (fixable, cùng tier G4/G6).
+    stale_valuation = [
+        f for f in findings
+        if f.issue_key == "COLLATERAL_COVERAGE" and f.recommended_action == "REQUIRE_REVALUATION"
+    ]
+    g9_pass = not stale_valuation
+    gates.append(HardGateResult(gate_id="G9", status="PASS" if g9_pass else "FAIL", reason=stale_valuation[0].claim if stale_valuation else None))
+    if not g9_pass:
         return gates, "NEED_INFO"
 
     return gates, None
