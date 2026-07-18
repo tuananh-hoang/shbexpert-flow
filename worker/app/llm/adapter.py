@@ -13,10 +13,11 @@ credits.
 """
 from __future__ import annotations
 
+import asyncio
 import os
 from functools import lru_cache
 from pathlib import Path
-from typing import Any
+from typing import Any, AsyncIterator
 
 import yaml
 
@@ -104,3 +105,73 @@ async def _complete_openai(*, model: str, max_tokens: int, system: str, user: st
         ],
     )
     return response.choices[0].message.content or ""
+
+
+# ---------------------------------------------------------------------------
+# Streaming variant — Chat Orchestrator (ai-architecture_v2.md §11.8) only.
+# Every expert agent (financial.py, policy.py, ...) uses the single-shot
+# `complete()` above and always will: they run inside a LangGraph node,
+# write one Finding, and are done — there's no user watching text appear.
+# Chat is the opposite: a human is looking at the screen waiting for a
+# reply, so this yields text AS THE PROVIDER PRODUCES IT rather than
+# buffering the whole answer — the actual behavior requested when "chatbot
+# tự do như ChatGPT" was chosen over the earlier queued/buffered design.
+# ---------------------------------------------------------------------------
+async def stream_complete(*, tier: str, system: str, user: str) -> AsyncIterator[str]:
+    if os.environ.get("LLM_MOCK", "false").lower() in ("1", "true", "yes"):
+        # No real token stream to tap in mock mode — chunk the same
+        # deterministic mock text word-by-word with a tiny delay so the
+        # UI exercises its streaming render path in dev/demo without an
+        # API key. Never used when LLM_MOCK is off.
+        text = _mock_response(tier, system, user)
+        for word in text.split(" "):
+            yield word + " "
+            await asyncio.sleep(0.02)
+        return
+
+    cfg = _tier_config(tier)
+    provider = cfg["provider"]
+    model = cfg["model"]
+    max_tokens = cfg.get("max_tokens", 4096)
+
+    if provider == "anthropic":
+        async for chunk in _stream_anthropic(model=model, max_tokens=max_tokens, system=system, user=user):
+            yield chunk
+    elif provider == "openai":
+        async for chunk in _stream_openai(model=model, max_tokens=max_tokens, system=system, user=user):
+            yield chunk
+    else:
+        raise ValueError(f"unsupported provider {provider!r} for tier {tier!r}")
+
+
+async def _stream_anthropic(*, model: str, max_tokens: int, system: str, user: str) -> AsyncIterator[str]:
+    from anthropic import AsyncAnthropic
+
+    client = AsyncAnthropic()
+    async with client.messages.stream(
+        model=model,
+        max_tokens=max_tokens,
+        system=system,
+        messages=[{"role": "user", "content": user}],
+    ) as stream:
+        async for text in stream.text_stream:
+            yield text
+
+
+async def _stream_openai(*, model: str, max_tokens: int, system: str, user: str) -> AsyncIterator[str]:
+    from openai import AsyncOpenAI
+
+    client = AsyncOpenAI(base_url=os.environ.get("OPENAI_BASE_URL") or None)
+    stream = await client.chat.completions.create(
+        model=model,
+        max_tokens=max_tokens,
+        stream=True,
+        messages=[
+            {"role": "system", "content": system},
+            {"role": "user", "content": user},
+        ],
+    )
+    async for chunk in stream:
+        delta = chunk.choices[0].delta.content if chunk.choices else None
+        if delta:
+            yield delta

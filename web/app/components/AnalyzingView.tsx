@@ -11,6 +11,7 @@
  * together), never a pre-scripted animation.
  */
 import { useEffect, useRef, useState } from "react";
+import { useI18n } from "../lib/i18n";
 
 type StepStatus = "in_progress" | "done" | "failed";
 
@@ -25,6 +26,7 @@ function Spinner() {
 }
 
 export function AnalyzingView({ caseId, onComplete }: { caseId: string; onComplete: () => void }) {
+  const { t } = useI18n();
   const [steps, setSteps] = useState<StepState[]>([]);
   const [failed, setFailed] = useState<string | null>(null);
   // The parent (CasePage) passes a fresh `onComplete` closure on every
@@ -52,13 +54,19 @@ export function AnalyzingView({ caseId, onComplete }: { caseId: string; onComple
             : [...prev, { step: payload.step, label: payload.label, status: "in_progress" as StepStatus }]
         );
       } else if (payload.type === "step_completed") {
-        setSteps((prev) => prev.map((s) => (s.step === payload.step ? { ...s, status: "done" } : s)));
+        // "failed" is STICKY per step: a fan-out agent that errors now
+        // publishes step_failed itself, then the outer node wrapper still
+        // publishes its own step_completed right after (isolation fix,
+        // worker/app/graph/build.py::_run_fanout_agent) — without this
+        // guard the later step_completed would silently flip a genuinely
+        // failed agent back to a green checkmark.
+        setSteps((prev) => prev.map((s) => (s.step === payload.step && s.status !== "failed" ? { ...s, status: "done" } : s)));
       } else if (payload.type === "step_failed") {
         setSteps((prev) => prev.map((s) => (s.step === payload.step ? { ...s, status: "failed" } : s)));
       } else if (payload.type === "job_completed") {
         onCompleteRef.current();
       } else if (payload.type === "job_failed") {
-        setFailed(payload.error ?? "Lỗi không xác định");
+        setFailed(payload.error ?? t("analyzing.unknownError"));
       }
     });
     return () => es.close();
@@ -66,8 +74,8 @@ export function AnalyzingView({ caseId, onComplete }: { caseId: string; onComple
 
   return (
     <div className="card" style={{ maxWidth: 520, margin: "60px auto" }}>
-      <div className="card-title">Đang phân tích hồ sơ...</div>
-      {steps.length === 0 && <p className="muted">Đang khởi động pipeline...</p>}
+      <div className="card-title">{t("analyzing.title")}</div>
+      {steps.length === 0 && <p className="muted">{t("analyzing.starting")}</p>}
       <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
         {steps.map((s) => (
           <li
@@ -91,7 +99,7 @@ export function AnalyzingView({ caseId, onComplete }: { caseId: string; onComple
       </ul>
       {failed && (
         <p style={{ color: "var(--oppose)", marginTop: 12 }}>
-          Pipeline lỗi: {failed}
+          {t("analyzing.failed", { error: failed })}
         </p>
       )}
     </div>

@@ -21,3 +21,8 @@ pydantic==2.10.3
 python-dotenv==1.0.1
 httpx==0.28.1
 pyyaml==6.0.2
+# Chat Orchestrator's internal HTTP surface (ai-architecture_v2.md §11.8,
+# worker/app/chat/server.py) — worker's first-ever HTTP port, same
+# starlette/uvicorn pair the mcp-* servers already use.
+starlette>=0.41.0
+uvicorn[standard]==0.32.1

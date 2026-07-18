@@ -17,7 +17,7 @@ from typing import Any
 from sqlalchemy import func, select, text
 from sqlalchemy.orm import Session
 
-from shared.models import Case, ConflictRecord, DecisionPackage, Event, Finding
+from shared.models import Case, ChatMessage, ChatThread, ConflictRecord, DecisionPackage, Event, Finding
 from shared.schemas import Actor, DecisionPackageIn, DecisionPackageOut, EventOut, FindingIn, FindingOut
 
 # ---------------------------------------------------------------------------
@@ -80,8 +80,17 @@ def write_finding(
         finding_key = _next_finding_key(session, finding.case_id, finding.agent_id)
         version = 1
     else:
+        # Phải lọc theo case_id: migration 0004 đã đổi ràng buộc duy nhất
+        # thành (case_id, finding_key, version), tức mỗi case có dòng phiên
+        # bản riêng. Truy vấn không lọc case_id sẽ lấy max toàn hệ thống —
+        # cùng một finding_key như "F-COL-001" tồn tại ở nhiều case, nên
+        # case này nhảy thẳng lên v3/v5/v7 dù chưa hề có v1. Kết quả là
+        # phiên bản mồ côi, và DecisionPackage trỏ vào nó thì vỡ NFR-01.
         current_max = session.execute(
-            select(func.max(Finding.version)).where(Finding.finding_key == finding_key)
+            select(func.max(Finding.version)).where(
+                Finding.case_id == finding.case_id,
+                Finding.finding_key == finding_key,
+            )
         ).scalar_one()
         if current_max is None:
             raise ValueError(f"finding_key {finding_key!r} does not exist yet — omit it to create v1")
@@ -275,3 +284,38 @@ def transition_state(session: Session, *, case_id: str, new_state: str, actor: A
         payload={"from": old_state, "to": new_state, "reason": reason},
     )
     return case
+
+
+# ---------------------------------------------------------------------------
+# Chat — ai-architecture_v2.md §11.8. Both `api` (writes the USER message,
+# no LLM involved) and `worker` (writes the ASSISTANT message, after
+# streaming its own response) import this module — same "one code path"
+# discipline as everything else in this file.
+# ---------------------------------------------------------------------------
+def get_or_create_chat_thread(session: Session, case_id: str) -> ChatThread:
+    """1 case = 1 thread (§11.8's deliberate simplification vs the full
+    multi-thread Follow-up Router design) — idempotent: returns the
+    existing thread if the case already has one."""
+    thread = session.execute(select(ChatThread).where(ChatThread.case_id == case_id)).scalars().first()
+    if thread is not None:
+        return thread
+    thread = ChatThread(case_id=case_id)
+    session.add(thread)
+    session.flush()
+    return thread
+
+
+def write_chat_message(
+    session: Session, *, thread_id: str, role: str, content: str, citations: list | None = None
+) -> ChatMessage:
+    """Appends one chat message. `seq` assigned under a per-thread advisory
+    lock — identical pattern to emit_event's per-case lock, so concurrent
+    writes (e.g. a fast USER->ASSISTANT round trip) never collide."""
+    session.execute(text("SELECT pg_advisory_xact_lock(hashtext(:thread_id))"), {"thread_id": thread_id})
+    next_seq = session.execute(
+        select(func.coalesce(func.max(ChatMessage.seq), 0) + 1).where(ChatMessage.thread_id == thread_id)
+    ).scalar_one()
+    row = ChatMessage(thread_id=thread_id, seq=next_seq, role=role, content=content, citations=citations)
+    session.add(row)
+    session.flush()
+    return row

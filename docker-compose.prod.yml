@@ -1,0 +1,27 @@
+# Production overlay for the single-VM deploy. Use with:
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+#
+# Adds Caddy as the only internet-facing service (80/443). The base file's
+# web:3000 / api:8000 host bindings stay, but the EC2 security group only
+# opens 80/443/22, so they are not reachable from outside — Caddy reaches
+# `web` over the internal network by service name.
+services:
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on:
+      - web
+    environment:
+      APP_DOMAIN: ${APP_DOMAIN}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks: [internal]
+
+volumes:
+  caddy_data:
+  caddy_config:

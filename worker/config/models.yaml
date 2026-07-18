@@ -4,11 +4,11 @@
 tiers:
   fast:
     provider: openai   # FPT AI Factory (OpenAI-compatible), not OpenAI cloud — see OPENAI_BASE_URL in .env
-    model: gpt-oss-120b
+    model: Llama-3.3-70B-Instruct
     max_tokens: 4096
   reasoning:
     provider: openai
-    model: gpt-oss-120b
+    model: Llama-3.3-70B-Instruct
     max_tokens: 8192
 
 budget:

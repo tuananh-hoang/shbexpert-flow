@@ -1,6 +1,7 @@
 # Tài liệu nguồn nội bộ — không đưa lên repo công khai
 PRD1.1.docx
 *.docx
+Cam nang KHDN.pdf
 
 # Python
 __pycache__/
@@ -20,3 +21,6 @@ dist/
 # Dữ liệu và artifact runtime
 *.log
 .DS_Store
+
+# Codegraph local index (máy-cục-bộ, không đưa lên repo)
+.codegraph/
