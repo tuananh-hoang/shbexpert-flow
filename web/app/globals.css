@@ -141,40 +141,6 @@
 
   /* Geometry */
   --radius: var(--radius-md);
-
-  /* ── Aliases for components from origin/main ──────────────────────────
-     ui.tsx, ChatTab, ScoringTab, OverviewTab use these token names.
-     Map them onto our SHB design-system tokens so both generations of
-     components share one visual identity.
-  ─────────────────────────────────────────────────────────────────────── */
-  --brand:               var(--color-orange-600);
-  --brand-bg:            var(--color-orange-50);
-  --brand-hover:         var(--color-orange-700);
-
-  --page-plane:          var(--surface-page);
-  --surface-1:           var(--surface-sunken);
-  --surface-raised:      var(--surface-card);
-
-  --text-muted-2:        var(--text-tertiary);
-
-  --border-hairline:     var(--border-subtle);
-  --border-strong-2:     var(--border-default);
-
-  --status-good:         var(--status-success-fg);
-  --status-good-bg:      var(--status-success-bg);
-  --status-warning:      var(--status-warning-fg);
-  --status-warning-bg:   var(--status-warning-bg);
-  --status-serious:      var(--color-orange-600);
-  --status-serious-bg:   var(--color-orange-50);
-  --status-critical:     var(--status-danger-fg);
-  --status-critical-bg:  var(--status-danger-bg);
-
-  --sidebar-bg:          var(--color-navy-800);
-  --sidebar-bg-2:        var(--color-navy-900);
-  --sidebar-fg:          var(--color-white);
-  --sidebar-fg-muted:    rgba(255,255,255,0.55);
-  --sidebar-active-bg:   rgba(255,255,255,0.12);
-  --logo-accent:         var(--color-orange-600);
 }
 
 /* ---------------------------------------------------------------------
