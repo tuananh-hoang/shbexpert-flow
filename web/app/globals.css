@@ -7,6 +7,54 @@
    spacing, effects (radius/shadow/motion), and base resets. */
 @import url('../SHB Design System/styles.css');
 
+/* ── Tailwind v4 theme bridge ───────────────────────────────────────────────
+   Tailwind v4 generates utilities like `border-border`, `bg-card`, etc. by
+   reading `--color-*` variables. Without this block those classes silently
+   produce no color output (border falls back to currentColor = black text).
+   Map every shadcn semantic variable into the --color-* namespace here.
+──────────────────────────────────────────────────────────────────────────── */
+@theme inline {
+  --color-background:        var(--background);
+  --color-foreground:        var(--foreground);
+
+  --color-card:              var(--card);
+  --color-card-foreground:   var(--card-foreground);
+
+  --color-popover:           var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary:           var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary:         var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted:             var(--muted);
+  --color-muted-foreground:  var(--muted-foreground);
+
+  --color-accent:            var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive:       var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border:            var(--border);
+  --color-input:             var(--input);
+  --color-ring:              var(--ring);
+
+  --color-chart-1:           var(--chart-1);
+  --color-chart-2:           var(--chart-2);
+  --color-chart-3:           var(--chart-3);
+  --color-chart-4:           var(--chart-4);
+  --color-chart-5:           var(--chart-5);
+
+  --radius-*: initial;
+  --radius-sm:   var(--radius);
+  --radius-md:   calc(var(--radius) + 2px);
+  --radius-lg:   calc(var(--radius) + 4px);
+  --radius-xl:   calc(var(--radius) + 8px);
+}
+
 /* ── shadcn/ui CSS variable bridge ─────────────────────────────────────
    Maps SHB design-system tokens → shadcn's expected variable names so
    shadcn components pick up SHB branding automatically. No raw hex here.
@@ -44,7 +92,7 @@
     --input:            var(--color-gray-200);
     --ring:             var(--color-navy-500);
 
-    --radius: 0.5rem;
+    --radius: 0.75rem; /* 12px — matches SHB website ~16px card radius */
 
     /* chart palette using SHB semantic colors */
     --chart-1: var(--color-orange-600);
@@ -92,7 +140,7 @@
   --need-data-bg: var(--surface-sunken);
 
   /* Geometry */
-  --radius: var(--radius-sm);
+  --radius: var(--radius-md);
 }
 
 /* ---------------------------------------------------------------------
@@ -132,9 +180,9 @@
 .sidebar {
   width: 230px;
   flex-shrink: 0;
-  background: var(--color-white);
-  border-right: 1px solid var(--border-subtle);
-  color: var(--text-primary);
+  background: var(--color-navy-800);
+  border-right: none;
+  color: var(--text-on-brand);
   position: sticky;
   top: 0;
   height: calc(100vh - 11px);
@@ -194,13 +242,13 @@ a.sidebar-nav-item {
 }
 
 a.sidebar-nav-item:hover {
-  background: var(--color-gray-100);
-  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-white);
 }
 
 .sidebar-nav-item.active {
-  background: var(--color-orange-50);
-  color: var(--color-orange-600);
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--color-orange-500);
 }
 
 .sidebar-nav-item.disabled {
@@ -396,10 +444,17 @@ a.sidebar-nav-item:hover {
 --------------------------------------------------------------------- */
 .card {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
   padding: 16px;
   box-shadow: var(--shadow-sm);
+  transition: border-color var(--duration-fast) var(--ease-standard),
+              box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.card:hover {
+  border-color: var(--color-orange-600);
+  box-shadow: var(--shadow-md);
 }
 
 .card + .card {
@@ -414,7 +469,6 @@ a.sidebar-nav-item:hover {
 
 .card-clickable {
   cursor: pointer;
-  transition: box-shadow 0.15s, border-color 0.15s;
 }
 
 .card-placeholder {
@@ -437,10 +491,7 @@ a.sidebar-nav-item:hover {
   color: var(--need-data);
 }
 
-.card-clickable:hover {
-  box-shadow: var(--shadow-md);
-  border-color: var(--border-strong);
-}
+/* .card already handles hover — .card-clickable inherits it */
 
 .card-agent-label {
   font-size: 11px;
@@ -468,10 +519,17 @@ a.sidebar-nav-item:hover {
 
 .kpi-card {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius);
   padding: 14px 16px;
   box-shadow: var(--shadow-sm);
+  transition: border-color var(--duration-fast) var(--ease-standard),
+              box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.kpi-card:hover {
+  border-color: var(--color-orange-600);
+  box-shadow: var(--shadow-md);
 }
 
 .kpi-label {
@@ -570,7 +628,7 @@ a.sidebar-nav-item:hover {
   background: var(--surface);
   color: var(--text);
   padding: 9px 18px;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
@@ -661,9 +719,16 @@ table.audit-table tbody td {
   gap: 24px;
   background: var(--surface-card);
   border: var(--border-width-sm) solid var(--border-subtle);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   padding: 20px 24px;
   box-shadow: var(--shadow-sm);
+  transition: border-color var(--duration-fast) var(--ease-standard),
+              box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.aq-brief:hover {
+  border-color: var(--color-orange-600);
+  box-shadow: var(--shadow-md);
 }
 
 .aq-brief__left {
@@ -727,10 +792,18 @@ table.audit-table tbody td {
 }
 
 .aq-kpi {
-  background: var(--surface-sunken);
+  background: var(--surface-card);
   border: var(--border-width-sm) solid var(--border-subtle);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-md);
   padding: 14px 16px;
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--duration-fast) var(--ease-standard),
+              box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.aq-kpi:hover {
+  border-color: var(--color-orange-600);
+  box-shadow: var(--shadow-md);
 }
 
 .aq-kpi__label {
@@ -866,8 +939,13 @@ table.audit-table tbody td {
   overflow-x: auto;
   background: var(--surface-card);
   border: var(--border-width-sm) solid var(--border-subtle);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
+  transition: border-color var(--duration-fast) var(--ease-standard);
+}
+
+.aq-table-wrap:hover {
+  border-color: var(--color-orange-600);
 }
 
 .aq-empty {
@@ -1107,9 +1185,16 @@ table.audit-table tbody td {
 .aq-reasoning {
   background: var(--surface-card);
   border: var(--border-width-sm) solid var(--border-subtle);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
   overflow: hidden;
+  transition: border-color var(--duration-fast) var(--ease-standard),
+              box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.aq-reasoning:hover {
+  border-color: var(--color-orange-600);
+  box-shadow: var(--shadow-md);
 }
 
 .aq-reasoning__header {
@@ -1633,10 +1718,17 @@ table.audit-table tbody td {
 /* ── Risk panel ────────────────────────────────────────────────────── */
 .risk-panel {
   background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
   overflow: hidden;
+  transition: border-color var(--duration-fast) var(--ease-standard),
+              box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.risk-panel:hover {
+  border-color: var(--color-orange-600);
+  box-shadow: var(--shadow-md);
 }
 
 .risk-panel-header {
@@ -1896,4 +1988,65 @@ table.audit-table tbody td {
   .exec-brief-grid { grid-template-columns: 1fr; }
   .wf-label { display: none; }
   .agent-table { font-size: 12px; }
+}
+
+/* =====================================================================
+   SHB Brand Pattern Utilities
+   Reusable patterns derived from SHB's public design language.
+===================================================================== */
+
+/* Two-tone headline — line 1 navy, line 2 orange (signature SHB pattern) */
+.shb-two-tone-heading {
+  font-family: var(--font-display);
+  font-weight: var(--weight-extrabold);
+  line-height: var(--leading-snug);
+  display: flex;
+  flex-direction: column;
+}
+.shb-two-tone-heading > span:first-child { color: var(--color-navy-700); }
+.shb-two-tone-heading > span:last-child  { color: var(--color-orange-600); }
+
+/* Card title — orange bold, matches SHB website card pattern */
+.shb-card-title {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  color: var(--color-orange-600);
+  line-height: var(--leading-snug);
+}
+
+/* Orange bullet list — small filled orange dot marker */
+.shb-bullet-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.shb-bullet-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  line-height: var(--leading-normal);
+}
+.shb-bullet-list li::before {
+  content: "";
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-orange-600);
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+/* Section eyebrow label — uppercase small tracking */
+.shb-eyebrow {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-secondary);
 }
