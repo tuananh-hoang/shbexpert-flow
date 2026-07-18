@@ -215,25 +215,28 @@ function SLACard({ loading }: { loading: boolean }) {
           <p className="text-[10px] text-muted-foreground mt-2 italic">* Ước tính — cần API created_at</p>
         </div>
         {/* Right: sparkline — hidden when card is narrow */}
-        <div className="flex flex-col items-end justify-between flex-none w-[110px] hidden sm:flex">
-          {!loading && (
-            <ResponsiveContainer width="100%" height={56}>
-              <LineChart data={SLA_TREND} margin={{ top: 4, right: 2, left: 2, bottom: 4 }}>
-                <Line
-                  type="monotone" dataKey="v"
-                  stroke="var(--color-success-600)" strokeWidth={2} dot={false}
-                />
-                <Tooltip
-                  contentStyle={{ fontSize: 11, padding: "3px 8px", borderRadius: 4, border: "none", background: "var(--color-gray-900)", color: "#fff" }}
-                  formatter={(v: number) => [`${v} ngày`, ""]}
-                  labelFormatter={(l: string) => l}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          )}
-          <p className="text-[10px] text-muted-foreground text-right leading-tight">
-            Cải thiện trong<br />30 ngày qua
-          </p>
+        <div className="hidden sm:flex flex-col flex-none w-[144px]">
+          {/* mt-auto pushes the whole chart+label block to the bottom */}
+          <div className="mt-auto">
+            {!loading && (
+              <ResponsiveContainer width="100%" height={74}>
+                <LineChart data={SLA_TREND} margin={{ top: 6, right: 0, left: 0, bottom: 2 }}>
+                  <Line
+                    type="monotone" dataKey="v"
+                    stroke="var(--color-success-600)" strokeWidth={2.5} dot={false}
+                  />
+                  <Tooltip
+                    contentStyle={{ fontSize: 11, padding: "3px 8px", borderRadius: 4, border: "none", background: "var(--color-gray-900)", color: "#fff" }}
+                    formatter={(v: number) => [`${v} ngày`, ""]}
+                    labelFormatter={(l: string) => l}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            )}
+            <p className="text-[10px] text-muted-foreground leading-tight mt-1 text-right">
+              Cải thiện trong 30 ngày qua
+            </p>
+          </div>
         </div>
       </CardContent>
     </Card>
@@ -268,9 +271,9 @@ function PortfolioCard({ loading }: { loading: boolean }) {
           <p className="text-[10px] text-muted-foreground mt-2 italic">* Dữ liệu chỉ mang tính minh hoạ</p>
         </div>
         {/* Right: gauge — hidden when card is narrow */}
-        <div className="hidden sm:flex flex-col items-center justify-center flex-none">
+        <div className="hidden sm:flex flex-col items-start justify-end flex-none self-end pb-1">
           {!loading && (
-            <div className="relative size-20">
+            <div className="relative" style={{ width: 104, height: 104 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <RadialBarChart
                   cx="50%" cy="50%"
@@ -287,12 +290,12 @@ function PortfolioCard({ loading }: { loading: boolean }) {
                 </RadialBarChart>
               </ResponsiveContainer>
               <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                <span className="text-sm font-extrabold text-[var(--color-success-600)]">100%</span>
-                <span className="text-[9px] text-muted-foreground">Tốt</span>
+                <span className="text-base font-extrabold text-[var(--color-success-600)]">100%</span>
+                <span className="text-[10px] text-muted-foreground">Tốt</span>
               </div>
             </div>
           )}
-          {loading && <Skeleton className="size-20 rounded-full flex-none" />}
+          {loading && <Skeleton className="rounded-full flex-none" style={{ width: 104, height: 104 }} />}
         </div>
       </CardContent>
     </Card>
