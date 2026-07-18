@@ -80,8 +80,17 @@ def write_finding(
         finding_key = _next_finding_key(session, finding.case_id, finding.agent_id)
         version = 1
     else:
+        # Phải lọc theo case_id: migration 0004 đã đổi ràng buộc duy nhất
+        # thành (case_id, finding_key, version), tức mỗi case có dòng phiên
+        # bản riêng. Truy vấn không lọc case_id sẽ lấy max toàn hệ thống —
+        # cùng một finding_key như "F-COL-001" tồn tại ở nhiều case, nên
+        # case này nhảy thẳng lên v3/v5/v7 dù chưa hề có v1. Kết quả là
+        # phiên bản mồ côi, và DecisionPackage trỏ vào nó thì vỡ NFR-01.
         current_max = session.execute(
-            select(func.max(Finding.version)).where(Finding.finding_key == finding_key)
+            select(func.max(Finding.version)).where(
+                Finding.case_id == finding.case_id,
+                Finding.finding_key == finding_key,
+            )
         ).scalar_one()
         if current_max is None:
             raise ValueError(f"finding_key {finding_key!r} does not exist yet — omit it to create v1")
