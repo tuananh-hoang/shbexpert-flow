@@ -110,7 +110,13 @@ def search_policy(query: str, product_type: str, as_of_date: str, top_k: int = 3
 @mcp.tool()
 def search_legal_checklist(collateral_type: str, query: str, top_k: int = 3) -> dict:
     """Semantic search over legal_checklist, restricted to the collateral
-    type being assessed — Collateral & Legal Agent's allowlist tool."""
+    type being assessed — Collateral & Legal Agent's allowlist tool.
+    `checklist_id`/`is_mandatory` are passed through from the Qdrant
+    payload (scripts/seed_policies.py) so collateral.py can join this
+    semantic hit back to the structured legal_checklist_template/
+    regulatory_reference/checklist_completion rows (Postgres) by id —
+    without these two fields the caller has no way to match a citation to
+    its structured status, and would treat every item as unmatched."""
     query_filter = qm.Filter(must=[qm.FieldCondition(key="collateral_type", match=qm.MatchValue(value=collateral_type))])
     hits = qdrant.query(collection_name=LEGAL_COLLECTION, query_text=query, query_filter=query_filter, limit=top_k)
     return {
@@ -118,6 +124,8 @@ def search_legal_checklist(collateral_type: str, query: str, top_k: int = 3) -> 
             {
                 "collateral_type": h.metadata["collateral_type"],
                 "version": h.metadata.get("version"),
+                "checklist_id": h.metadata.get("checklist_id"),
+                "is_mandatory": h.metadata.get("is_mandatory"),
                 "text": h.document,
                 "score": h.score,
             }

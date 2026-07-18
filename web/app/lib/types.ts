@@ -85,6 +85,7 @@ export interface CaseSummary {
   product: string;
   state: string;
   requested_facility: Record<string, unknown>;
+  created_at: string;
   updated_at: string;
   has_findings: boolean;
 }
@@ -94,6 +95,32 @@ export interface DocumentSummary {
   doc_type: string;
 }
 
+// "Tổng quan" tab data (web redesign Phase 3) — additive, optional joins.
+// `null` means the case's customer/collateral was never seeded into those
+// domain tables (e.g. older case, or Customer 360/Collateral not run for
+// it yet) — the tab must render an honest empty state, not crash.
+export interface CustomerIdentity {
+  customer_name: string;
+  tax_code: string | null;
+  industry_code: string | null;
+  establish_date: string | null;
+  representative_name: string | null;
+  representative_role: string | null;
+}
+
+export interface CollateralSummary {
+  collateral_type: string;
+  owner_name: string;
+  registration_number: string | null;
+}
+
+export interface IncomeEvidenceItem {
+  field_key: string;
+  value: Record<string, unknown>;
+  evidence_id: string;
+  confidence: number;
+}
+
 export interface CaseDetail {
   case_id: string;
   customer_id: string;
@@ -101,11 +128,16 @@ export interface CaseDetail {
   state: string;
   version: number;
   requested_facility: Record<string, unknown>;
+  created_at: string;
+  updated_at: string;
   documents: DocumentSummary[];
   required_doc_types: string[];
   findings: Finding[];
   conflicts: Conflict[];
   decision: Decision | null;
+  identity: CustomerIdentity | null;
+  collateral_summary: CollateralSummary | null;
+  income_evidence: IncomeEvidenceItem[];
 }
 
 export interface EvidenceItem {
@@ -125,6 +157,29 @@ export interface EvidenceItem {
   // document_url (presigned, direct-to-MinIO) stays the "mở tài liệu gốc"
   // new-tab download fallback.
   viewer_url: string | null;
+}
+
+// Credit Memo — computed view (api/app/routers/memo.py), not persisted.
+export interface CreditMemoSection {
+  title: string;
+  content: string[];
+}
+
+export interface CreditMemo {
+  case_id: string;
+  prepared_at: string;
+  recommendation: "APPROVE" | "APPROVE_WITH_CONDITIONS" | "REFER" | "REJECT" | "NEED_INFO";
+  sections: CreditMemoSection[];
+}
+
+// Chat — ai-architecture_v2.md §11.8. 1 case = 1 thread.
+export interface ChatMessageDto {
+  message_id: string;
+  seq: number;
+  role: "USER" | "ASSISTANT" | "SYSTEM";
+  content: string;
+  citations: unknown[] | null;
+  created_at: string;
 }
 
 export interface AuditEvent {
