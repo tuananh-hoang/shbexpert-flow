@@ -30,7 +30,7 @@ export function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="sidebar-logo">
-        <span className="sidebar-logo-mark">M</span>
+        <span className="sidebar-logo-mark">S</span>
         SHBExpert AI
       </div>
 

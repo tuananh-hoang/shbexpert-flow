@@ -13,9 +13,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         {/* Sidebar is global (Queue + every case page) — see
             web/app/components/Sidebar.tsx for why. */}
-        <div className="app-layout">
-          <Sidebar />
-          <div className="app-content">{children}</div>
+        <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+          <div className="shb-stripe" />
+          <div className="app-layout">
+            <Sidebar />
+            <div className="app-content">{children}</div>
+          </div>
         </div>
       </body>
     </html>
