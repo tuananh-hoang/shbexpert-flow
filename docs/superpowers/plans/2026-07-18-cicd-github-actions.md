@@ -386,6 +386,15 @@ output "ecr_registry" {
 
 `image_tag_mutability = "IMMUTABLE"` là chốt kỹ thuật cho lời hứa ở spec §8: ECR sẽ **từ chối** mọi lần push đè lên tag đã tồn tại.
 
+**Đánh đổi cần biết trước.** Nếu `build-push` fail giữa chừng (vd service thứ 6 hỏng khi 5 service đầu đã push xong), chạy lại workflow ở **cùng SHA** có thể bị ECR từ chối vì tag đã tồn tại. Hành vi của ECR khi push lại đúng digest cũ lên tag IMMUTABLE là chỗ tôi **không chắc** — cần quan sát lần đầu gặp.
+
+Đường lui luôn dùng được: đẩy một commit rỗng để có SHA mới.
+
+```bash
+git commit --allow-empty -m "chore: trigger rebuild"
+git push
+```
+
 - [ ] **Step 2: Plan và apply**
 
 ```bash
@@ -395,7 +404,7 @@ terraform validate
 terraform plan
 ```
 
-Expected: `17 to add, 1 to change, 0 to destroy` (8 repository + 8 lifecycle policy + 1 role policy; `change` là do output mới).
+Expected: `17 to add, 0 to change, 0 to destroy` — 8 repository + 8 lifecycle policy + 1 role policy. Output mới (`ecr_registry`) hiện ở mục "Changes to Outputs" riêng, **không** tính vào số resource.
 
 ```bash
 terraform apply
@@ -534,13 +543,20 @@ resource "aws_iam_role_policy" "github_actions" {
         Resource = "${aws_s3_bucket.deploy.arn}/deploys/*"
       },
       {
-        # Cần cả hai resource: document và instance.
+        # SendCommand phải authorize CẢ document lẫn instance. Hai
+        # statement tách rời, KHÔNG gộp làm một: IAM áp Condition cho
+        # mọi Resource trong cùng statement, mà document managed của AWS
+        # không có tag nào — aws:ResourceTag/Project sẽ vắng mặt,
+        # StringEquals trả false, statement không áp dụng cho document,
+        # và cả lệnh bị implicit deny dù instance đúng tag.
         Effect   = "Allow"
         Action   = ["ssm:SendCommand"]
-        Resource = [
-          "arn:aws:ssm:${var.region}::document/AWS-RunShellScript",
-          "arn:aws:ec2:${var.region}:${data.aws_caller_identity.gh.account_id}:instance/*",
-        ]
+        Resource = ["arn:aws:ssm:${var.region}::document/AWS-RunShellScript"]
+      },
+      {
+        Effect   = "Allow"
+        Action   = ["ssm:SendCommand"]
+        Resource = ["arn:aws:ec2:${var.region}:${data.aws_caller_identity.gh.account_id}:instance/*"]
         Condition = {
           StringEquals = { "aws:ResourceTag/Project" = var.project }
         }
@@ -923,11 +939,33 @@ jobs:
           # AWS-RunShellScript không kế thừa env của runner — mọi biến
           # phải inline vào commands. IMAGE_TAG đặc biệt quan trọng: VM
           # không có cách nào suy ra git SHA.
+          #
+          # Dùng jq sinh JSON thay vì escape tay: chuỗi lệnh phải đi qua
+          # ba lớp (YAML → bash → JSON), escape thủ công ở đó là nguồn
+          # lỗi khó chẩn đoán nhất của cả workflow. jq đảm bảo JSON hợp
+          # lệ, và jq có sẵn trên ubuntu-latest.
+          jq -n \
+            --arg bucket "$DEPLOY_BUCKET" \
+            --arg tag "$IMAGE_TAG" \
+            --arg region "${{ vars.AWS_REGION }}" \
+            --arg registry "$ECR_REGISTRY" \
+            '{
+               commands: [
+                 "set -euo pipefail",
+                 "aws s3 cp s3://\($bucket)/deploys/\($tag).tar.gz /tmp/deploy.tar.gz",
+                 "tar -xf /tmp/deploy.tar.gz -C /opt/shbexpert",
+                 "rm /tmp/deploy.tar.gz",
+                 "cd /opt/shbexpert && AWS_REGION=\($region) ECR_REGISTRY=\($registry) IMAGE_TAG=\($tag) bash deploy/deploy.sh"
+               ]
+             }' > /tmp/ssm-params.json
+
+          cat /tmp/ssm-params.json   # để log có bản ghi lệnh đã gửi
+
           CMD_ID=$(aws ssm send-command \
             --document-name AWS-RunShellScript \
             --instance-ids "$INSTANCE_ID" \
             --comment "deploy $IMAGE_TAG" \
-            --parameters commands="[\"set -euo pipefail\",\"aws s3 cp s3://$DEPLOY_BUCKET/deploys/$IMAGE_TAG.tar.gz /tmp/deploy.tar.gz\",\"tar -xf /tmp/deploy.tar.gz -C /opt/shbexpert\",\"rm /tmp/deploy.tar.gz\",\"cd /opt/shbexpert && AWS_REGION=${{ vars.AWS_REGION }} ECR_REGISTRY=$ECR_REGISTRY IMAGE_TAG=$IMAGE_TAG bash deploy/deploy.sh\"]" \
+            --parameters file:///tmp/ssm-params.json \
             --query 'Command.CommandId' --output text)
           echo "SSM command: $CMD_ID"
 
@@ -1051,6 +1089,10 @@ Không có mục spec nào thiếu task.
 
 **Điểm chưa chắc chắn, cần xác minh lúc chạy:**
 
-1. **Thumbprint OIDC** (Task 4) — AWS không còn xác thực giá trị này từ 2023, nhưng provider `~> 5.0` vẫn đòi trường. Nếu apply lỗi, thử bỏ `thumbprint_list`.
-2. **Cú pháp `--parameters commands=[...]`** (Task 7) — escape JSON trong YAML trong bash là chỗ dễ sai nhất của cả plan. Nếu lỗi, chuyển sang `--cli-input-json file://` với một file JSON riêng.
-3. **Số lượng resource trong `terraform plan`** (Task 3 Step 2) — con số ước lượng; đọc kỹ plan thật trước khi apply.
+1. **Thumbprint OIDC** (Task 4) — AWS không còn xác thực giá trị này từ 2023, nhưng provider `~> 5.0` vẫn đòi trường non-empty. Nếu apply lỗi, thử bỏ `thumbprint_list`.
+2. **Push lại cùng SHA lên tag IMMUTABLE** (Task 3) — hành vi của ECR khi digest không đổi là chỗ chưa rõ. Đường lui: commit rỗng để có SHA mới.
+3. **Số lượng resource trong `terraform plan`** (Task 3 Step 2) — đọc kỹ plan thật trước khi apply, đừng tin con số trong tài liệu này.
+
+**Rủi ro đã loại bỏ, không còn cần xác minh:**
+
+- ~~Escape `--parameters commands=[...]` qua ba lớp YAML/bash/JSON~~ — đã thay bằng `jq -n` sinh file JSON rồi truyền `--parameters file://`. Đây từng là điểm dễ vỡ nhất của plan; thay cơ chế tốt hơn là thêm bước test cho cơ chế dễ vỡ.

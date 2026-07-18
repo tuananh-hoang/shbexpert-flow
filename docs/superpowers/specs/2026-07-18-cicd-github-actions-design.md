@@ -53,7 +53,7 @@ PR không chạm AWS — chỉ build để xác minh Dockerfile còn hợp lệ.
 
 ```yaml
   api:
-    image: ${REGISTRY:-shbexpert}/api:${IMAGE_TAG:-dev}
+    image: ${REGISTRY:-shbexpert}/shbexpert/api:${IMAGE_TAG:-dev}
     build:
       context: .
       dockerfile: api/Dockerfile
@@ -66,7 +66,9 @@ Giữ cả hai key là có chủ đích:
 
 Một file compose phục vụ cả hai môi trường — không phải duy trì hai bản lệch nhau.
 
-Default `shbexpert/api:dev` là namespace **không tồn tại trên Docker Hub** — đây là chủ ý. Nếu ai đó chạy `docker compose pull` ngoài môi trường prod, lệnh fail ngay với `pull access denied` thay vì âm thầm kéo nhầm image. Rủi ro còn lại rất hẹp: một dev vừa deploy xong, còn `REGISTRY`/`IMAGE_TAG` sót trong shell, rồi `pull` ở repo local — phải `unset` trước.
+Phần `shbexpert/` thứ hai là **tên repository trên ECR** (`${var.project}/<service>`), không phải lặp thừa — đường dẫn đầy đủ lúc chạy là `<account>.dkr.ecr.<region>.amazonaws.com/shbexpert/api:<sha>`.
+
+Default `shbexpert/shbexpert/api:dev` là namespace **không tồn tại trên Docker Hub** — đây là chủ ý. Nếu ai đó chạy `docker compose pull` ngoài môi trường prod, lệnh fail ngay với `pull access denied` thay vì âm thầm kéo nhầm image. Rủi ro còn lại rất hẹp: một dev vừa deploy xong, còn `REGISTRY`/`IMAGE_TAG` sót trong shell, rồi `pull` ở repo local — phải `unset` trước.
 
 `postgres`, `redis`, `qdrant`, `minio` giữ nguyên (image public).
 
