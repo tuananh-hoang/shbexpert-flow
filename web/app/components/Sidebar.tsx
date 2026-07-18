@@ -1,117 +1,160 @@
 "use client";
 
-/**
- * Fixed left sidebar — restyled per the dashmint_ai-trang prototype's
- * `Shell.tsx` (brand block + nav + user footer, violet/token-driven), but
- * routing logic is UNCHANGED from the original: only "Dashboard" (current
- * case, highlight-only) and "Applications" (the Queue, `/`) are real;
- * everything else stays a disabled "Sắp có" placeholder rather than a
- * prototype-style HashRouter with routes that don't exist here (this app
- * is Next.js App Router, not react-router — no router swap, just a
- * visual reskin of the same two real routes).
- *
- * Navy/orange palette + EN/VI LanguageToggle added per the FE_flow.jpeg
- * redesign — see globals.css's --sidebar-* / --logo-accent tokens.
- */
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { GitCompareArrows, LayoutGrid, UserCircle2 } from "lucide-react";
-import { useI18n } from "../lib/i18n";
-import { LanguageToggle } from "./LanguageToggle";
+import { ChevronRight, LayoutDashboard, FolderOpen, Bot, CheckSquare, BarChart2, Settings } from "lucide-react";
+import { cn } from "../lib/utils";
 
-const DISABLED_KEYS = ["nav.tasks", "nav.documents", "nav.reports", "nav.auditTrail", "nav.settings"] as const;
+interface NavItem {
+  icon: React.ReactNode;
+  label: string;
+  href?: string;
+  active?: boolean;
+  disabled?: boolean;
+  hasChildren?: boolean;
+  children?: { label: string; href: string; active?: boolean }[];
+}
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { t } = useI18n();
-  const onCasePage = pathname?.startsWith("/cases/") ?? false;
+  const onCasePage  = pathname?.startsWith("/cases/") ?? false;
   const onQueuePage = pathname === "/";
 
+  const navItems: NavItem[] = [
+    {
+      icon: <LayoutDashboard className="size-4.5" />,
+      label: "Dashboard",
+      href: "/",
+      active: onQueuePage,
+    },
+    {
+      icon: <FolderOpen className="size-4.5" />,
+      label: "Hồ sơ tín dụng",
+      disabled: true,
+      hasChildren: true,
+    },
+    {
+      icon: <Bot className="size-4.5" />,
+      label: "AI Review",
+      active: onCasePage,
+      hasChildren: true,
+      children: onCasePage && pathname
+        ? [{ label: pathname.split("/").pop() ?? "Hồ sơ", href: pathname, active: true }]
+        : [],
+    },
+    {
+      icon: <CheckSquare className="size-4.5" />,
+      label: "Decision Hub",
+      disabled: true,
+    },
+    {
+      icon: <BarChart2 className="size-4.5" />,
+      label: "Báo cáo",
+      disabled: true,
+      hasChildren: true,
+    },
+    {
+      icon: <Settings className="size-4.5" />,
+      label: "Cài đặt",
+      disabled: true,
+    },
+  ];
+
   return (
-    <aside
-      className="flex h-screen w-60 shrink-0 flex-col px-3 py-5"
-      style={{
-        background: "linear-gradient(180deg, var(--sidebar-bg), var(--sidebar-bg-2))",
-        position: "sticky",
-        top: 0,
-      }}
-    >
-      <div className="flex items-center gap-2.5 px-2 pb-5">
-        <span
-          className="flex h-8 w-8 items-center justify-center rounded-lg"
-          style={{ background: "var(--logo-accent)", color: "#fff" }}
+    <aside className="sidebar flex flex-col" style={{ minHeight: "100vh" }}>
+      {/* Logo */}
+      <div className="sidebar-logo">
+        <div
+          className="size-8 rounded-lg flex items-center justify-center text-white font-extrabold text-sm shrink-0"
+          style={{ background: "var(--color-orange-600)" }}
         >
-          <GitCompareArrows size={16} />
-        </span>
+          S
+        </div>
         <div>
-          <div className="text-sm font-semibold" style={{ color: "var(--sidebar-fg)" }}>
-            {t("nav.appName")}
-          </div>
-          <div className="text-xs" style={{ color: "var(--sidebar-fg-muted)" }}>
-            {t("nav.tagline")}
-          </div>
+          <p className="text-sm font-bold leading-tight" style={{ color: "var(--text-on-brand)" }}>
+            SHBExpert AI
+          </p>
+          <p className="text-[10px] leading-tight" style={{ color: "rgba(255,255,255,0.55)" }}>
+            Nền tảng tín dụng doanh nghiệp
+          </p>
         </div>
       </div>
 
-      <nav className="flex flex-1 flex-col gap-1">
-        <div
-          className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium"
-          style={
-            onCasePage
-              ? { background: "var(--sidebar-active-bg)", color: "#fff" }
-              : { color: "var(--sidebar-fg-muted)" }
-          }
-        >
-          <LayoutGrid size={16} />
-          {t("nav.dashboard")}
-        </div>
-        <Link
-          href="/"
-          className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium"
-          style={
-            onQueuePage
-              ? { background: "var(--sidebar-active-bg)", color: "#fff" }
-              : { color: "var(--sidebar-fg-muted)" }
-          }
-        >
-          <LayoutGrid size={16} />
-          {t("nav.applications")}
-        </Link>
-        {DISABLED_KEYS.map((key) => (
-          <div
-            key={key}
-            className="flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm font-medium opacity-50"
-            style={{ color: "var(--sidebar-fg-muted)" }}
-            title={t("nav.comingSoonTitle")}
-          >
-            {t(key)}
-            <span
-              className="rounded-full px-1.5 py-0.5 text-[10px] font-semibold"
-              style={{ background: "rgba(255,255,255,0.14)", color: "var(--sidebar-fg-muted)" }}
-            >
-              {t("nav.comingSoon")}
-            </span>
+      {/* Nav */}
+      <nav className="sidebar-nav flex-1 py-2">
+        {navItems.map(({ icon, label, href, active, disabled, hasChildren, children }) => (
+          <div key={label}>
+            {/* Main item */}
+            {href && !disabled ? (
+              <Link
+                href={href}
+                className={cn(
+                  "sidebar-nav-item flex items-center gap-3",
+                  active && "active"
+                )}
+              >
+                <span className="shrink-0">{icon}</span>
+                <span className="flex-1">{label}</span>
+                {hasChildren && <ChevronRight className="size-3.5 opacity-50" />}
+              </Link>
+            ) : (
+              <div
+                className={cn(
+                  "sidebar-nav-item flex items-center gap-3",
+                  active && "active",
+                  disabled && "disabled"
+                )}
+                title={disabled ? "Sắp có" : undefined}
+              >
+                <span className="shrink-0">{icon}</span>
+                <span className="flex-1">{label}</span>
+                {hasChildren && <ChevronRight className={cn("size-3.5 opacity-50", active && "rotate-90")} />}
+                {disabled && (
+                  <span className="sidebar-nav-badge text-[9px] px-1.5 py-0.5 rounded-full font-bold">Sắp có</span>
+                )}
+              </div>
+            )}
+
+            {/* Child items (when active and has children) */}
+            {active && children && children.length > 0 && (
+              <div className="ml-8 mt-0.5 mb-1 flex flex-col gap-0.5">
+                {children.map((c) => (
+                  <Link
+                    key={c.href}
+                    href={c.href}
+                    className={cn(
+                      "text-xs px-3 py-1.5 rounded-md transition-colors truncate",
+                      c.active
+                        ? "bg-[var(--color-navy-800)] text-white font-semibold"
+                        : "text-[rgba(255,255,255,0.6)] hover:text-white hover:bg-[var(--color-navy-800)]"
+                    )}
+                  >
+                    {c.label}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
         ))}
       </nav>
 
-      <div className="px-2 pb-3">
-        <LanguageToggle />
-      </div>
-
-      {/* Danh tính demo tĩnh — hệ thống chưa có auth thật, khớp
-          Actor(type="USER", id="credit_officer_demo") backend đã dùng
-          cho mọi hành động HITL (api/app/routers/cases.py). */}
-      <div className="flex items-center gap-2.5 border-t px-2 pt-3" style={{ borderColor: "rgba(255,255,255,0.12)" }}>
-        <UserCircle2 size={28} style={{ color: "var(--sidebar-fg-muted)" }} />
-        <div>
-          <div className="text-xs font-medium" style={{ color: "var(--sidebar-fg)" }}>
-            {t("nav.officerName")}
+      {/* User footer */}
+      <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+        <div className="sidebar-footer flex items-center gap-3 cursor-pointer hover:bg-[var(--color-navy-800)] transition-colors rounded-lg mx-2 mb-2 px-2 py-2">
+          <div className="sidebar-avatar shrink-0">NA</div>
+          <div className="flex-1 min-w-0">
+            <div className="sidebar-officer-name text-xs font-semibold truncate">CBTD: Nguyễn Văn An</div>
+            <div className="sidebar-officer-role text-[10px] truncate opacity-70">Phòng Khách hàng Doanh nghiệp</div>
+            <div className="text-[10px] opacity-50 truncate">Chi nhánh Hà Nội</div>
           </div>
-          <div className="text-xs" style={{ color: "var(--sidebar-fg-muted)" }}>
-            {t("nav.officerRole")}
-          </div>
+          <ChevronRight className="size-3.5 opacity-50 shrink-0" />
         </div>
+
+        <button className="w-full flex items-center justify-center gap-2 py-2.5 text-xs opacity-50 hover:opacity-80 transition-opacity"
+          style={{ color: "rgba(255,255,255,0.7)", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+          <ChevronRight className="size-3.5 rotate-180" />
+          Thu gọn menu
+        </button>
       </div>
     </aside>
   );

@@ -12,15 +12,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="vi">
       <body>
-        {/* LanguageProvider sets document.documentElement.lang itself once
-            mounted (see lib/i18n.tsx) — the "vi" above is just the
-            pre-hydration default, matching most users' actual choice. */}
+        {/* Sidebar is global (Queue + every case page) — see
+            web/app/components/Sidebar.tsx for why. */}
         <LanguageProvider>
-          {/* Sidebar is global (Queue + every case page) — see
-              web/app/components/Sidebar.tsx for why. */}
-          <div className="app-layout">
-            <Sidebar />
-            <div className="app-content">{children}</div>
+          <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+            <div className="app-layout">
+              <Sidebar />
+              <div className="app-content">{children}</div>
+            </div>
           </div>
         </LanguageProvider>
       </body>
