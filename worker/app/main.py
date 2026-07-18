@@ -23,6 +23,7 @@ import time
 import redis.asyncio as aioredis
 
 from shared.db import ping as db_ping
+from app.chat.server import serve as serve_chat_http
 from app.config import ANALYZE_QUEUE, REDIS_URL, progress_channel
 from app.graph.build import Checkpointer, build_compiled_graph
 
@@ -89,6 +90,10 @@ async def _consume_jobs(compiled_graph) -> None:
 async def main() -> None:
     await wait_for_dependencies()
     asyncio.create_task(_heartbeat_loop())
+    # Chat Orchestrator's HTTP surface (ai-architecture_v2.md §11.8) —
+    # runs alongside the analyze-job consumer loop below in this same
+    # process/event loop, not a separate container. See app/chat/server.py.
+    asyncio.create_task(serve_chat_http())
 
     async with Checkpointer() as saver:
         compiled_graph = await build_compiled_graph(saver)

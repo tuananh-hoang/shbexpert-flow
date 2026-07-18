@@ -374,3 +374,166 @@ class ChecklistCompletion(Base):
     completion_status: Mapped[str] = mapped_column(String, nullable=False, default="pending")  # completed|pending|missing
     completed_date: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), nullable=True)
     responsible_party: Mapped[str] = mapped_column(String, nullable=True)
+
+
+# ---------------------------------------------------------------------------
+# Customer 360 & Credit History domain — worker/app/agents/customer360.py's
+# 4 tools (get_customer_360 / query_cic_mock / analyze_cashflow /
+# map_related_parties). Logical role matches ai-architecture_v2.md §7.3's
+# "Credit Conduct / Customer 360" workcell.
+#
+# Keyed by `customer_id`, NOT `case_id` — a customer can have multiple cases
+# over time, unlike collateral (1 case = 1 collateral in this system).
+# `customer_id` is a plain String column with no FK, matching Case.customer_id
+# itself (there is no `customers` master table for it to reference — a
+# pre-existing gap, not introduced here, see plan's Rủi ro note). Read
+# directly via shared.db by worker (common.py), not exposed as an MCP tool —
+# same rationale as the Collateral & Legal domain section above.
+# ---------------------------------------------------------------------------
+class CustomerMaster(Base):
+    __tablename__ = "customer_master"
+
+    customer_id: Mapped[str] = mapped_column(String, primary_key=True)
+    customer_name: Mapped[str] = mapped_column(String, nullable=False)
+    tax_code: Mapped[str] = mapped_column(String, nullable=True)
+    establish_date: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), nullable=True)
+    industry_code: Mapped[str] = mapped_column(String, nullable=True)
+    legal_rep_id: Mapped[str] = mapped_column(String, nullable=True)
+
+
+class CreditLimit(Base):
+    """Hạn mức đã cấp theo loại (vay ngắn/trung/dài hạn, bảo lãnh, LC) —
+    KHÁC với credit_obligation (dư nợ hiện tại, tools-mock
+    /credit-obligations — task Collateral): limit là mức TRẦN được duyệt,
+    obligation là số ĐANG dùng. limit_utilization_ratio = obligation/limit."""
+
+    __tablename__ = "credit_limit"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    customer_id: Mapped[str] = mapped_column(String, nullable=False, index=True)
+    limit_type: Mapped[str] = mapped_column(String, nullable=False)
+    approved_amount: Mapped[float] = mapped_column(Float, nullable=False)
+    approval_date: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), nullable=True)
+    expiry_date: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), nullable=True)
+    approving_authority: Mapped[str] = mapped_column(String, nullable=True)
+
+
+class RelationshipHistory(Base):
+    __tablename__ = "relationship_history"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    customer_id: Mapped[str] = mapped_column(String, nullable=False, index=True)
+    relationship_start_date: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), nullable=True)
+    product_used: Mapped[str] = mapped_column(String, nullable=True)
+    branch_id: Mapped[str] = mapped_column(String, nullable=True)
+
+
+class TransactionAccount(Base):
+    __tablename__ = "transaction_account"
+
+    account_id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    customer_id: Mapped[str] = mapped_column(String, nullable=False, index=True)
+    account_type: Mapped[str] = mapped_column(String, nullable=True)
+    avg_balance: Mapped[float] = mapped_column(Float, nullable=True)
+    open_date: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class CashflowStatementSummary(Base):
+    """Dòng tiền qua tài khoản THẬT tại SHB — nguồn ĐỘC LẬP với
+    cf_operating/cf_investing/cf_financing mà Financial Agent đọc từ BCTC
+    khách tự nộp (worker/app/agents/financial.py). Cả hai cùng ghi finding
+    issue_key=CASHFLOW_QUALITY để tạo đối chiếu chéo thật (worker/app/
+    agents/customer360.py::run_cashflow_check)."""
+
+    __tablename__ = "cashflow_statement_summary"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    customer_id: Mapped[str] = mapped_column(String, nullable=False, index=True)
+    period: Mapped[str] = mapped_column(String, nullable=False)
+    cf_operating: Mapped[float] = mapped_column(Float, nullable=True)
+    cf_investing: Mapped[float] = mapped_column(Float, nullable=True)
+    cf_financing: Mapped[float] = mapped_column(Float, nullable=True)
+    net_cashflow: Mapped[float] = mapped_column(Float, nullable=True)
+
+
+class ShareholderRegistry(Base):
+    __tablename__ = "shareholder_registry"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    customer_id: Mapped[str] = mapped_column(String, nullable=False, index=True)
+    shareholder_id: Mapped[str] = mapped_column(String, nullable=True)
+    shareholder_name: Mapped[str] = mapped_column(String, nullable=False)
+    ownership_pct: Mapped[float] = mapped_column(Float, nullable=True)
+
+
+class LegalRepresentative(Base):
+    __tablename__ = "legal_representative"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    customer_id: Mapped[str] = mapped_column(String, nullable=False, index=True)
+    rep_id: Mapped[str] = mapped_column(String, nullable=True)
+    rep_name: Mapped[str] = mapped_column(String, nullable=False)
+    role: Mapped[str] = mapped_column(String, nullable=True)
+    authorization_scope: Mapped[str] = mapped_column(String, nullable=True)
+
+
+class GroupRelationship(Base):
+    """Nhóm khách hàng liên quan theo quy định NHNN (công ty con/mẹ, cùng
+    người đại diện, cùng cổ đông >20%...) — dùng cho map_related_parties."""
+
+    __tablename__ = "group_relationship"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    customer_id: Mapped[str] = mapped_column(String, nullable=False, index=True)
+    related_customer_id: Mapped[str] = mapped_column(String, nullable=False)
+    relationship_type: Mapped[str] = mapped_column(String, nullable=False)
+
+
+class CrossGuarantee(Base):
+    __tablename__ = "cross_guarantee"
+
+    id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    customer_id: Mapped[str] = mapped_column(String, nullable=False, index=True)
+    related_customer_id: Mapped[str] = mapped_column(String, nullable=False)
+    guarantee_amount: Mapped[float] = mapped_column(Float, nullable=False)
+
+
+# ---------------------------------------------------------------------------
+# Chat — ai-architecture_v2.md §11.8 "MVP Chat". A free-form chat UI
+# (form), but every answer stays grounded in ONE case's CaseState (content)
+# — see that section for the full Chat Orchestrator design (routing ->
+# domain responders -> synthesis, all in `worker`, no Redis/job queue: a
+# chat turn is a single synchronous HTTP request/response, streamed).
+#
+# 1 case = 1 thread (§11.8's deliberate simplification vs the full
+# Follow-up Router's multi-thread `thread_id` concept in §5.1) — so
+# ChatThread has a unique case_id, not a list of threads per case.
+# ---------------------------------------------------------------------------
+class ChatThread(Base):
+    __tablename__ = "chat_threads"
+
+    thread_id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    case_id: Mapped[str] = mapped_column(ForeignKey("cases.case_id"), nullable=False, unique=True)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+
+class ChatMessage(Base):
+    """APPEND-ONLY, same discipline as `events` (shared/state.py::emit_event
+    assigns `seq` under a per-thread advisory lock — see
+    write_chat_message). `citations` is a best-effort array the Chat
+    Orchestrator parses out of the model's own answer text (e.g.
+    `[F-FIN-002-v1]` references) — nullable, never a gate on whether the
+    message is shown (§11.8: citations are natural/optional, not an
+    output-validator that downgrades the answer when absent)."""
+
+    __tablename__ = "chat_messages"
+
+    message_id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    thread_id: Mapped[str] = mapped_column(ForeignKey("chat_threads.thread_id"), nullable=False, index=True)
+    seq: Mapped[int] = mapped_column(Integer, nullable=False)  # monotonic per thread
+    role: Mapped[str] = mapped_column(String, nullable=False)  # USER | ASSISTANT | SYSTEM
+    content: Mapped[str] = mapped_column(Text, nullable=False)
+    citations: Mapped[list | None] = mapped_column(JSONB, nullable=True)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+    __table_args__ = (UniqueConstraint("thread_id", "seq", name="uq_chat_message_thread_seq"),)

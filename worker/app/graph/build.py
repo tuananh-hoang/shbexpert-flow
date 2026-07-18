@@ -67,27 +67,112 @@ async def _plan_node(state: CaseGraphState) -> dict:
     return {"as_of_date": as_of_date}
 
 
+async def _fallback_agent_unavailable_finding(case_id: str, agent_id: str, error: Exception) -> str:
+    """Written when a fan-out agent node raises — see _run_fanout_agent's
+    docstring for why this exists. A single NEED_DATA finding stands in
+    for whatever that agent would have written, so `detect`/`synthesize`
+    downstream see "this agent has no usable output" (an honest gap) INSTEAD
+    of a graph-wide crash that would also destroy the other 3 agents'
+    real results. Confidence 1.0 because "the tool call failed" is a FACT,
+    not an inference.
+
+    evidence_ids is deliberately NOT [] — shared/state.py::write_finding's
+    NFR-01 guard rejects any HIGH/CRITICAL finding with empty evidence_ids
+    (found the hard way: this finding used to have evidence_ids=[], so the
+    very fallback meant to isolate a failing agent instead raised
+    EvidenceRequiredError and crashed the whole job anyway, defeating the
+    point). The error message itself IS this claim's evidence — same loose
+    "pointer, not a UUID" convention customer360.py::run_cic_check uses for
+    non-DB evidence (an external system's answer, not a local row)."""
+    from app.agents.common import run_sync, write_finding_sync
+    from shared.schemas import FindingIn
+
+    finding = FindingIn(
+        case_id=case_id,
+        agent_id=agent_id,
+        issue_key="AGENT_UNAVAILABLE",
+        claim_type="FACT",
+        claim=f"Agent này không hoàn thành phân tích do lỗi kỹ thuật: {error}",
+        stance="NEED_DATA",
+        severity="HIGH",
+        evidence_ids=[f"error:{agent_id}:{case_id}"],
+        confidence=1.0,
+        recommended_action="RETRY_AGENT",
+    )
+    result = await run_sync(write_finding_sync, finding)
+    return result.display_id
+
+
+async def _run_fanout_agent(case_id: str, step_id: str, agent_id: str, coro) -> dict:
+    """Isolates ONE fan-out agent's failure from the other 3 — ai-
+    architecture.md §11's guardrail table promises "Tool/API mock timeout
+    -> retry một lần...; sau đó trả PARTIAL, bảo toàn kết quả agent khác"
+    and "Một agent lỗi -> Không tạo DecisionPackage hoàn chỉnh" (implying
+    a partial one still gets built) — neither held before this fix: any
+    exception inside a fan-out node propagated straight out of
+    `ainvoke()`, aborting the WHOLE graph run and discarding whatever the
+    other 3 (already-parallel, independently-running) agents had
+    produced. Verified live: CASE-CUS-00002/3/4 crashed entirely on a
+    single tools-mock 404 from `get_credit_obligations`.
+
+    Every fan-out node (_financial_node/_policy_node/_collateral_node/
+    _customer360_node) now goes through this wrapper instead of letting
+    its own coroutine's exception reach LangGraph directly. Publishes
+    `step_failed` itself on catch — the OUTER `_with_progress` wrapper
+    (which still runs around this one) sees no exception here (it's
+    swallowed) and will publish its own `step_completed` right after;
+    the frontend treats `failed` as STICKY per step (a later `completed`
+    for the same step never un-fails it — see AnalyzingView.tsx /
+    case-detail page.tsx's step-merge logic), so the UI still ends up
+    correctly showing "failed" for this one agent, not silently green."""
+    try:
+        return {"findings_written": await coro}
+    except Exception as exc:  # noqa: BLE001 — deliberately broad: ANY agent failure must degrade to NEED_DATA, not abort the graph
+        await publish_progress(case_id, {"type": "step_failed", "step": step_id, "label": STEP_LABELS[step_id]})
+        display_id = await _fallback_agent_unavailable_finding(case_id, agent_id, exc)
+        return {"findings_written": [display_id]}
+
+
 async def _financial_node(state: CaseGraphState) -> dict:
     from app.agents.financial import run_financial_agent
 
-    findings = await run_financial_agent(state["case_id"])
-    return {"findings_written": [f.display_id for f in findings]}
+    async def run():
+        findings = await run_financial_agent(state["case_id"])
+        return [f.display_id for f in findings]
+
+    return await _run_fanout_agent(state["case_id"], "financial", "financial_analysis", run())
 
 
 async def _policy_node(state: CaseGraphState) -> dict:
     from app.agents.policy import run_policy_agent
 
-    finding = await run_policy_agent(state["case_id"], state["as_of_date"])
-    return {"findings_written": [finding.display_id]}
+    async def run():
+        finding = await run_policy_agent(state["case_id"], state["as_of_date"])
+        return [finding.display_id]
+
+    return await _run_fanout_agent(state["case_id"], "policy", "policy_compliance", run())
 
 
 async def _collateral_node(state: CaseGraphState) -> dict:
     from app.agents.collateral import run_collateral_agent, run_legal_checklist_check, run_ownership_check
 
-    coverage_finding = await run_collateral_agent(state["case_id"], state["as_of_date"])
-    ownership_finding = await run_ownership_check(state["case_id"])
-    checklist_finding = await run_legal_checklist_check(state["case_id"], state["as_of_date"])
-    return {"findings_written": [coverage_finding.display_id, ownership_finding.display_id, checklist_finding.display_id]}
+    async def run():
+        coverage_finding = await run_collateral_agent(state["case_id"], state["as_of_date"])
+        ownership_finding = await run_ownership_check(state["case_id"])
+        checklist_finding = await run_legal_checklist_check(state["case_id"], state["as_of_date"])
+        return [coverage_finding.display_id, ownership_finding.display_id, checklist_finding.display_id]
+
+    return await _run_fanout_agent(state["case_id"], "collateral", "collateral_legal", run())
+
+
+async def _customer360_node(state: CaseGraphState) -> dict:
+    from app.agents.customer360 import run_customer360_agent
+
+    async def run():
+        findings = await run_customer360_agent(state["case_id"])
+        return [f.display_id for f in findings]
+
+    return await _run_fanout_agent(state["case_id"], "customer360", "customer_360", run())
 
 
 async def _detect_node(state: CaseGraphState) -> dict:
@@ -193,6 +278,7 @@ STEP_LABELS: dict[str, str] = {
     "financial": "Financial Agent đang phân tích năng lực tài chính",
     "policy": "Policy Agent đang tra cứu chính sách",
     "collateral": "Collateral Agent đang thẩm định tài sản đảm bảo",
+    "customer360": "Customer 360 Agent đang tra cứu quan hệ tín dụng",
     "detect": "Đang đối chiếu nhận định giữa các agent",
     "challenge": "Phát hiện mâu thuẫn — đang hỏi lại agent liên quan",
     "synthesize": "Đang tổng hợp quyết định tín dụng",
@@ -236,6 +322,7 @@ def _build_uncompiled_graph() -> StateGraph:
     graph.add_node("financial", _with_progress("financial", _financial_node))
     graph.add_node("policy", _with_progress("policy", _policy_node))
     graph.add_node("collateral", _with_progress("collateral", _collateral_node))
+    graph.add_node("customer360", _with_progress("customer360", _customer360_node))
     graph.add_node("detect", _with_progress("detect", _detect_node))
     graph.add_node("challenge", _with_progress("challenge", _challenge_node))
     graph.add_node("synthesize", _with_progress("synthesize", _synthesize_node))
@@ -248,9 +335,11 @@ def _build_uncompiled_graph() -> StateGraph:
     graph.add_edge("plan", "financial")
     graph.add_edge("plan", "policy")
     graph.add_edge("plan", "collateral")
+    graph.add_edge("plan", "customer360")
     graph.add_edge("financial", "detect")
     graph.add_edge("policy", "detect")
     graph.add_edge("collateral", "detect")
+    graph.add_edge("customer360", "detect")
 
     # Round limit enforced here, in the edge — not in a system prompt.
     graph.add_conditional_edges("detect", _route_after_detect, {"challenge": "challenge", "done": "synthesize"})

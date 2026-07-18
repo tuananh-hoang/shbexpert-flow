@@ -69,9 +69,21 @@ def _check_hard_gates(session, case_id: str, findings: list[Finding]) -> tuple[l
     if not g1_pass:
         return gates, "NEED_INFO"
 
-    # G2 — KYC/AML: Customer 360 / AML agent isn't built yet (deferred to a
-    # later phase) — mock PASS rather than fabricate a check with no data.
-    gates.append(HardGateResult(gate_id="G2", status="PASS", reason="KYC/AML agent chưa triển khai — mock PASS"))
+    # G2 — KYC/AML identity match: Customer 360's CIC check (issue_key
+    # CREDIT_CONDUCT, worker/app/agents/customer360.py::run_cic_check)
+    # flags NEED_DATA when identity_match_score is too low to trust — per
+    # ai-architecture.md §5.5's guardrail (reason golden case C05 exists),
+    # this must REFER, never auto-PASS as if identity were confirmed. If no
+    # CREDIT_CONDUCT finding exists yet (case seeded before Customer 360
+    # existed), fall back to mock PASS rather than fabricate a check.
+    identity_unclear = [f for f in findings if f.issue_key == "CREDIT_CONDUCT" and f.stance == "NEED_DATA"]
+    g2_pass = not identity_unclear
+    g2_reason = identity_unclear[0].claim if identity_unclear else None
+    if g2_pass and not any(f.issue_key == "CREDIT_CONDUCT" for f in findings):
+        g2_reason = "Customer 360 agent chưa có finding cho case này — mock PASS"
+    gates.append(HardGateResult(gate_id="G2", status="PASS" if g2_pass else "FAIL", reason=g2_reason))
+    if not g2_pass:
+        return gates, "REFER"
 
     # G3 — prohibited use-of-funds category (mock: none configured).
     gates.append(HardGateResult(gate_id="G3", status="PASS", reason=None))
@@ -154,22 +166,41 @@ def _financial_health_stance(by_issue: dict[str, Finding]) -> str | None:
     return "OPPOSE"
 
 
+def _credit_history_stance(findings: list[Finding]) -> str | None:
+    """Rolls up the 2 CREDIT_CONDUCT findings (worker/app/agents/
+    customer360.py::run_customer_relationship_check + run_cic_check) into
+    ONE stance for the CREDIT_HISTORY dimension. Both share issue_key
+    CREDIT_CONDUCT (ai-architecture_v2.md §12 vocab) — filtered from the
+    raw findings list, NOT a {issue_key: Finding} dict, since a dict would
+    silently drop one of the two same-issue_key findings. Returns None if
+    neither exists yet (case seeded before Customer 360 existed) so the
+    caller falls back to the neutral placeholder."""
+    credit_conduct = [f for f in findings if f.issue_key == "CREDIT_CONDUCT"]
+    if not credit_conduct:
+        return None
+    if all(f.stance == "SUPPORT" for f in credit_conduct):
+        return "SUPPORT"
+    if any(f.stance == "OPPOSE" for f in credit_conduct):
+        return "OPPOSE"
+    return "CAUTION"
+
+
 def _compute_scorecard(findings: list[Finding]) -> list[ScoreEntry]:
     """Simplified 6-group scorecard (ai-architecture.md §10 Bước B).
-    Customer 360 / Industry agents aren't built yet, so CREDIT_HISTORY and
-    INDUSTRY_GOVERNANCE default to a neutral score rather than being
-    computed from data that doesn't exist — an honest placeholder, not a
-    fabricated conclusion."""
+    Industry agent isn't built yet, so INDUSTRY_GOVERNANCE still defaults
+    to a neutral score rather than being computed from data that doesn't
+    exist — an honest placeholder, not a fabricated conclusion."""
     by_issue = {f.issue_key: f for f in findings}
     repayment = by_issue.get("REPAYMENT_CAPACITY")
     collateral = by_issue.get("COLLATERAL_COVERAGE")
     policy = by_issue.get("REVENUE_RECONCILIATION")
     financial_health_stance = _financial_health_stance(by_issue)
+    credit_history_stance = _credit_history_stance(findings)
 
     return [
         ScoreEntry(dimension="REPAYMENT_CASHFLOW", score=_score_from_stance(repayment.stance if repayment else None, 25), max=25),
         ScoreEntry(dimension="FINANCIAL_HEALTH", score=_score_from_stance(financial_health_stance, 20), max=20),
-        ScoreEntry(dimension="CREDIT_HISTORY", score=round(15 * 0.7, 1), max=15),
+        ScoreEntry(dimension="CREDIT_HISTORY", score=_score_from_stance(credit_history_stance, 15), max=15),
         ScoreEntry(dimension="COLLATERAL_LEGAL", score=_score_from_stance(collateral.stance if collateral else None, 15), max=15),
         ScoreEntry(dimension="POLICY_COMPLIANCE", score=_score_from_stance(policy.stance if policy else None, 15), max=15),
         ScoreEntry(dimension="INDUSTRY_GOVERNANCE", score=round(10 * 0.7, 1), max=10),

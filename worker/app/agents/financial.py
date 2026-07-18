@@ -195,6 +195,89 @@ async def _statement_group_finding(
     )
 
 
+async def _cashflow_quality_finding(case_id: str, tools: dict, fields: dict) -> FindingOut | None:
+    """CASHFLOW_QUALITY — issue_key SHARED with Customer 360's
+    run_cashflow_check (worker/app/agents/customer360.py). This version
+    derives cf_operating/cf_investing/cf_financing from the CUSTOMER'S OWN
+    submitted BCTC (extracted_fields); Customer 360's version reads
+    cashflow_statement_summary (SHB transaction data) instead — two
+    INDEPENDENT sources on purpose, so a real mismatch between "what the
+    customer reported" and "what actually moved through SHB accounts"
+    surfaces as a conflict (data-flow.md §5 pattern, same as
+    COLLATERAL_COVERAGE between Financial and Collateral).
+
+    Reuses calculate_cashflow_metrics (mcp-deterministic) — same tool
+    Customer 360 calls — but ignores its account_turnover_vs_revenue output
+    (account_credit_turnover=0.0 here on purpose): that metric only makes
+    sense for the transaction-based source, not a BCTC read.
+
+    Returns None (writes nothing) if cf_investing/cf_financing aren't in
+    this case's extracted_fields yet (older/partial seed) — cf_operating
+    alone isn't enough to compute net_cashflow, and this finding is
+    additive, not required for run_financial_agent's other 6 findings."""
+    cf_operating = _statement_field_value(fields, "cf_operating")
+    cf_investing = _statement_field_value(fields, "cf_investing")
+    cf_financing = _statement_field_value(fields, "cf_financing")
+    if cf_operating is None or cf_investing is None or cf_financing is None:
+        return None
+
+    net_revenue = _statement_field_value(fields, "net_revenue")
+    evidence_ids = [fields[k]["evidence_id"] for k in ("cf_operating", "cf_investing", "cf_financing") if k in fields]
+
+    metrics_result = unwrap_mcp_result(
+        await tools["calculate_cashflow_metrics"].ainvoke(
+            {
+                "cf_operating": cf_operating,
+                "cf_investing": cf_investing,
+                "cf_financing": cf_financing,
+                "account_credit_turnover": 0.0,
+                "net_revenue": net_revenue or 0.0,
+            }
+        )
+    )
+    net_cashflow = metrics_result["outputs"]["net_cashflow"]
+    operating_cf_ratio = metrics_result["outputs"]["operating_cf_ratio"]
+    formula_version = metrics_result["formula_version"]
+
+    if net_cashflow < 0 and cf_financing > 0:
+        stance, severity, recommended_action = "OPPOSE", "HIGH", "REVIEW_LIQUIDITY_RISK"
+    elif net_cashflow < 0:
+        stance, severity, recommended_action = "CAUTION", "MEDIUM", "REVIEW_CASHFLOW"
+    else:
+        stance, severity, recommended_action = "SUPPORT", "MEDIUM", None
+
+    claim = await complete(
+        tier="reasoning",
+        system=(
+            "Bạn là Financial Analysis Agent. Bạn CHỈ diễn giải dòng tiền đã tính từ BCTC khách "
+            "nộp — đây là số liệu tự khai, độc lập với dữ liệu giao dịch thật qua SHB (do "
+            "Customer 360 Agent phân tích riêng). Không tự đối chiếu hay kết luận thay agent khác."
+        ),
+        user=(
+            f"Dòng tiền theo BCTC: cf_operating={cf_operating}, cf_investing={cf_investing}, "
+            f"cf_financing={cf_financing}, net_cashflow={net_cashflow}, operating_cf_ratio={operating_cf_ratio}. "
+            f"Viết 1-2 câu claim tiếng Việt mô tả chất lượng dòng tiền theo BCTC."
+        ),
+    )
+
+    metrics = {k: v for k, v in {"net_cashflow": net_cashflow, "operating_cf_ratio": operating_cf_ratio}.items() if v is not None}
+
+    finding = FindingIn(
+        case_id=case_id,
+        agent_id=AGENT_ID,
+        issue_key="CASHFLOW_QUALITY",
+        claim_type="INFERENCE",
+        claim=claim,
+        stance=stance,
+        severity=severity,
+        evidence_ids=evidence_ids,
+        metrics=metrics,
+        confidence=0.85,
+        recommended_action=recommended_action,
+    )
+    return await run_sync(write_finding_sync, finding, versions={"formula_version": formula_version})
+
+
 async def _repayment_capacity_finding(case_id: str, tools: dict, fields: dict) -> FindingOut:
     revenue = fields["revenue_2025"]["value"]["amount_vnd"]
     ebitda = fields["ebitda_2025"]["value"]["amount_vnd"]
@@ -336,5 +419,9 @@ async def run_financial_agent(case_id: str) -> list[FindingOut]:
                 formula_version=formula_version,
             )
         )
+
+    cashflow_finding = await _cashflow_quality_finding(case_id, tools, fields)
+    if cashflow_finding is not None:
+        findings.append(cashflow_finding)
 
     return findings

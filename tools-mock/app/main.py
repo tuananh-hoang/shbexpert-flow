@@ -75,6 +75,14 @@ _OBLIGATIONS = {
     "CUST-ANPHU": {"outstanding_loan_vnd": 4_500_000_000, "outstanding_guarantee_vnd": 0, "outstanding_lc_vnd": 0},
     "CUST-HOASEN": {"outstanding_loan_vnd": 1_800_000_000, "outstanding_guarantee_vnd": 500_000_000, "outstanding_lc_vnd": 0},
     "CUST-MINHLONG": {"outstanding_loan_vnd": 4_200_000_000, "outstanding_guarantee_vnd": 0, "outstanding_lc_vnd": 800_000_000},
+    # scripts/seed_synthetic_cases.py's 4 cases — outstanding_loan_vnd taken
+    # from each case.json's relationships[0].current_exposure (this bank's
+    # own exposure to the customer); no guarantee/L-C data in the source, so
+    # both left at 0 rather than fabricated.
+    "CUS-00001": {"outstanding_loan_vnd": 2_635_326_000, "outstanding_guarantee_vnd": 0, "outstanding_lc_vnd": 0},
+    "CUS-00002": {"outstanding_loan_vnd": 3_443_825_000, "outstanding_guarantee_vnd": 0, "outstanding_lc_vnd": 0},
+    "CUS-00003": {"outstanding_loan_vnd": 4_001_804_000, "outstanding_guarantee_vnd": 0, "outstanding_lc_vnd": 0},
+    "CUS-00004": {"outstanding_loan_vnd": 2_599_662_000, "outstanding_guarantee_vnd": 0, "outstanding_lc_vnd": 0},
 }
 
 
@@ -85,3 +93,77 @@ def get_credit_obligations(customer_id: str) -> dict:
         raise HTTPException(status_code=404, detail=f"no obligations on file for {customer_id!r}")
     total = record["outstanding_loan_vnd"] + record["outstanding_guarantee_vnd"] + record["outstanding_lc_vnd"]
     return {"customer_id": customer_id, **record, "total_obligation_vnd": total, "source": "SHB_INTERNAL_REGISTRY"}
+
+
+# Mock CIC (Credit Information Center — NHNN's national credit bureau)
+# snapshot — cic_debt_group follows NHNN's 1-5 classification (1 = đủ tiêu
+# chuẩn ... 5 = có khả năng mất vốn). identity_match_score kept >=90 for
+# all 3 seeded customers per this pass's scope (a deliberately low-match
+# "C05-style" edge case is deferred — see Customer 360 plan's Rủi ro note).
+_CIC_RECORDS = {
+    "CUST-ANPHU": {
+        "cic_debt_group": 1,
+        "total_outstanding_other_ctcd": 2_000_000_000,
+        "overdue_events": [],
+        "identity_match_score": 97,
+    },
+    "CUST-HOASEN": {
+        "cic_debt_group": 1,
+        "total_outstanding_other_ctcd": 500_000_000,
+        "overdue_events": [],
+        "identity_match_score": 98,
+    },
+    "CUST-MINHLONG": {
+        "cic_debt_group": 2,
+        "total_outstanding_other_ctcd": 3_000_000_000,
+        "overdue_events": [
+            {
+                "institution": "VCB",
+                "overdue_days": 12,
+                "overdue_amount": 150_000_000,
+                "reason": "Cham thanh toan ky han thang truoc",
+            }
+        ],
+        "identity_match_score": 96,
+    },
+    # scripts/seed_synthetic_cases.py's 4 cases — cic_debt_group/
+    # total_outstanding_other_ctcd taken from each case.json's
+    # cic_reports[0].facilities[0] (debt at an OTHER mock lender, distinct
+    # from this bank's own _OBLIGATIONS above); all 4 have an empty
+    # delinquency_history and 0 days_past_due in the source, so
+    # overdue_events stays []. identity_match_score set high (no KYC
+    # watchlist match in any of the 4 cases' kyc_screenings — match_status
+    # is NO_MATCH/CLEARED throughout).
+    "CUS-00001": {
+        "cic_debt_group": 1,
+        "total_outstanding_other_ctcd": 2_635_326_000,
+        "overdue_events": [],
+        "identity_match_score": 97,
+    },
+    "CUS-00002": {
+        "cic_debt_group": 1,
+        "total_outstanding_other_ctcd": 3_443_825_000,
+        "overdue_events": [],
+        "identity_match_score": 97,
+    },
+    "CUS-00003": {
+        "cic_debt_group": 1,
+        "total_outstanding_other_ctcd": 4_001_804_000,
+        "overdue_events": [],
+        "identity_match_score": 97,
+    },
+    "CUS-00004": {
+        "cic_debt_group": 1,
+        "total_outstanding_other_ctcd": 2_599_662_000,
+        "overdue_events": [],
+        "identity_match_score": 97,
+    },
+}
+
+
+@app.get("/cic/{customer_id}")
+def query_cic_mock(customer_id: str) -> dict:
+    record = _CIC_RECORDS.get(customer_id)
+    if record is None:
+        raise HTTPException(status_code=404, detail=f"no CIC record on file for {customer_id!r}")
+    return {"customer_id": customer_id, **record, "report_date": "2026-06-01", "source": "CIC_MOCK"}

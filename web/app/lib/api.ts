@@ -1,4 +1,4 @@
-import type { AuditEvent, CaseDetail, CaseSummary, EvidenceItem } from "./types";
+import type { AuditEvent, CaseDetail, CaseSummary, ChatMessageDto, CreditMemo, EvidenceItem } from "./types";
 
 // Every call goes through /api/* — next.config.mjs rewrites this to
 // `api`. `web` never talks to postgres/redis/qdrant directly
@@ -43,9 +43,51 @@ export async function triggerAnalyze(caseId: string): Promise<void> {
   if (!res.ok) throw new Error(`triggerAnalyze failed: ${res.status}`);
 }
 
+export async function fetchChatMessages(caseId: string): Promise<ChatMessageDto[]> {
+  const res = await fetch(`/api/cases/${caseId}/chat/messages`, { cache: "no-store" });
+  if (!res.ok) throw new Error(`fetchChatMessages failed: ${res.status}`);
+  const data = await res.json();
+  return data.messages;
+}
+
+/**
+ * Sends a chat message and streams the assistant's reply back chunk by
+ * chunk via `onChunk` — real token-level streaming (worker/app/llm/
+ * adapter.py::stream_complete), not a buffered single response. Goes
+ * through the dedicated /chat/cases/... route (NOT /api/*) for the same
+ * reason the SSE stream does — see that route's docstring.
+ */
+export async function sendChatMessage(caseId: string, content: string, onChunk: (chunk: string) => void): Promise<void> {
+  const res = await fetch(`/chat/cases/${caseId}/messages`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ content }),
+  });
+  if (!res.ok || !res.body) throw new Error(`sendChatMessage failed: ${res.status}`);
+
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder("utf-8");
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    onChunk(decoder.decode(value, { stream: true }));
+  }
+}
+
+/** 409 means "no DecisionPackage yet" (api/app/routers/memo.py) — caller
+ * treats that as "not ready", not a hard error. */
+export async function fetchCreditMemo(caseId: string): Promise<CreditMemo> {
+  const res = await fetch(`/api/cases/${caseId}/memo`, { cache: "no-store" });
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body.detail ?? `fetchCreditMemo failed: ${res.status}`);
+  }
+  return res.json();
+}
+
 export async function decisionAction(
   caseId: string,
-  action: "accept" | "edit" | "rerun" | "return" | "override",
+  action: "accept" | "edit" | "rerun" | "return" | "override" | "reject" | "escalate",
   reason?: string
 ): Promise<{ state: string }> {
   const res = await fetch(`/api/cases/${caseId}/decision/action`, {

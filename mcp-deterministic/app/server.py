@@ -140,6 +140,53 @@ def calculate_collateral_coverage(eligible_value: float, haircut_rate: float, to
     }
 
 
+CASHFLOW_METRICS_FORMULA_VERSION = "C360-1.0"
+
+
+@mcp.tool()
+def calculate_cashflow_metrics(
+    cf_operating: float,
+    cf_investing: float,
+    cf_financing: float,
+    account_credit_turnover: float,
+    net_revenue: float,
+) -> dict:
+    """Customer 360 Agent's cashflow metrics — pure Python, no Postgres.
+    `cf_operating`/`cf_investing`/`cf_financing` here come from
+    cashflow_statement_summary (SHB transaction-based, read directly by the
+    caller — worker/app/agents/customer360.py), an INDEPENDENT source from
+    Financial Agent's BCTC-reported cashflow (calculate_statement_ratios) —
+    both write to issue_key CASHFLOW_QUALITY so a real disagreement between
+    "what the customer reported" and "what actually moved through SHB
+    accounts" surfaces as a conflict, not silently.
+
+    `operating_cf_ratio`: tỷ trọng CF HĐKD trong tổng dòng tiền — chỉ có ý
+    nghĩa khi tổng dương (theo đúng logic cẩm nang: dòng tiền ròng âm thì
+    "tỷ trọng" không phải một con số nên diễn giải trực tiếp).
+    `account_turnover_vs_revenue`: tổng ghi Có tài khoản / doanh thu thuần —
+    đo mức khách luân chuyển dòng tiền thực qua SHB so với doanh thu khai báo.
+    """
+    net_cashflow = round(cf_operating + cf_investing + cf_financing, 2)
+    operating_cf_ratio = round(cf_operating / net_cashflow, 3) if net_cashflow > 0 else None
+    account_turnover_vs_revenue = round(account_credit_turnover / net_revenue, 3) if net_revenue else None
+
+    return {
+        "outputs": {
+            "net_cashflow": net_cashflow,
+            "operating_cf_ratio": operating_cf_ratio,
+            "account_turnover_vs_revenue": account_turnover_vs_revenue,
+        },
+        "inputs": {
+            "cf_operating": cf_operating,
+            "cf_investing": cf_investing,
+            "cf_financing": cf_financing,
+            "account_credit_turnover": account_credit_turnover,
+            "net_revenue": net_revenue,
+        },
+        "formula_version": CASHFLOW_METRICS_FORMULA_VERSION,
+    }
+
+
 STATEMENT_FORMULA_VERSION = "FIN-1.0"
 
 # grade -> numeric rank, used only to find the WORST grade in a group

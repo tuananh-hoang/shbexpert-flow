@@ -14,19 +14,30 @@ from typing import Any, Callable, TypeVar
 
 from sqlalchemy import select
 
+import datetime as dt
+
 from shared.db import get_session
 from shared.models import (
     Case,
+    CashflowStatementSummary,
     ChecklistCompletion,
     CollateralRegistry,
     CoOwnerRegistry,
+    CreditLimit,
+    CrossGuarantee,
+    CustomerMaster,
     Document,
     ExtractedField,
+    GroupRelationship,
     HaircutMatrix,
     LegalChecklistTemplate,
     LegalDocumentStore,
+    LegalRepresentative,
     OwnershipEncumbrance,
     RegulatoryReference,
+    RelationshipHistory,
+    ShareholderRegistry,
+    TransactionAccount,
 )
 from shared.schemas import Actor, FindingIn, FindingOut
 from shared.state import write_finding
@@ -258,6 +269,113 @@ def read_checklist_items_sync(collateral_id: str, collateral_type: str) -> list[
                 }
             )
         return items
+
+
+# ---------------------------------------------------------------------------
+# Customer 360 & Credit History domain reads — direct shared.db reads, same
+# rationale as the Collateral & Legal domain reads above (plain relational
+# facts, no computation, no external boundary). Called via run_sync from
+# worker/app/agents/customer360.py. Keyed by customer_id, not case_id.
+# ---------------------------------------------------------------------------
+def get_customer_360_sync(customer_id: str) -> dict:
+    """Reads customer_master/credit_limit/relationship_history/
+    transaction_account. Does NOT call get_credit_obligations (an MCP tool,
+    tools-mock) — that's the caller's job (customer360.py), so this stays a
+    plain read like read_extracted_fields_sync."""
+    with get_session() as session:
+        master = session.get(CustomerMaster, customer_id)
+        limits = session.execute(select(CreditLimit).where(CreditLimit.customer_id == customer_id)).scalars().all()
+        relationships = session.execute(
+            select(RelationshipHistory).where(RelationshipHistory.customer_id == customer_id)
+        ).scalars().all()
+        accounts = session.execute(
+            select(TransactionAccount).where(TransactionAccount.customer_id == customer_id)
+        ).scalars().all()
+
+        total_credit_limit = sum(l.approved_amount for l in limits) if limits else 0.0
+        start_dates = [r.relationship_start_date for r in relationships if r.relationship_start_date]
+        relationship_years = round((dt.datetime.now(dt.timezone.utc) - min(start_dates)).days / 365, 1) if start_dates else None
+        products_used = sorted({r.product_used for r in relationships if r.product_used})
+
+        evidence_ids = (
+            ([master.customer_id] if master else [])
+            + [l.id for l in limits]
+            + [r.id for r in relationships]
+            + [a.account_id for a in accounts]
+        )
+
+        return {
+            "customer_id": customer_id,
+            "master_found": master is not None,
+            "customer_name": master.customer_name if master else None,
+            "total_credit_limit": total_credit_limit,
+            "relationship_years": relationship_years,
+            "products_used": products_used,
+            "account_count": len(accounts),
+            # Approximation, not a real posting-level turnover figure — the
+            # raw account_transaction ledger was deferred (plan's Rủi ro
+            # note); analyze_cashflow uses this sum as account_credit_turnover
+            # instead, documented clearly at that call site.
+            "total_avg_balance": sum(a.avg_balance for a in accounts if a.avg_balance) if accounts else 0.0,
+            "_evidence_ids": evidence_ids,
+        }
+
+
+def read_cashflow_summary_sync(customer_id: str) -> dict | None:
+    """Latest cashflow_statement_summary row for this customer — the SHB
+    transaction-based cashflow source, independent of Financial Agent's
+    BCTC-reported cf_operating/cf_investing/cf_financing (see
+    shared/models.py::CashflowStatementSummary docstring)."""
+    with get_session() as session:
+        row = session.execute(
+            select(CashflowStatementSummary)
+            .where(CashflowStatementSummary.customer_id == customer_id)
+            .order_by(CashflowStatementSummary.period.desc())
+        ).scalars().first()
+        if row is None:
+            return None
+        return {
+            "id": row.id,
+            "period": row.period,
+            "cf_operating": row.cf_operating,
+            "cf_investing": row.cf_investing,
+            "cf_financing": row.cf_financing,
+            "net_cashflow": row.net_cashflow,
+        }
+
+
+def map_related_parties_sync(customer_id: str) -> dict:
+    """Reads shareholder_registry/legal_representative/group_relationship/
+    cross_guarantee. `related_parties`'s exposure/concentration numbers are
+    NOT computed here — the caller (customer360.py) calls
+    get_credit_obligations per related_customer_id (MCP tool) and sums; this
+    function only supplies the relationship graph itself."""
+    with get_session() as session:
+        shareholders = session.execute(
+            select(ShareholderRegistry).where(ShareholderRegistry.customer_id == customer_id)
+        ).scalars().all()
+        reps = session.execute(
+            select(LegalRepresentative).where(LegalRepresentative.customer_id == customer_id)
+        ).scalars().all()
+        group_rels = session.execute(
+            select(GroupRelationship).where(GroupRelationship.customer_id == customer_id)
+        ).scalars().all()
+        guarantees = session.execute(
+            select(CrossGuarantee).where(CrossGuarantee.customer_id == customer_id)
+        ).scalars().all()
+
+        evidence_ids = (
+            [s.id for s in shareholders] + [r.id for r in reps] + [g.id for g in group_rels] + [g.id for g in guarantees]
+        )
+
+        return {
+            "customer_id": customer_id,
+            "shareholders": [{"name": s.shareholder_name, "pct": s.ownership_pct} for s in shareholders],
+            "legal_representatives": [{"name": r.rep_name, "role": r.role} for r in reps],
+            "related_parties": [{"id": g.related_customer_id, "relationship_type": g.relationship_type} for g in group_rels],
+            "cross_guarantee_total": sum(g.guarantee_amount for g in guarantees),
+            "_evidence_ids": evidence_ids,
+        }
 
 
 def unwrap_mcp_result(result):
