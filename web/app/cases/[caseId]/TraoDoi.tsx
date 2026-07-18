@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
-  Send, Paperclip, Scale, ShieldCheck, CheckCircle2, XCircle,
+  Send, Paperclip, BrainCircuit, CheckCircle2, XCircle,
   ChevronRight, RefreshCw, ArrowUpCircle, RotateCcw, Sparkles, User2,
 } from "lucide-react";
 import { fetchChatMessages, sendChatMessage, fetchCreditMemo } from "../../lib/api";
@@ -23,22 +23,18 @@ function fmtVnd(v: number | null | undefined) {
 
 // ─── Agent config ─────────────────────────────────────────────────────────────
 
-const AGENTS = [
-  { id: "legal",     label: "Legal Agent",    Icon: Scale,       color: "var(--color-navy-700)",    bg: "var(--color-navy-50)" },
-  { id: "risk",      label: "Risk Agent",     Icon: ShieldCheck, color: "var(--color-danger-600)",  bg: "var(--color-danger-50)" },
-];
+const AGENT = { label: "Credit AI Agent", Icon: BrainCircuit, color: "var(--color-navy-700)" };
 
 // ─── Message bubble ──────────────────────────────────────────────────────────
 
-function MessageBubble({ role, content, agentId, timestamp, streaming }: {
+function MessageBubble({ role, content, timestamp, streaming }: {
   role: "USER" | "ASSISTANT";
   content: string;
-  agentId?: string;
   timestamp?: string;
   streaming?: boolean;
 }) {
   const isUser = role === "USER";
-  const agent = AGENTS.find((a) => a.id === agentId) ?? AGENTS[0];
+  const agent = AGENT;
 
   return (
     <div className={cn("flex items-start gap-2.5", isUser && "flex-row-reverse")}>
@@ -94,7 +90,6 @@ const SUGGESTIONS = [
 // ─── Agent Chat Panel ─────────────────────────────────────────────────────────
 
 function AgentChatPanel({ caseId }: { caseId: string }) {
-  const [activeAgent, setActiveAgent] = useState(AGENTS[0].id);
   const [messages, setMessages] = useState<ChatMessageDto[] | null>(null);
   const [draft, setDraft] = useState("");
   const [streaming, setStreaming] = useState<string | null>(null);
@@ -141,28 +136,13 @@ function AgentChatPanel({ caseId }: { caseId: string }) {
         </button>
       </div>
 
-      {/* Agent selector */}
-      <div className="flex items-center gap-2 px-4 py-2.5 border-b border-[var(--color-gray-100)]">
-        {AGENTS.map((a) => (
-          <button
-            key={a.id}
-            onClick={() => setActiveAgent(a.id)}
-            className={cn(
-              "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all",
-              activeAgent === a.id
-                ? "border-[var(--color-gray-300)] bg-white shadow-sm"
-                : "border-transparent bg-transparent text-[var(--color-gray-500)] hover:bg-[var(--color-gray-50)]"
-            )}
-            style={activeAgent === a.id ? { color: a.color } : {}}
-          >
-            <a.Icon className="size-3.5" />
-            {a.label}
-            <span
-              className="size-1.5 rounded-full"
-              style={{ background: "var(--color-success-600)" }}
-            />
-          </button>
-        ))}
+      {/* Agent badge */}
+      <div className="flex items-center gap-2 px-4 py-2 border-b border-[var(--color-gray-100)]">
+        <div className="flex items-center gap-1.5 text-xs font-semibold" style={{ color: AGENT.color }}>
+          <AGENT.Icon className="size-3.5" />
+          {AGENT.label}
+          <span className="size-1.5 rounded-full" style={{ background: "var(--color-success-600)" }} />
+        </div>
       </div>
 
       {/* Messages */}
@@ -173,7 +153,7 @@ function AgentChatPanel({ caseId }: { caseId: string }) {
           <div className="flex flex-col items-center justify-center h-full gap-3 text-center">
             <Sparkles className="size-6 text-[var(--color-orange-400)]" />
             <p className="text-sm text-[var(--color-gray-500)] max-w-xs">
-              Nhập câu hỏi cho Legal Agent hoặc Risk Agent để bắt đầu phân tích.
+              Nhập câu hỏi cho Credit AI Agent để bắt đầu phân tích.
             </p>
           </div>
         ) : (
@@ -183,12 +163,11 @@ function AgentChatPanel({ caseId }: { caseId: string }) {
                 key={m.message_id}
                 role={m.role as "USER" | "ASSISTANT"}
                 content={m.content}
-                agentId={activeAgent}
                 timestamp={m.created_at}
               />
             ))}
             {streaming !== null && (
-              <MessageBubble role="ASSISTANT" content={streaming} agentId={activeAgent} streaming />
+              <MessageBubble role="ASSISTANT" content={streaming} streaming />
             )}
           </>
         )}
@@ -216,7 +195,7 @@ function AgentChatPanel({ caseId }: { caseId: string }) {
         </button>
         <input
           className="flex-1 text-sm bg-transparent outline-none text-[var(--color-gray-900)] placeholder:text-[var(--color-gray-400)]"
-          placeholder={`Nhập câu hỏi cho ${AGENTS.find((a) => a.id === activeAgent)?.label ?? "Agent"}…`}
+          placeholder={`Nhập câu hỏi cho ${AGENT.label}…`}
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(draft); } }}

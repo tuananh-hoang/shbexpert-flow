@@ -759,7 +759,7 @@ export default function CasePage() {
 
   const runAnalyze = async () => { setBusy(true); setLog([]); await triggerAnalyze(caseId); };
 
-  const doAction = async (action: "accept" | "rerun" | "return" | "override", reason?: string) => {
+  const doAction = async (action: "accept" | "rerun" | "return" | "override" | "reject" | "escalate", reason?: string) => {
     try {
       await decisionAction(caseId, action, reason);
       await refresh();
@@ -1090,7 +1090,7 @@ export default function CasePage() {
                 {decision ? (
                   <VerdictCard
                     decision={decision}
-                    caseDetail={caseDetail}
+                    caseDetail={caseDetail!}
                     onAccept={() => doAction("accept")}
                     onOverride={doOverride}
                     canDecide={canDecide}

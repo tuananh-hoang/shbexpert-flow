@@ -179,9 +179,10 @@ const DONUT_COLORS = [
 
 function SLACard({ loading }: { loading: boolean }) {
   return (
-    <Card className="py-0 gap-0 flex-1 min-w-0">
-      <CardContent className="flex gap-4 p-5">
-        <div className="flex-1 min-w-0">
+    <Card className="py-0 gap-0 flex-1 min-w-[280px]">
+      <CardContent className="flex gap-0 p-5">
+        {/* Left: text */}
+        <div className="flex-1 min-w-0 pr-4">
           <div className="flex items-center gap-1.5 text-sm font-semibold text-[var(--color-navy-900)] mb-0.5">
             SLA Approval <Info className="size-3.5 text-muted-foreground shrink-0" />
           </div>
@@ -189,20 +190,22 @@ function SLACard({ loading }: { loading: boolean }) {
           {loading ? (
             <Skeleton className="h-8 w-28 mb-2" />
           ) : (
-            <div className="flex items-baseline gap-2">
-              <span className="text-[28px] font-extrabold text-[var(--color-success-600)] font-[var(--font-display)] leading-none">
+            <div className="flex items-baseline gap-2 flex-wrap">
+              <span className="text-[28px] font-extrabold text-[var(--color-success-600)] font-[var(--font-display)] leading-none whitespace-nowrap">
                 1.6 ngày
               </span>
-              <span className="text-sm font-bold text-[var(--color-success-600)] flex items-center gap-0.5">
+              <span className="text-sm font-bold text-[var(--color-success-600)] flex items-center gap-0.5 whitespace-nowrap">
                 <TrendingDown className="size-3.5" /> 42%
               </span>
             </div>
           )}
-          <p className="text-xs text-muted-foreground mt-2">
+          <p className="text-xs text-muted-foreground mt-2 whitespace-nowrap">
             So với thủ công: <span className="font-semibold text-foreground">2.8 ngày</span>
           </p>
+          <p className="text-[10px] text-muted-foreground mt-2 italic">* Ước tính — cần API created_at</p>
         </div>
-        <div className="flex flex-col items-end justify-between flex-none w-[120px]">
+        {/* Right: sparkline — hidden when card is narrow */}
+        <div className="flex flex-col items-end justify-between flex-none w-[110px] hidden sm:flex">
           {!loading && (
             <ResponsiveContainer width="100%" height={56}>
               <LineChart data={SLA_TREND} margin={{ top: 4, right: 2, left: 2, bottom: 4 }}>
@@ -232,9 +235,10 @@ function SLACard({ loading }: { loading: boolean }) {
 function PortfolioCard({ loading }: { loading: boolean }) {
   const gaugeData = [{ value: 100, fill: "var(--color-success-600)" }];
   return (
-    <Card className="py-0 gap-0 flex-1 min-w-0">
-      <CardContent className="flex gap-4 p-5">
-        <div className="flex-1 min-w-0">
+    <Card className="py-0 gap-0 flex-1 min-w-[280px]">
+      <CardContent className="flex gap-0 p-5">
+        {/* Left: text */}
+        <div className="flex-1 min-w-0 pr-4">
           <div className="flex items-center gap-1.5 text-sm font-semibold text-[var(--color-navy-900)] mb-0.5">
             Portfolio Quality <Info className="size-3.5 text-muted-foreground shrink-0" />
           </div>
@@ -242,8 +246,8 @@ function PortfolioCard({ loading }: { loading: boolean }) {
           {loading ? (
             <Skeleton className="h-8 w-20 mb-2" />
           ) : (
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-xs text-muted-foreground font-semibold">NPL</span>
+            <div className="flex items-baseline gap-1.5 flex-wrap">
+              <span className="text-xs text-muted-foreground font-semibold whitespace-nowrap">NPL</span>
               <span className="text-[28px] font-extrabold text-foreground font-[var(--font-display)] leading-none">0</span>
               <span className="text-lg font-bold text-muted-foreground">%</span>
             </div>
@@ -251,31 +255,35 @@ function PortfolioCard({ loading }: { loading: boolean }) {
           <p className="text-xs text-muted-foreground mt-2">
             Chất lượng: <span className="font-bold text-[var(--color-success-600)]">Tốt</span>
           </p>
+          <p className="text-[10px] text-muted-foreground mt-2 italic">* Dữ liệu chỉ mang tính minh hoạ</p>
         </div>
-        {!loading && (
-          <div className="relative flex-none size-20">
-            <ResponsiveContainer width="100%" height="100%">
-              <RadialBarChart
-                cx="50%" cy="50%"
-                innerRadius="65%" outerRadius="90%"
-                startAngle={90} endAngle={-270}
-                data={gaugeData}
-              >
-                <PolarAngleAxis type="number" domain={[0, 100]} angleAxisId={0} tick={false} />
-                <RadialBar
-                  dataKey="value"
-                  angleAxisId={0}
-                  background={{ fill: "var(--color-gray-100)" }}
-                />
-              </RadialBarChart>
-            </ResponsiveContainer>
-            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className="text-sm font-extrabold text-[var(--color-success-600)]">100%</span>
-              <span className="text-[9px] text-muted-foreground">Tốt</span>
+        {/* Right: gauge — hidden when card is narrow */}
+        <div className="hidden sm:flex flex-col items-center justify-center flex-none">
+          {!loading && (
+            <div className="relative size-20">
+              <ResponsiveContainer width="100%" height="100%">
+                <RadialBarChart
+                  cx="50%" cy="50%"
+                  innerRadius="65%" outerRadius="90%"
+                  startAngle={90} endAngle={-270}
+                  data={gaugeData}
+                >
+                  <PolarAngleAxis type="number" domain={[0, 100]} angleAxisId={0} tick={false} />
+                  <RadialBar
+                    dataKey="value"
+                    angleAxisId={0}
+                    background={{ fill: "var(--color-gray-100)" }}
+                  />
+                </RadialBarChart>
+              </ResponsiveContainer>
+              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                <span className="text-sm font-extrabold text-[var(--color-success-600)]">100%</span>
+                <span className="text-[9px] text-muted-foreground">Tốt</span>
+              </div>
             </div>
-          </div>
-        )}
-        {loading && <Skeleton className="size-20 rounded-full flex-none" />}
+          )}
+          {loading && <Skeleton className="size-20 rounded-full flex-none" />}
+        </div>
       </CardContent>
     </Card>
   );
@@ -289,7 +297,7 @@ function QueueCard({
   total: number; cao: number; trungBinh: number; thap: number; loading: boolean;
 }) {
   return (
-    <Card className="py-0 gap-0 flex-1 min-w-0">
+    <Card className="py-0 gap-0 flex-1 min-w-[220px]">
       <CardContent className="p-5">
         <div className="flex items-center gap-1.5 text-sm font-semibold text-[var(--color-navy-900)] mb-0.5">
           Hồ sơ chờ rà soát <Info className="size-3.5 text-muted-foreground shrink-0" />
