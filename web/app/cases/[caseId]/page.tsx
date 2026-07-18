@@ -13,8 +13,7 @@ import {
 } from "lucide-react";
 
 import { AnalyzingView } from "../../components/AnalyzingView";
-import { ChatTab } from "../../components/ChatTab";
-import type { ActionKey } from "../../components/ActionBar";
+import { TraoDoiTab } from "./TraoDoi";
 import { ExplainabilityDrawer } from "../../components/ExplainabilityDrawer";
 import { decisionAction, fetchAudit, fetchCase, triggerAnalyze } from "../../lib/api";
 import type { AuditEvent, CaseDetail, Finding } from "../../lib/types";
@@ -720,7 +719,7 @@ function RAGEvidence({
 
 // ─── Tab types ────────────────────────────────────────────────────────────────
 
-type Tab = "review" | "overview" | "decision" | "chat";
+type Tab = "review" | "overview" | "chat";
 
 // ─── Main page ────────────────────────────────────────────────────────────────
 
@@ -755,7 +754,7 @@ export default function CasePage() {
   }, [caseId, refresh]);
 
   useEffect(() => {
-    if (activeTab === "decision") fetchAudit(caseId).then(setAuditEvents);
+    // audit fetched on demand only
   }, [activeTab, caseId]);
 
   const runAnalyze = async () => { setBusy(true); setLog([]); await triggerAnalyze(caseId); };
@@ -830,7 +829,6 @@ export default function CasePage() {
   const TABS: { key: Tab; label: string }[] = [
     { key: "overview", label: "360° Overview" },
     { key: "review",   label: "AI Multi-Agent Review" },
-    { key: "decision", label: "Decision Hub" },
     { key: "chat",     label: "Trao đổi & Kết luận" },
   ];
 
@@ -1077,21 +1075,17 @@ export default function CasePage() {
             )}
 
             {/* ── Trao đổi & Kết luận tab ── */}
-            {activeTab === "chat" && (
-              <ChatTab
+            {activeTab === "chat" && caseDetail && (
+              <TraoDoiTab
                 caseId={caseId}
-                requestedAmountVnd={(caseDetail.requested_facility?.amount_vnd as number | null) ?? null}
+                caseDetail={caseDetail}
                 canDecide={canDecide}
-                caseState={caseDetail.state}
-                hasDecision={Boolean(caseDetail.decision)}
-                onAction={(action: ActionKey, reason?: string) =>
-                  doAction(action as "accept" | "rerun" | "return" | "override", reason)
-                }
+                onAction={doAction}
               />
             )}
 
-            {/* ── Decision Hub tab ── */}
-            {activeTab === "decision" && (
+            {/* ── (Decision Hub removed — merged into Trao đổi & Kết luận) ── */}
+            {false && (
               <div className="flex flex-col gap-4">
                 {decision ? (
                   <VerdictCard
