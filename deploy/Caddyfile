@@ -1,9 +1,21 @@
-# Single public entry point. Caddy terminates TLS (auto Let's Encrypt for
-# the sslip.io host) and reverse-proxies to the web container over the
-# internal Docker network. The browser only ever talks to `web`'s origin;
-# web itself rewrites /api/* to the api container (see web/next.config.mjs),
-# so nothing else needs to be exposed.
-{$APP_DOMAIN} {
+# Public entry point. Caddy terminates TLS (auto Let's Encrypt) and
+# reverse-proxies to the web container over the internal Docker network.
+# The browser only ever talks to `web`'s origin; web itself rewrites
+# /api/* to the api container (see web/next.config.mjs), so nothing else
+# needs to be exposed.
+#
+# Three hostnames on purpose:
+#   - shbexpertai.online / www — the real domain (Hostinger DNS, A record
+#     -> the Elastic IP). This is what demos and users should use.
+#   - app.<eip-dashed>.sslip.io — fallback that needs no DNS at all, since
+#     sslip.io resolves the IP embedded in the name. Keeps the site
+#     reachable if the domain's DNS is ever misconfigured or expires.
+#
+# Caddy manages each hostname's certificate independently, so a hostname
+# whose DNS is broken cannot take down the ones that work. Certificates
+# live in the `caddy_data` volume and survive redeploys — a rebuild does
+# NOT re-issue them, so there is no Let's Encrypt rate-limit risk here.
+shbexpertai.online, www.shbexpertai.online, app.45-57-135-39.sslip.io {
 	encode gzip
 	reverse_proxy web:3000
 }
