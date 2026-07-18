@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 
 import { AnalyzingView } from "../../components/AnalyzingView";
+import { ChatTab } from "../../components/ChatTab";
+import type { ActionKey } from "../../components/ActionBar";
 import { ExplainabilityDrawer } from "../../components/ExplainabilityDrawer";
 import { decisionAction, fetchAudit, fetchCase, triggerAnalyze } from "../../lib/api";
 import type { AuditEvent, CaseDetail, Finding } from "../../lib/types";
@@ -718,7 +720,7 @@ function RAGEvidence({
 
 // ─── Tab types ────────────────────────────────────────────────────────────────
 
-type Tab = "review" | "overview" | "decision";
+type Tab = "review" | "overview" | "decision" | "chat";
 
 // ─── Main page ────────────────────────────────────────────────────────────────
 
@@ -829,6 +831,7 @@ export default function CasePage() {
     { key: "overview", label: "360° Overview" },
     { key: "review",   label: "AI Multi-Agent Review" },
     { key: "decision", label: "Decision Hub" },
+    { key: "chat",     label: "Trao đổi & Kết luận" },
   ];
 
   return (
@@ -1071,6 +1074,20 @@ export default function CasePage() {
             {/* ── 360° Overview tab ── */}
             {activeTab === "overview" && (
               <Overview360 caseDetail={caseDetail} />
+            )}
+
+            {/* ── Trao đổi & Kết luận tab ── */}
+            {activeTab === "chat" && (
+              <ChatTab
+                caseId={caseId}
+                requestedAmountVnd={(caseDetail.requested_facility?.amount_vnd as number | null) ?? null}
+                canDecide={canDecide}
+                caseState={caseDetail.state}
+                hasDecision={Boolean(caseDetail.decision)}
+                onAction={(action: ActionKey, reason?: string) =>
+                  doAction(action as "accept" | "rerun" | "return" | "override", reason)
+                }
+              />
             )}
 
             {/* ── Decision Hub tab ── */}
