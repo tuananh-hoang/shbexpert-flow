@@ -122,8 +122,16 @@ async def _statement_need_data_finding(case_id: str, missing: list[str], fields:
     a required field is absent — per §5.2 guardrail, "thiếu trường cốt lõi
     → NEED_DATA, không nội suy." evidence_ids cites whichever required
     fields ARE present (proves the gap is real, not an agent glitch);
-    severity can only be HIGH if at least one such field exists (NFR-01)."""
+    severity can only be HIGH if at least one such field exists (NFR-01).
+
+    evidence_ids is deliberately NEVER [] (see _fields_missing_finding
+    below for the full explanation): graph/decision.py::
+    _validate_evidence_chain — a stricter, severity-blind check than this
+    module's own NFR-01 guard — rejects ANY DecisionPackage entry pointing
+    at a finding with empty evidence_ids, crashing synthesis. Falls back
+    to a synthetic pointer when NO required field is present at all."""
     present_evidence_ids = [fields[k]["evidence_id"] for k in REQUIRED_STATEMENT_FIELDS if k in fields]
+    evidence_ids = present_evidence_ids or [f"missing-field:FINANCIAL_STATEMENT_ANALYSIS:{case_id}"]
     finding = FindingIn(
         case_id=case_id,
         agent_id=AGENT_ID,
@@ -136,7 +144,7 @@ async def _statement_need_data_finding(case_id: str, missing: list[str], fields:
         ),
         stance="NEED_DATA",
         severity="HIGH" if present_evidence_ids else "MEDIUM",
-        evidence_ids=present_evidence_ids,
+        evidence_ids=evidence_ids,
         confidence=1.0,
         recommended_action="REQUEST_FINANCIALS",
     )
@@ -278,7 +286,58 @@ async def _cashflow_quality_finding(case_id: str, tools: dict, fields: dict) -> 
     return await run_sync(write_finding_sync, finding, versions={"formula_version": formula_version})
 
 
+_REPAYMENT_CAPACITY_FIELDS = ["revenue_2025", "ebitda_2025", "debt_service_annual"]
+
+
+async def _fields_missing_finding(case_id: str, *, issue_key: str, missing: list[str], fields: dict, required: list[str], context_label: str) -> FindingOut:
+    """Written INSTEAD of {issue_key} when one of `required` is absent from
+    extracted_fields — same guardrail as _statement_need_data_finding
+    above, applied to the two findings (REPAYMENT_CAPACITY/
+    COLLATERAL_COVERAGE) that used to read `fields[...]` directly and raise
+    a bare KeyError on a gap. That KeyError propagated out of this agent
+    entirely and _run_fanout_agent (graph/build.py) turned it into an
+    opaque AGENT_UNAVAILABLE finding whose claim was just the raw field
+    name (e.g. "'revenue_2025'") — a real gap in the customer's submitted
+    data looked identical to a tool crash. This keeps the SAME issue_key
+    so downstream conflict detection still has an entry to reason about,
+    just with stance=NEED_DATA instead of a computed verdict.
+
+    evidence_ids is deliberately NEVER [] (found the hard way, same as
+    graph/build.py::_fallback_agent_unavailable_finding's docstring warns):
+    when NONE of `required` are present, graph/decision.py::
+    _validate_evidence_chain — a STRICTER, severity-blind check than
+    shared/state.py::write_finding's own NFR-01 guard — rejects ANY
+    DecisionPackage entry pointing at a finding with empty evidence_ids and
+    crashes the whole synthesis step. Falls back to the same "pointer, not
+    a UUID" convention customer360.py::run_cic_check uses for non-DB
+    evidence when there's genuinely nothing local to cite."""
+    present_evidence_ids = [fields[k]["evidence_id"] for k in required if k in fields]
+    evidence_ids = present_evidence_ids or [f"missing-field:{issue_key}:{case_id}"]
+    finding = FindingIn(
+        case_id=case_id,
+        agent_id=AGENT_ID,
+        issue_key=issue_key,
+        claim_type="FACT",
+        claim=(
+            f"Thiếu dữ liệu bắt buộc để {context_label}: " + ", ".join(missing) + ". Cần bổ sung trước khi tính."
+        ),
+        stance="NEED_DATA",
+        severity="HIGH" if present_evidence_ids else "MEDIUM",
+        evidence_ids=evidence_ids,
+        confidence=1.0,
+        recommended_action="REQUEST_FINANCIALS",
+    )
+    return await run_sync(write_finding_sync, finding)
+
+
 async def _repayment_capacity_finding(case_id: str, tools: dict, fields: dict) -> FindingOut:
+    missing = [k for k in _REPAYMENT_CAPACITY_FIELDS if k not in fields]
+    if missing:
+        return await _fields_missing_finding(
+            case_id, issue_key="REPAYMENT_CAPACITY", missing=missing, fields=fields,
+            required=_REPAYMENT_CAPACITY_FIELDS, context_label="tính khả năng trả nợ (DSCR)",
+        )
+
     revenue = fields["revenue_2025"]["value"]["amount_vnd"]
     ebitda = fields["ebitda_2025"]["value"]["amount_vnd"]
     debt_service = fields["debt_service_annual"]["value"]["amount_vnd"]
@@ -332,6 +391,12 @@ async def _repayment_capacity_finding(case_id: str, tools: dict, fields: dict) -
 
 
 async def _collateral_coverage_finding(case_id: str, tools: dict, fields: dict, requested_facility: dict) -> FindingOut:
+    if "valuation_amount" not in fields:
+        return await _fields_missing_finding(
+            case_id, issue_key="COLLATERAL_COVERAGE", missing=["valuation_amount"], fields=fields,
+            required=["valuation_amount"], context_label="tính tỷ lệ coverage tài sản bảo đảm",
+        )
+
     requested_amount = requested_facility["amount_vnd"]
     valuation_amount = fields["valuation_amount"]["value"]["amount_vnd"]
     evidence_ids = [fields["valuation_amount"]["evidence_id"]]

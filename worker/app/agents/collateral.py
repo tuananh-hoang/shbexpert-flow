@@ -77,6 +77,42 @@ def _mcp_client() -> MultiServerMCPClient:
     )
 
 
+_COVERAGE_REQUIRED_FIELDS = ["valuation_amount", "valuation_expiry_date"]
+
+
+async def _fields_missing_finding(case_id: str, fields: dict, missing: list[str]) -> FindingOut:
+    """Written INSTEAD of COVERAGE_ISSUE_KEY when a required extracted_field
+    is absent. Before this guard, `fields["valuation_expiry_date"]` etc.
+    raised a bare KeyError that propagated out of this agent — graph/
+    build.py::_run_fanout_agent caught it and wrote an opaque
+    AGENT_UNAVAILABLE finding whose claim was just the raw field name.
+    Same guardrail pattern as financial.py::_fields_missing_finding —
+    including why evidence_ids is deliberately NEVER []: graph/decision.py
+    ::_validate_evidence_chain (a stricter, severity-blind check than this
+    module's own NFR-01 guard) rejects ANY DecisionPackage entry pointing
+    at a finding with empty evidence_ids and crashes synthesis. Verified
+    live: this exact gap crashed synthesis for a case with zero
+    extracted_fields before the fallback pointer below was added."""
+    present_evidence_ids = [fields[k]["evidence_id"] for k in _COVERAGE_REQUIRED_FIELDS if k in fields]
+    evidence_ids = present_evidence_ids or [f"missing-field:{COVERAGE_ISSUE_KEY}:{case_id}"]
+    finding = FindingIn(
+        case_id=case_id,
+        agent_id=AGENT_ID,
+        issue_key=COVERAGE_ISSUE_KEY,
+        claim_type="FACT",
+        claim=(
+            "Thiếu dữ liệu bắt buộc để kiểm tra tỷ lệ coverage & hiệu lực chứng thư định giá: "
+            + ", ".join(missing) + ". Cần bổ sung trước khi tính."
+        ),
+        stance="NEED_DATA",
+        severity="HIGH" if present_evidence_ids else "MEDIUM",
+        evidence_ids=evidence_ids,
+        confidence=1.0,
+        recommended_action="REQUEST_VALUATION",
+    )
+    return await run_sync(write_finding_sync, finding)
+
+
 async def run_collateral_agent(
     case_id: str,
     as_of_date: str,
@@ -95,6 +131,10 @@ async def run_collateral_agent(
     checks), not a soft judgment call, so re-running it is a genuine
     re-confirmation with fresh reasoning, not a rubber-stamp repeat."""
     fields = await run_sync(read_extracted_fields_sync, case_id)
+    missing = [k for k in _COVERAGE_REQUIRED_FIELDS if k not in fields]
+    if missing:
+        return await _fields_missing_finding(case_id, fields, missing)
+
     requested_facility = await run_sync(read_requested_facility_sync, case_id)
     customer_id = await run_sync(read_case_customer_id_sync, case_id)
     requested_amount = requested_facility["amount_vnd"]
@@ -246,6 +286,15 @@ async def run_ownership_check(case_id: str) -> FindingOut:
         ),
     )
 
+    # Same empty-evidence hazard as _fields_missing_finding above: when no
+    # CollateralRegistry row exists at all (registry_found=False),
+    # validate_ownership_sync's _evidence_ids comes back [] — a NEED_DATA
+    # finding with no evidence passes write_finding's own NFR-01 guard
+    # (MEDIUM severity here) but still trips graph/decision.py::
+    # _validate_evidence_chain's stricter, severity-blind check if
+    # synthesis references it, crashing the whole job. Verified live on a
+    # case with zero collateral data.
+    evidence_ids = result["_evidence_ids"] or [f"missing:collateral_registry:{case_id}"]
     finding = FindingIn(
         case_id=case_id,
         agent_id=AGENT_ID,
@@ -254,7 +303,7 @@ async def run_ownership_check(case_id: str) -> FindingOut:
         claim=claim,
         stance=stance,
         severity=severity,
-        evidence_ids=result["_evidence_ids"],
+        evidence_ids=evidence_ids,
         confidence=result["confidence_score"] / 100,
         recommended_action=action,
     )
@@ -328,6 +377,13 @@ async def run_legal_checklist_check(case_id: str, as_of_date: str) -> FindingOut
         ),
     )
 
+    # Same empty-evidence hazard as run_ownership_check above: when the
+    # case has no ChecklistCompletion rows at all, grounded_evidence_ids is
+    # [] even though `citations` (Qdrant semantic hits, not case-specific)
+    # is non-empty — citations aren't checked by graph/decision.py::
+    # _validate_evidence_chain, only evidence_ids are, so this still needs
+    # its own non-empty fallback.
+    evidence_ids = grounded_evidence_ids or [f"missing:checklist:{case_id}"]
     finding = FindingIn(
         case_id=case_id,
         agent_id=AGENT_ID,
@@ -336,7 +392,7 @@ async def run_legal_checklist_check(case_id: str, as_of_date: str) -> FindingOut
         claim=claim,
         stance=stance,
         severity=severity,
-        evidence_ids=grounded_evidence_ids,
+        evidence_ids=evidence_ids,
         citations=citations,
         confidence=0.9,
         recommended_action=action,

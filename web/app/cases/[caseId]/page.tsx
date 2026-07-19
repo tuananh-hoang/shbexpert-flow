@@ -84,7 +84,11 @@ const REC_VERDICT: Record<string, { text: string; color: string; icon: string }>
 
 const AGENT_CARDS = [
   {
-    id: "legal_review",
+    // agent_id thật của backend là "policy_compliance" (worker/app/agents/
+    // policy.py::AGENT_ID) — trước đây dùng "legal_review" (không tồn tại
+    // trong findings) nên card này không bao giờ nhận được finding và kẹt
+    // "Đang phân tích…" vĩnh viễn. Xem worker/app/graph/build.py::_policy_node.
+    id: "policy_compliance",
     name: "Legal Agent",
     desc: "Đánh giá tình pháp lý DN & DADT",
     bg: "var(--color-navy-50)",
@@ -108,7 +112,11 @@ const AGENT_CARDS = [
     icon: <Building2 className="size-5" />,
   },
   {
-    id: "cic_check",
+    // agent_id thật của backend là "customer_360" (worker/app/agents/
+    // customer360.py::AGENT_ID, phát ra CREDIT_CONDUCT/CIC finding) — trước
+    // đây dùng "cic_check" (không tồn tại trong findings), cùng lỗi kẹt
+    // "Đang phân tích…" như Legal Agent ở trên.
+    id: "customer_360",
     name: "Risk Agent",
     desc: "Nhận diện rủi ro & đối chiếu CIC",
     bg: "var(--color-danger-100)",
@@ -178,10 +186,22 @@ function AgentCard({
   onFindingClick: (f: Finding) => void;
 }) {
   const hasFinding = Boolean(finding);
-  const scorePct = finding ? Math.round(finding.confidence * 100) : null;
-  const primary = finding ? getPrimaryMetric(finding, config.id) : null;
+  // AGENT_UNAVAILABLE = fallback finding worker/app/graph/build.py::
+  // _run_fanout_agent ghi khi agent này ném exception (build.py:70-103) —
+  // một LỖI KỸ THUẬT thật sự (tool/timeout/crash), cần chạy lại.
+  const isError = finding?.issue_key === "AGENT_UNAVAILABLE";
+  // Mọi finding stance=NEED_DATA khác (vd worker/app/agents/{financial,
+  // policy,collateral}.py::_fields_missing_finding — thiếu field BCTC/
+  // định giá trong extracted_fields) cũng đặt confidence=1.0, nhưng đó là
+  // độ CHẮC CHẮN của việc "dữ liệu đang thiếu" (1 FACT), KHÔNG phải điểm
+  // đánh giá tín dụng — không được hiện thành "Điểm đánh giá 100/100"
+  // giống hệt AGENT_UNAVAILABLE, dù đây không phải lỗi kỹ thuật.
+  const isNeedData = !isError && finding?.stance === "NEED_DATA";
+  const hideScore = isError || isNeedData;
+  const scorePct = finding && !hideScore ? Math.round(finding.confidence * 100) : null;
+  const primary = finding && !hideScore ? getPrimaryMetric(finding, config.id) : null;
   const bullets = finding ? getAgentBullets(finding, config.id) : [];
-  const stanceColor = finding ? getStanceDot(finding.stance) : "var(--color-gray-400)";
+  const stanceColor = finding && !hideScore ? getStanceDot(finding.stance) : "var(--color-gray-400)";
 
   return (
     <Card className="py-0 gap-0 overflow-hidden flex flex-col">
@@ -200,10 +220,10 @@ function AgentCard({
           </div>
         </div>
         <Badge
-          variant={hasFinding ? "success" : "warning"}
+          variant={isError ? "danger" : isNeedData ? "warning" : hasFinding ? "success" : "warning"}
           className="rounded-sm text-[11px] shrink-0 mt-0.5"
         >
-          {hasFinding ? "Hoàn tất" : "Đang xử lý"}
+          {isError ? "Lỗi – cần chạy lại" : isNeedData ? "Cần bổ sung dữ liệu" : hasFinding ? "Hoàn tất" : "Đang xử lý"}
         </Badge>
       </div>
 
@@ -211,7 +231,15 @@ function AgentCard({
 
       {/* Metrics row */}
       <div className="px-4 pt-3 pb-2">
-        {hasFinding && primary ? (
+        {isError ? (
+          <p className="text-sm text-[var(--status-danger-fg)] py-1">
+            Agent gặp lỗi kỹ thuật khi phân tích — xem chi tiết bên dưới và chạy lại.
+          </p>
+        ) : isNeedData ? (
+          <p className="text-sm text-muted-foreground py-1">
+            Thiếu dữ liệu để hoàn tất phân tích — xem chi tiết bên dưới.
+          </p>
+        ) : hasFinding && primary ? (
           <div className="flex items-end justify-between gap-4">
             {/* Primary metric */}
             <div>

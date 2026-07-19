@@ -33,8 +33,47 @@ PRODUCT_TYPE = "SME_WC"
 _MISMATCH_NEEDS_EXPLANATION_PCT = 5.0
 
 
+_REQUIRED_FIELDS = ["revenue_2025", "revenue_2025_tax_filing"]
+
+
+async def _fields_missing_finding(case_id: str, fields: dict, missing: list[str]) -> FindingOut:
+    """Written INSTEAD of ISSUE_KEY when a required extracted_field is
+    absent. Before this guard, `fields["revenue_2025"]` etc. raised a bare
+    KeyError that propagated out of this agent entirely — graph/build.py::
+    _run_fanout_agent caught it and wrote an opaque AGENT_UNAVAILABLE
+    finding whose claim was just the raw field name (e.g. "'revenue_2025'"),
+    indistinguishable from an actual tool/infra failure. Same guardrail
+    pattern as financial.py::_fields_missing_finding — including why
+    evidence_ids is deliberately NEVER []: graph/decision.py::
+    _validate_evidence_chain (a stricter, severity-blind check than this
+    module's own NFR-01 guard) rejects ANY DecisionPackage entry pointing
+    at a finding with empty evidence_ids and crashes synthesis."""
+    present_evidence_ids = [fields[k]["evidence_id"] for k in _REQUIRED_FIELDS if k in fields]
+    evidence_ids = present_evidence_ids or [f"missing-field:{ISSUE_KEY}:{case_id}"]
+    finding = FindingIn(
+        case_id=case_id,
+        agent_id=AGENT_ID,
+        issue_key=ISSUE_KEY,
+        claim_type="FACT",
+        claim=(
+            "Thiếu dữ liệu bắt buộc để đối chiếu doanh thu BCTC với tờ khai thuế: "
+            + ", ".join(missing) + ". Cần bổ sung trước khi đối chiếu."
+        ),
+        stance="NEED_DATA",
+        severity="HIGH" if present_evidence_ids else "MEDIUM",
+        evidence_ids=evidence_ids,
+        confidence=1.0,
+        recommended_action="REQUEST_FINANCIALS",
+    )
+    return await run_sync(write_finding_sync, finding)
+
+
 async def run_policy_agent(case_id: str, as_of_date: str) -> FindingOut:
     fields = await run_sync(read_extracted_fields_sync, case_id)
+    missing = [k for k in _REQUIRED_FIELDS if k not in fields]
+    if missing:
+        return await _fields_missing_finding(case_id, fields, missing)
+
     revenue_bctc = fields["revenue_2025"]["value"]["amount_vnd"]
     revenue_tax = fields["revenue_2025_tax_filing"]["value"]["amount_vnd"]
     mismatch_pct = round(abs(revenue_bctc - revenue_tax) / revenue_bctc * 100, 1)
