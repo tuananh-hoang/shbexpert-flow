@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { NotificationBell } from "./components/NotificationBell";
 import {
   Line,
   LineChart,
@@ -18,6 +19,9 @@ import {
   RefreshCw,
   Info,
   ChevronRight,
+  ChevronUp,
+  ChevronDown,
+  ChevronsUpDown,
   SlidersHorizontal,
   TrendingDown,
   CheckCircle2,
@@ -157,8 +161,14 @@ const REASONING_FACTORS: Partial<Record<Recommendation, string[]>> = {
   WAIT_DATA:            ["Đang chờ dữ liệu hoàn chỉnh từ hệ thống"],
 };
 
-// Mock SLA days per row (positive = days remaining, negative = overdue)
+// Deterministic SLA offset per case — hash of case_id so order is stable
+// regardless of sort (unlike a positional index).
 const SLA_PATTERN = [-2, 1, 3, -1, 2, -3, 4, 1, -1, 2];
+function stableSla(caseId: string): number {
+  let h = 0;
+  for (const ch of caseId) h = (h * 31 + ch.charCodeAt(0)) & 0xffff;
+  return SLA_PATTERN[h % SLA_PATTERN.length];
+}
 
 // ─── Static chart data ────────────────────────────────────────────────────────
 
@@ -179,9 +189,10 @@ const DONUT_COLORS = [
 
 function SLACard({ loading }: { loading: boolean }) {
   return (
-    <Card className="py-0 gap-0 flex-1 min-w-0">
-      <CardContent className="flex gap-4 p-5">
-        <div className="flex-1 min-w-0">
+    <Card className="py-0 gap-0 flex-1 min-w-[280px]">
+      <CardContent className="flex gap-0 p-5">
+        {/* Left: text */}
+        <div className="flex-1 min-w-0 pr-4">
           <div className="flex items-center gap-1.5 text-sm font-semibold text-[var(--color-navy-900)] mb-0.5">
             SLA Approval <Info className="size-3.5 text-muted-foreground shrink-0" />
           </div>
@@ -189,38 +200,43 @@ function SLACard({ loading }: { loading: boolean }) {
           {loading ? (
             <Skeleton className="h-8 w-28 mb-2" />
           ) : (
-            <div className="flex items-baseline gap-2">
-              <span className="text-[28px] font-extrabold text-[var(--color-success-600)] font-[var(--font-display)] leading-none">
+            <div className="flex items-baseline gap-2 flex-wrap">
+              <span className="text-[28px] font-extrabold text-[var(--color-success-600)] font-[var(--font-display)] leading-none whitespace-nowrap">
                 1.6 ngày
               </span>
-              <span className="text-sm font-bold text-[var(--color-success-600)] flex items-center gap-0.5">
+              <span className="text-sm font-bold text-[var(--color-success-600)] flex items-center gap-0.5 whitespace-nowrap">
                 <TrendingDown className="size-3.5" /> 42%
               </span>
             </div>
           )}
-          <p className="text-xs text-muted-foreground mt-2">
+          <p className="text-xs text-muted-foreground mt-2 whitespace-nowrap">
             So với thủ công: <span className="font-semibold text-foreground">2.8 ngày</span>
           </p>
+          <p className="text-[10px] text-muted-foreground mt-2 italic">* Ước tính — cần API created_at</p>
         </div>
-        <div className="flex flex-col items-end justify-between flex-none w-[120px]">
-          {!loading && (
-            <ResponsiveContainer width="100%" height={56}>
-              <LineChart data={SLA_TREND} margin={{ top: 4, right: 2, left: 2, bottom: 4 }}>
-                <Line
-                  type="monotone" dataKey="v"
-                  stroke="var(--color-success-600)" strokeWidth={2} dot={false}
-                />
-                <Tooltip
-                  contentStyle={{ fontSize: 11, padding: "3px 8px", borderRadius: 4, border: "none", background: "var(--color-gray-900)", color: "#fff" }}
-                  formatter={(v: number) => [`${v} ngày`, ""]}
-                  labelFormatter={(l: string) => l}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          )}
-          <p className="text-[10px] text-muted-foreground text-right leading-tight">
-            Cải thiện trong<br />30 ngày qua
-          </p>
+        {/* Right: sparkline — hidden when card is narrow */}
+        <div className="hidden sm:flex flex-col flex-none w-[144px]">
+          {/* mt-auto pushes the whole chart+label block to the bottom */}
+          <div className="mt-auto">
+            {!loading && (
+              <ResponsiveContainer width="100%" height={74}>
+                <LineChart data={SLA_TREND} margin={{ top: 6, right: 0, left: 0, bottom: 2 }}>
+                  <Line
+                    type="monotone" dataKey="v"
+                    stroke="var(--color-success-600)" strokeWidth={2.5} dot={false}
+                  />
+                  <Tooltip
+                    contentStyle={{ fontSize: 11, padding: "3px 8px", borderRadius: 4, border: "none", background: "var(--color-gray-900)", color: "#fff" }}
+                    formatter={(v: number) => [`${v} ngày`, ""]}
+                    labelFormatter={(l: string) => l}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            )}
+            <p className="text-[10px] text-muted-foreground leading-tight mt-1 text-right">
+              Cải thiện trong 30 ngày qua
+            </p>
+          </div>
         </div>
       </CardContent>
     </Card>
@@ -232,9 +248,10 @@ function SLACard({ loading }: { loading: boolean }) {
 function PortfolioCard({ loading }: { loading: boolean }) {
   const gaugeData = [{ value: 100, fill: "var(--color-success-600)" }];
   return (
-    <Card className="py-0 gap-0 flex-1 min-w-0">
-      <CardContent className="flex gap-4 p-5">
-        <div className="flex-1 min-w-0">
+    <Card className="py-0 gap-0 flex-1 min-w-[280px]">
+      <CardContent className="flex gap-0 p-5">
+        {/* Left: text */}
+        <div className="flex-1 min-w-0 pr-4">
           <div className="flex items-center gap-1.5 text-sm font-semibold text-[var(--color-navy-900)] mb-0.5">
             Portfolio Quality <Info className="size-3.5 text-muted-foreground shrink-0" />
           </div>
@@ -242,8 +259,8 @@ function PortfolioCard({ loading }: { loading: boolean }) {
           {loading ? (
             <Skeleton className="h-8 w-20 mb-2" />
           ) : (
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-xs text-muted-foreground font-semibold">NPL</span>
+            <div className="flex items-baseline gap-1.5 flex-wrap">
+              <span className="text-xs text-muted-foreground font-semibold whitespace-nowrap">NPL</span>
               <span className="text-[28px] font-extrabold text-foreground font-[var(--font-display)] leading-none">0</span>
               <span className="text-lg font-bold text-muted-foreground">%</span>
             </div>
@@ -251,31 +268,35 @@ function PortfolioCard({ loading }: { loading: boolean }) {
           <p className="text-xs text-muted-foreground mt-2">
             Chất lượng: <span className="font-bold text-[var(--color-success-600)]">Tốt</span>
           </p>
+          <p className="text-[10px] text-muted-foreground mt-2 italic">* Dữ liệu chỉ mang tính minh hoạ</p>
         </div>
-        {!loading && (
-          <div className="relative flex-none size-20">
-            <ResponsiveContainer width="100%" height="100%">
-              <RadialBarChart
-                cx="50%" cy="50%"
-                innerRadius="65%" outerRadius="90%"
-                startAngle={90} endAngle={-270}
-                data={gaugeData}
-              >
-                <PolarAngleAxis type="number" domain={[0, 100]} angleAxisId={0} tick={false} />
-                <RadialBar
-                  dataKey="value"
-                  angleAxisId={0}
-                  background={{ fill: "var(--color-gray-100)" }}
-                />
-              </RadialBarChart>
-            </ResponsiveContainer>
-            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-              <span className="text-sm font-extrabold text-[var(--color-success-600)]">100%</span>
-              <span className="text-[9px] text-muted-foreground">Tốt</span>
+        {/* Right: gauge — hidden when card is narrow */}
+        <div className="hidden sm:flex flex-col items-start justify-end flex-none self-end pb-1">
+          {!loading && (
+            <div className="relative" style={{ width: 104, height: 104 }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <RadialBarChart
+                  cx="50%" cy="50%"
+                  innerRadius="65%" outerRadius="90%"
+                  startAngle={90} endAngle={-270}
+                  data={gaugeData}
+                >
+                  <PolarAngleAxis type="number" domain={[0, 100]} angleAxisId={0} tick={false} />
+                  <RadialBar
+                    dataKey="value"
+                    angleAxisId={0}
+                    background={{ fill: "var(--color-gray-100)" }}
+                  />
+                </RadialBarChart>
+              </ResponsiveContainer>
+              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                <span className="text-base font-extrabold text-[var(--color-success-600)]">100%</span>
+                <span className="text-[10px] text-muted-foreground">Tốt</span>
+              </div>
             </div>
-          </div>
-        )}
-        {loading && <Skeleton className="size-20 rounded-full flex-none" />}
+          )}
+          {loading && <Skeleton className="rounded-full flex-none" style={{ width: 104, height: 104 }} />}
+        </div>
       </CardContent>
     </Card>
   );
@@ -289,7 +310,7 @@ function QueueCard({
   total: number; cao: number; trungBinh: number; thap: number; loading: boolean;
 }) {
   return (
-    <Card className="py-0 gap-0 flex-1 min-w-0">
+    <Card className="py-0 gap-0 flex-1 min-w-[220px]">
       <CardContent className="p-5">
         <div className="flex items-center gap-1.5 text-sm font-semibold text-[var(--color-navy-900)] mb-0.5">
           Hồ sơ chờ rà soát <Info className="size-3.5 text-muted-foreground shrink-0" />
@@ -419,10 +440,63 @@ function FilterBar({
 
 // ─── Case table ───────────────────────────────────────────────────────────────
 
+type SortKey = "amount" | "priority" | "sla";
+type SortDir = "asc" | "desc";
+
+function SortIcon({ active, dir }: { active: boolean; dir: SortDir }) {
+  if (!active) return <ChevronsUpDown className="size-3 opacity-35 shrink-0" />;
+  return dir === "asc"
+    ? <ChevronUp className="size-3 text-[var(--color-orange-600)] shrink-0" />
+    : <ChevronDown className="size-3 text-[var(--color-orange-600)] shrink-0" />;
+}
+
+function SortHead({
+  col, label, sortKey, sortDir, onSort, className,
+}: {
+  col: SortKey; label: string; sortKey: SortKey | null; sortDir: SortDir;
+  onSort: (col: SortKey) => void; className?: string;
+}) {
+  const active = sortKey === col;
+  return (
+    <TableHead
+      className={cn("cursor-pointer select-none group", className)}
+      onClick={() => onSort(col)}
+    >
+      <div className="flex items-center gap-1 hover:text-foreground transition-colors">
+        {label}
+        <SortIcon active={active} dir={sortDir} />
+      </div>
+    </TableHead>
+  );
+}
+
 function CaseTable({ cases, loading }: {
   cases: EnrichedCase[];
   loading: boolean;
 }) {
+  const [sortKey, setSortKey] = useState<SortKey | null>(null);
+  const [sortDir, setSortDir] = useState<SortDir>("desc");
+
+  function handleSort(col: SortKey) {
+    if (sortKey === col) {
+      setSortDir(d => d === "asc" ? "desc" : "asc");
+    } else {
+      setSortKey(col);
+      setSortDir("desc");
+    }
+  }
+
+  const sorted = useMemo(() => {
+    if (!sortKey) return cases;
+    return [...cases].sort((a, b) => {
+      let av: number, bv: number;
+      if (sortKey === "amount")   { av = a.amountVnd ?? 0;    bv = b.amountVnd ?? 0; }
+      else if (sortKey === "priority") { av = a.priorityScore; bv = b.priorityScore; }
+      else                        { av = stableSla(a.raw.case_id); bv = stableSla(b.raw.case_id); }
+      return sortDir === "asc" ? av - bv : bv - av;
+    });
+  }, [cases, sortKey, sortDir]);
+
   return (
     <Card className="py-0 gap-0 overflow-hidden">
       <CardHeader className="flex flex-row items-center justify-between pt-4 pb-3 px-5 gap-2">
@@ -454,17 +528,17 @@ function CaseTable({ cases, loading }: {
               <TableHead>Mã hồ sơ</TableHead>
               <TableHead>Khách hàng</TableHead>
               <TableHead>Sản phẩm</TableHead>
-              <TableHead>Hạn mức</TableHead>
-              <TableHead>Độ ưu tiên</TableHead>
-              <TableHead>SLA</TableHead>
+              <SortHead col="amount"   label="Hạn mức"     sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
+              <SortHead col="priority" label="Độ ưu tiên"  sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
+              <SortHead col="sla"      label="SLA"         sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
               <TableHead>Trạng thái</TableHead>
               <TableHead className="w-[130px]"></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {cases.map((c, i) => {
+            {sorted.map((c) => {
               const pm = VI_PRIORITY[c.priority];
-              const sla = SLA_PATTERN[i % SLA_PATTERN.length];
+              const sla = stableSla(c.raw.case_id);
 
               let statusLabel: string;
               let statusVariant: "warning" | "navy" | "success" | "muted";
@@ -898,7 +972,35 @@ export default function ApplicationQueue() {
   }
 
   return (
-    <main className="flex flex-col gap-4 p-5 max-w-[1600px]">
+    <main className="flex flex-col gap-0 min-h-screen bg-background">
+
+      {/* ── Top header ────────────────────────────────────────── */}
+      <div className="sticky top-0 z-20 bg-card border-b border-border">
+        <div className="flex items-center gap-4 px-6 py-3">
+          <div className="text-sm font-bold text-foreground shrink-0">Danh sách hồ sơ</div>
+          <div className="flex-1 max-w-lg mx-auto relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="Tìm kiếm hồ sơ, khách hàng, mã hồ sơ…"
+              className="w-full pl-9 pr-4 py-2 text-sm border border-border rounded-lg bg-muted/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-[var(--color-navy-500)]"
+            />
+          </div>
+          <div className="flex items-center gap-3 shrink-0 ml-auto">
+            <NotificationBell />
+            <div className="flex items-center gap-2 text-sm">
+              <div className="size-8 rounded-full bg-[var(--color-navy-700)] flex items-center justify-center text-white text-xs font-bold shrink-0">NA</div>
+              <div className="hidden sm:block">
+                <p className="font-semibold text-foreground text-xs leading-tight">Nguyễn Văn An</p>
+                <p className="text-[11px] text-muted-foreground">CBTD</p>
+              </div>
+              <ChevronDown className="size-3.5 text-muted-foreground hidden sm:block" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-4 p-5 max-w-[1600px] w-full">
 
       {/* ── KPI Strip ─────────────────────────────────────────── */}
       <div className="flex gap-4 flex-wrap">
@@ -919,28 +1021,27 @@ export default function ApplicationQueue() {
         />
       )}
 
-      {/* ── Main 2-column content ─────────────────────────────── */}
+      {/* ── Main 2-column layout ──────────────────────────────── */}
       <div className="grid grid-cols-1 xl:grid-cols-[1fr_360px] gap-4 items-start">
 
-        {/* Left column */}
+        {/* Left: table + funnel */}
         <div className="flex flex-col gap-4">
-          <CaseTable
-            cases={filteredCases}
-            loading={loading}
-          />
+          <CaseTable cases={filteredCases} loading={loading} />
           {!loading && <ProcessingFunnel counts={funnelCounts} />}
         </div>
 
-        {/* Right column */}
+        {/* Right: donut + priority list */}
         <div className="flex flex-col gap-4">
           {!loading && <ProductDonutChart distribution={productDistribution} />}
           <HighPriorityList cases={highPriorityCases} />
         </div>
+
       </div>
 
       {/* ── Status bar ────────────────────────────────────────── */}
       <StatusBar lastUpdated={lastUpdated} />
 
+      </div>{/* end inner content wrapper */}
     </main>
   );
 }

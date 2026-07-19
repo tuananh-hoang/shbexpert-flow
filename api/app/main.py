@@ -15,13 +15,16 @@ import redis
 
 from shared.db import ping as db_ping
 
-from app.routers import cases, chat, internal, memo
+from app.routers import cases, chat, intake, internal, memo, routing, slink
 
 app = FastAPI(title="SHBExpert Flow API")
 app.include_router(cases.router)
 app.include_router(chat.router)
 app.include_router(memo.router)
 app.include_router(internal.router)
+app.include_router(intake.router)
+app.include_router(routing.router)
+app.include_router(slink.router)
 
 REDIS_URL = os.environ.get("REDIS_URL", "redis://localhost:6379/0")
 

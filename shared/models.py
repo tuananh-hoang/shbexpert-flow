@@ -24,6 +24,7 @@ import datetime as dt
 import uuid
 
 from sqlalchemy import (
+    BigInteger,
     Boolean,
     DateTime,
     Float,
@@ -537,3 +538,128 @@ class ChatMessage(Base):
     created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=_now)
 
     __table_args__ = (UniqueConstraint("thread_id", "seq", name="uq_chat_message_thread_seq"),)
+
+
+# ---------------------------------------------------------------------------
+# routing_decisions — ngã ba xanh/đỏ khi tiếp nhận hồ sơ
+# ---------------------------------------------------------------------------
+class RoutingDecision(Base):
+    """Quyết định phân luồng của một hồ sơ vừa tiếp nhận.
+
+    Bảng này nằm PHÍA TRÊN cả `cases` lẫn domain SLINK, không thuộc bên nào
+    (spec 2026-07-19-intake-routing-design.md §2). Luồng đỏ tạo một `Case`
+    và trỏ `case_id` vào đó; luồng xanh KHÔNG tạo case nào — `case_id` là
+    NULL, và đó là điểm cốt lõi chứ không phải thiếu sót: luồng xanh không
+    có hình dạng của một đơn vay.
+
+    `lane`/`channel`/`segment` giữ là String chứ không phải Postgres ENUM,
+    cùng lý do `Case.state` đã chọn: thêm giá trị sau là sửa code, không
+    phải migration.
+    """
+
+    __tablename__ = "routing_decisions"
+
+    routing_decision_id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    channel: Mapped[str] = mapped_column(String, nullable=False)  # RM_LMS | MOBILE_KHDN
+    lane: Mapped[str] = mapped_column(String, nullable=False)  # GREEN | RED
+    customer_id: Mapped[str] = mapped_column(String, nullable=False)
+    segment: Mapped[str] = mapped_column(String, nullable=False)  # SME | MICROSME
+    product: Mapped[str] = mapped_column(String, nullable=False)
+    # BigInteger, không Integer: 8 tỷ VND vượt trần Integer 32-bit (2,1 tỷ).
+    amount_vnd: Mapped[int] = mapped_column(BigInteger, nullable=False)
+    tenor_months: Mapped[int] = mapped_column(Integer, nullable=False)
+    reason: Mapped[str] = mapped_column(String, nullable=False)
+    # Hai cột dưới loại trừ nhau: luồng đỏ set case_id, luồng xanh set
+    # slink_application_id. Đúng một cái khác NULL.
+    case_id: Mapped[str | None] = mapped_column(ForeignKey("cases.case_id"), nullable=True)
+    slink_application_id: Mapped[str | None] = mapped_column(String, nullable=True)
+    decided_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+
+# ---------------------------------------------------------------------------
+# SLINK — luồng xanh (ACAS-SLINK, tự động 100%, không qua Credit Officer)
+#
+# Cây bảng RIÊNG, không dùng chung `cases`: luồng xanh không có hình dạng
+# của một đơn vay — không tài liệu, không finding, không thẩm định. Thực
+# thể của nó là merchant + hạn mức thấu chi + chuỗi dòng tiền.
+# Spec: docs/superpowers/specs/2026-07-19-slink-scoring-design.md §4.
+# ---------------------------------------------------------------------------
+class SlinkApplication(Base):
+    """Một đề nghị thấu chi đi theo luồng xanh.
+
+    Sinh ra từ một RoutingDecision có lane=GREEN. Đối xứng với `Case` của
+    luồng đỏ, nhưng KHÔNG chia sẻ state machine: `status` ở đây là tiến
+    trình chấm điểm tự động, không phải ALLOWED_TRANSITIONS.
+    """
+
+    __tablename__ = "slink_applications"
+
+    slink_application_id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    routing_decision_id: Mapped[str] = mapped_column(
+        ForeignKey("routing_decisions.routing_decision_id"), nullable=False
+    )
+    customer_id: Mapped[str] = mapped_column(String, nullable=False)
+    amount_requested_vnd: Mapped[int] = mapped_column(BigInteger, nullable=False)
+    tenor_months: Mapped[int] = mapped_column(Integer, nullable=False)
+    # QUEUED | SCORING | APPROVED | REJECTED | FAILED
+    status: Mapped[str] = mapped_column(String, nullable=False, default="QUEUED")
+    recommended_limit_vnd: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
+    interest_rate_pct: Mapped[float | None] = mapped_column(Float, nullable=True)
+    decision_reason: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=_now)
+    decided_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+
+
+class SlinkAgentDecision(Base):
+    """Vết chạy của một agent trong engine SLINK.
+
+    Tương đương `findings` của luồng đỏ nhưng PHẲNG hơn: không version,
+    không phản biện, không conflict — engine tất định chạy một lượt, mỗi
+    agent ghi đúng một dòng.
+    """
+
+    __tablename__ = "slink_agent_decisions"
+    __table_args__ = (
+        UniqueConstraint("slink_application_id", "agent_id", name="uq_slink_decision_app_agent"),
+    )
+
+    decision_id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    slink_application_id: Mapped[str] = mapped_column(
+        ForeignKey("slink_applications.slink_application_id"), nullable=False, index=True
+    )
+    agent_id: Mapped[str] = mapped_column(String, nullable=False)
+    summary: Mapped[str] = mapped_column(Text, nullable=False)
+    rationale: Mapped[list] = mapped_column(JSONB, nullable=False, default=list)
+    metrics: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
+    seq: Mapped[int] = mapped_column(Integer, nullable=False)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=_now)
+
+
+class SlinkOverdraftEvent(Base):
+    """Mọi lần chạm vào hạn mức thấu chi — APPEND-ONLY.
+
+    Không sửa dòng cũ, cùng nguyên tắc bảng `events` của luồng đỏ (FR-12).
+
+    `core_banking_response` lưu NGUYÊN VĂN phản hồi: core-banking là nguồn
+    sự thật của hạn mức (spec lát c §2), nên khi DB ta và nó lệch nhau, cần
+    biết nó đã trả về đúng cái gì chứ không chỉ biết ta diễn giải ra sao.
+
+    `slink_application_id` nullable: sự kiện sốc dòng tiền điều chỉnh hạn
+    mức đang có, không sinh từ một đề nghị nào.
+    """
+
+    __tablename__ = "slink_overdraft_events"
+
+    event_id: Mapped[str] = mapped_column(String, primary_key=True, default=_uuid)
+    customer_id: Mapped[str] = mapped_column(String, nullable=False, index=True)
+    slink_application_id: Mapped[str | None] = mapped_column(
+        ForeignKey("slink_applications.slink_application_id"), nullable=True
+    )
+    action: Mapped[str] = mapped_column(String, nullable=False)  # ISSUE | ADJUST | SUSPEND
+    limit_before_vnd: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
+    limit_after_vnd: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
+    interest_rate_pct: Mapped[float | None] = mapped_column(Float, nullable=True)
+    reason: Mapped[str] = mapped_column(Text, nullable=False, default="")
+    succeeded: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    core_banking_response: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=_now)

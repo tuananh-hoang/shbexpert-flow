@@ -13,8 +13,8 @@ import {
 } from "lucide-react";
 
 import { AnalyzingView } from "../../components/AnalyzingView";
-import { ChatTab } from "../../components/ChatTab";
-import type { ActionKey } from "../../components/ActionBar";
+import { NotificationBell } from "../../components/NotificationBell";
+import { TraoDoiTab } from "./TraoDoi";
 import { ExplainabilityDrawer } from "../../components/ExplainabilityDrawer";
 import { decisionAction, fetchAudit, fetchCase, triggerAnalyze } from "../../lib/api";
 import type { AuditEvent, CaseDetail, Finding } from "../../lib/types";
@@ -720,7 +720,7 @@ function RAGEvidence({
 
 // ─── Tab types ────────────────────────────────────────────────────────────────
 
-type Tab = "review" | "overview" | "decision" | "chat";
+type Tab = "review" | "overview" | "chat";
 
 // ─── Main page ────────────────────────────────────────────────────────────────
 
@@ -755,12 +755,32 @@ export default function CasePage() {
   }, [caseId, refresh]);
 
   useEffect(() => {
-    if (activeTab === "decision") fetchAudit(caseId).then(setAuditEvents);
+    // audit fetched on demand only
   }, [activeTab, caseId]);
 
   const runAnalyze = async () => { setBusy(true); setLog([]); await triggerAnalyze(caseId); };
 
-  const doAction = async (action: "accept" | "rerun" | "return" | "override", reason?: string) => {
+  const downloadMemo = async () => {
+    try {
+      const res = await fetch(`/api/cases/${caseId}/memo/pdf`, { cache: "no-store" });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        alert(body.detail ?? "Không thể xuất PDF — hãy tạo tờ trình trước.");
+        return;
+      }
+      const blob = await res.blob();
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement("a");
+      a.href     = url;
+      a.download = `to-trinh-${caseId}-${new Date().toISOString().slice(0, 10)}.pdf`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      alert("Lỗi khi tải PDF.");
+    }
+  };
+
+  const doAction = async (action: "accept" | "rerun" | "return" | "override" | "reject" | "escalate", reason?: string) => {
     try {
       await decisionAction(caseId, action, reason);
       await refresh();
@@ -830,7 +850,6 @@ export default function CasePage() {
   const TABS: { key: Tab; label: string }[] = [
     { key: "overview", label: "360° Overview" },
     { key: "review",   label: "AI Multi-Agent Review" },
-    { key: "decision", label: "Decision Hub" },
     { key: "chat",     label: "Trao đổi & Kết luận" },
   ];
 
@@ -854,10 +873,7 @@ export default function CasePage() {
             />
           </div>
           <div className="flex items-center gap-3 shrink-0 ml-auto">
-            <button className="relative p-2 rounded-lg hover:bg-muted transition-colors">
-              <Bell className="size-5 text-muted-foreground" />
-              <span className="absolute top-1 right-1 size-4 bg-[var(--color-orange-600)] text-white text-[9px] font-bold rounded-full flex items-center justify-center">6</span>
-            </button>
+            <NotificationBell />
             <div className="flex items-center gap-2 text-sm">
               <div className="size-8 rounded-full bg-[var(--color-navy-700)] flex items-center justify-center text-white text-xs font-bold shrink-0">NA</div>
               <div className="hidden sm:block">
@@ -876,7 +892,7 @@ export default function CasePage() {
             Quay lại danh sách
           </Link>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" className="gap-1.5 text-xs">
+            <Button variant="outline" size="sm" className="gap-1.5 text-xs" onClick={downloadMemo}>
               <Download className="size-3.5" /> Tải báo cáo
             </Button>
             <Button size="sm" className="gap-1.5 text-xs">
@@ -1077,26 +1093,22 @@ export default function CasePage() {
             )}
 
             {/* ── Trao đổi & Kết luận tab ── */}
-            {activeTab === "chat" && (
-              <ChatTab
+            {activeTab === "chat" && caseDetail && (
+              <TraoDoiTab
                 caseId={caseId}
-                requestedAmountVnd={(caseDetail.requested_facility?.amount_vnd as number | null) ?? null}
+                caseDetail={caseDetail}
                 canDecide={canDecide}
-                caseState={caseDetail.state}
-                hasDecision={Boolean(caseDetail.decision)}
-                onAction={(action: ActionKey, reason?: string) =>
-                  doAction(action as "accept" | "rerun" | "return" | "override", reason)
-                }
+                onAction={doAction}
               />
             )}
 
-            {/* ── Decision Hub tab ── */}
-            {activeTab === "decision" && (
+            {/* ── (Decision Hub removed — merged into Trao đổi & Kết luận) ── */}
+            {false && (
               <div className="flex flex-col gap-4">
                 {decision ? (
                   <VerdictCard
                     decision={decision}
-                    caseDetail={caseDetail}
+                    caseDetail={caseDetail!}
                     onAccept={() => doAction("accept")}
                     onOverride={doOverride}
                     canDecide={canDecide}

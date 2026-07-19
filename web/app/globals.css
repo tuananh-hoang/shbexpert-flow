@@ -2087,3 +2087,24 @@ table.audit-table tbody td {
   letter-spacing: var(--tracking-wide);
   color: var(--text-secondary);
 }
+
+/* LMS intake form (/lms) */
+.lms-input {
+  width: 100%;
+  padding: 7px 10px;
+  font-size: 13px;
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.lms-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.lms-input:disabled {
+  background: var(--bg);
+  color: var(--text-muted);
+}
