@@ -21,6 +21,7 @@ phỏng cho cuộc thi**, không phải quy trình rủi ro chính thức của 
 | Dữ liệu chạy qua hệ thống thế nào, state machine, sơ đồ quyết định | [`architecture/data-flow.md`](architecture/data-flow.md) | 571 |
 | **Multi-agent có thật sự hơn single-agent không — số đo** | [`eval-multi-vs-single-agent.md`](eval-multi-vs-single-agent.md) | 463 |
 | **An toàn AI: grounding, chống hallucination, prompt injection, audit** | [`ai-safety-grounding.md`](ai-safety-grounding.md) | 134 |
+| **NLP tiếng Việt: từ vựng nghiệp vụ, semantic search chính sách** | [`nlp-vietnamese-banking.md`](nlp-vietnamese-banking.md) | 200 |
 | Dữ liệu synthetic được sinh ra sao | [`synthetic-data-pipeline-plan.md`](synthetic-data-pipeline-plan.md) | 256 |
 | Khoảng cách dữ liệu so với yêu cầu PRD §9 | [`data-prd9-matching-report.md`](data-prd9-matching-report.md) | 183 |
 
